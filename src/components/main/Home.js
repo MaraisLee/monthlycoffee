@@ -1,7 +1,12 @@
 import React from "react";
+import Layout from "styles/common/LayoutCss";
 
 const Home = () => {
-  return <div className="bg-slate-400">Home</div>;
+  return (
+    <Layout>
+      <div style={{ flex: 4 }}>Home</div>
+    </Layout>
+  );
 };
 
 export default Home;

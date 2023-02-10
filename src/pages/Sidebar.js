@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React from "react";
 
-import SidebarLinkGroup from "./SidebarLinkGruop";
 
 const Sidebar = () => {
   return (

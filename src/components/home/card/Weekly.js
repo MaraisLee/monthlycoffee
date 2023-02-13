@@ -1,7 +1,7 @@
 import { ResponsiveBar } from "@nivo/bar";
 import React from "react";
 
-const Card1 = () => {
+const Weekly = () => {
   const data = [
     { x: "SUN", v: 0 },
     { x: "MON", v: 5000 },
@@ -12,10 +12,10 @@ const Card1 = () => {
     { x: "SAT", v: 4500 },
   ];
   return (
-    <div className="bg-green-100 text-green-500 text-center p-10 rounded-lg row-span-2 col-span-2">
-      <span className="text-xl">Weeekly Coffee</span>
+    <div className="bg-[#F8F8E5] text-green-500 text-center p-10 border border-black md:col-span-2 md:row-span-3">
+      <span className="text-2xl">Weekly Coffee</span>
       <ResponsiveBar
-        height={300}
+        height={250}
         data={data}
         keys={["v"]}
         maxValue={15000}
@@ -37,4 +37,4 @@ const Card1 = () => {
   );
 };
 
-export default Card1;
+export default Weekly;

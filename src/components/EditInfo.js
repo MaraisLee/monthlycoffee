@@ -1,5 +1,6 @@
 import { Edit } from "@mui/icons-material";
 import React from "react";
+import { txtShadow } from "utils/colors";
 
 const EditInfo = () => {
   return (

@@ -1,5 +1,6 @@
 import { ResponsiveBar } from "@nivo/bar";
 import React from "react";
+import { txtShadow } from "utils/colors";
 
 const Weekly = () => {
   const data = [
@@ -12,8 +13,8 @@ const Weekly = () => {
     { x: "SAT", v: 4500 },
   ];
   return (
-    <div className="bg-[#F8F8E5] text-green-500 text-center p-10 border border-black md:col-span-2 md:row-span-3">
-      <span className="text-2xl">Weekly Coffee</span>
+    <div className="bg-[#F8F8E5] text-center p-10 border border-black md:col-span-2 md:row-span-3">
+      <span className="text-2xl font-semibold text-white" style={{ textShadow: `${txtShadow}` }}>Weekly Coffee</span>
       <ResponsiveBar
         height={250}
         data={data}

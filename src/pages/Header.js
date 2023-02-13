@@ -1,6 +1,8 @@
 import { LocalCafeOutlined, LocalCafeTwoTone } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
 import React from "react";
+import { GreenBt } from "utils/basicCss";
+import { txtShadow } from "utils/colors";
 
 const Header = () => {
   return (
@@ -10,13 +12,12 @@ const Header = () => {
           <img src="./images/logo.png" alt="logo" className="w-[3rem]" />
         </div>
         <div className="flex items-center h-[10vh] pl-7 border-l border-black">
-          <span className="text-4xl font-semibold">WELCOME, 나몰빼미</span>
+          <span className="text-4xl font-semibold text-white" style={{textShadow:`${txtShadow}`}}>WELCOME,&nbsp;</span>
+          <span className="text-4xl font-semibold text-yellow-300" style={{textShadow:`${txtShadow}`}}>나몰빼미</span>
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <Button variant="outlined" color="success">
-          + 입력
-        </Button>
+        <GreenBt>+ 입력</GreenBt>
         <Avatar />
       </div>
     </header>

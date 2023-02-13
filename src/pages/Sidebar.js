@@ -29,7 +29,7 @@ const Sidebar = () => {
           <LibraryBooksOutlined />
           <span className="hidden md:block">&nbsp;Expense Details</span>
         </NavLink>
-        <NavLink to="/addexpense" className="flex md:hidden text-white">
+        <NavLink to="/addexpense" className="text-white">
           <AddOutlined />
           <span className="hidden md:block">&nbsp;Add Expense</span>
         </NavLink>

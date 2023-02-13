@@ -6,6 +6,9 @@ import About from "components/About";
 import Header from "pages/Header";
 import Login from "pages/Login";
 import EditInfo from "components/EditInfo";
+import ExpenseDetails from "pages/expenses/ExpenseDetails";
+import Community from "pages/Community";
+import AddExpense from "pages/expenses/AddExpense";
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,6 +25,9 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/edit" element={<EditInfo />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/expense" element={<ExpenseDetails />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/addexpense" element={<AddExpense />} />
             </Routes>
           </div>
         </div>

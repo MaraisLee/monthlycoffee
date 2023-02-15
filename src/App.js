@@ -20,12 +20,12 @@ const App = () => {
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <section className="flex justify-center items-center md:h-[85vh]">
+          <section className="flex justify-center items-center">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/about" element={<About />} />
               <Route path="/edit" element={<EditInfo />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/expense" element={<ExpenseDetails />} />
               <Route path="/community" element={<Community />} />
               <Route path="/addexpense" element={<AddExpense />} />

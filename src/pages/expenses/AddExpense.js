@@ -12,11 +12,18 @@ const AddExpense = () => {
 
   return (
     <>
-      <div className="p-10 w-4/5">
+      <div className="py-10 md:w-4/5 w-full">
         <div className="flex">
-          <VioletBt onClick={() => setBtClick(true)}>간편 입력</VioletBt>
           <VioletBt
-            style={{ background: "ivory" }}
+            className={`${btClick ? "active" : ""}`}
+            onClick={() => {
+              setBtClick(true);
+            }}
+          >
+            간편 입력
+          </VioletBt>
+          <VioletBt
+            className={`${!btClick ? "active" : ""}`}
             onClick={() => setBtClick(false)}
           >
             상세 입력

@@ -22,7 +22,7 @@ const Simple = ({ num, setNum }) => {
         </div>
       </div>
       <CardContent>
-        <div className="flex justify-between">
+        <div className="flex justify-between px-6">
           <Typography
             variant="h2"
             component="div"
@@ -59,8 +59,7 @@ const Simple = ({ num, setNum }) => {
         </Typography>
         <Typography
           sx={{
-            py: 2,
-            my: 5,
+            pt: 2,
             fontSize: 20,
             borderTop: "1px solid #bbb",
           }}

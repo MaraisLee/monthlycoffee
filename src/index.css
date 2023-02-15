@@ -39,3 +39,8 @@ th,
 td {
   border: none;
 }
+input,
+textarea {
+  resize: none;
+  outline: none;
+}

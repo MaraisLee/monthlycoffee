@@ -1,5 +1,6 @@
 import React from "react";
 import { txtShadow } from "utils/colors";
+import MyResponsivePie from "./MyResponsivePie";
 
 const MenuStats = () => {
   return (
@@ -10,6 +11,9 @@ const MenuStats = () => {
       >
         메뉴별 지출
       </span>
+      <div className="h-[20vh]">
+        <MyResponsivePie />
+      </div>
     </div>
   );
 };

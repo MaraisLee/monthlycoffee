@@ -20,25 +20,35 @@ const Sidebar = () => {
       </Link>
       <hr className="hidden md:block bg-white w-full" />
       {/* <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" /> */}
-      <div className="flex md:flex-col w-full justify-around md:py-10 md:pl-5 md:space-y-5">
+      <div className="flex md:flex-col justify-around md:justify-center w-full md:py-10 lg:pl-5 md:space-y-5 tracking-tighter lg:text-[1.3vw]">
         <NavLink to="/" className="flex text-white">
-          <OtherHousesOutlined />
+          <span>
+            <OtherHousesOutlined />
+          </span>
           <span className="hidden md:block">&nbsp;Home</span>
         </NavLink>
         <NavLink to="/expense" className="flex text-white">
-          <LibraryBooksOutlined />
+          <span>
+            <LibraryBooksOutlined />
+          </span>
           <span className="hidden md:block">&nbsp;Expense Details</span>
         </NavLink>
         <NavLink to="/addexpense" className="flex text-white">
-          <AddOutlined />
+          <span>
+            <AddOutlined />
+          </span>
           <span className="hidden md:block">&nbsp;Add Expense</span>
         </NavLink>
         <NavLink to="/calendar" className="flex text-white">
-          <CalendarMonthOutlined />
+          <span>
+            <CalendarMonthOutlined />
+          </span>
           <span className="hidden md:block">&nbsp;Calendar</span>
         </NavLink>
         <NavLink to="/community" className="flex text-white">
-          <ReviewsOutlined />
+          <span>
+            <ReviewsOutlined />
+          </span>
           <span className="hidden md:block">&nbsp;Community</span>
         </NavLink>
       </div>

@@ -7,7 +7,7 @@ import Header from "pages/Header";
 import Login from "pages/Login";
 import EditInfo from "pages/EditInfo";
 import ExpenseDetails from "pages/expenses/ExpenseDetails";
-import Community from "pages/Community";
+import Community from "pages/community/Community";
 import AddExpense from "pages/expenses/AddExpense";
 import Calendar from "pages/Calendar";
 
@@ -20,7 +20,7 @@ const App = () => {
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <section className="flex justify-center items-center md:h-[85vh]">
+          <section className="flex justify-center items-center">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

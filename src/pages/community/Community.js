@@ -7,18 +7,15 @@ import CommunityPost from "./CommunityPost";
 const Community = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
-    <div className="block w-full p-5 space-y-7">
+    <div className="block m-5">
       <span
         className="text-4xl ml-5 font-bold text-yellow-400"
         style={{ textShadow: `${txtShadow}` }}
       >
         커뮤니티
       </span>
-      <div className="bg-slate-200 px-5 md:px-12">
-        <div
-          className="grid mt-4 grid-cols-2 md:grid-cols-3"
-          // style={{ gridTemplateColumns: "fit-content(50%)" }}
-        >
+      <div className="bg-slate-200 px-24 py-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           <CommunityPost setModalIsOpen={setModalIsOpen} />
           <CommunityPost setModalIsOpen={setModalIsOpen} />
           <CommunityPost setModalIsOpen={setModalIsOpen} />
@@ -28,7 +25,6 @@ const Community = () => {
           <CommunityPost setModalIsOpen={setModalIsOpen} />
         </div>
       </div>
-
       <CommunityModal
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}

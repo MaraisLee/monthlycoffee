@@ -4,7 +4,7 @@ import { Favorite } from "@mui/icons-material";
 const Post = ({ setModalIsOpen }) => {
   return (
     <div
-      className="relative group w-[35vw] h-[35vw] md:w-[17vw] md:h-[17vw] cursor-pointer"
+      className="relative w-[17vw] h-[17vw] group cursor-pointer"
       onClick={() => setModalIsOpen(true)}
     >
       <img

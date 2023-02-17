@@ -6,7 +6,7 @@ import About from "components/About";
 import Header from "pages/Header";
 import Login from "pages/Login";
 import EditInfo from "pages/EditInfo";
-import ExpenseDetails from "pages/expenses/ExpenseDetails";
+import ExpenseDetails from "pages/expenses/expense_details/ExpenseDetails";
 import Community from "pages/community/Community";
 import AddExpense from "pages/expenses/AddExpense";
 import Calendar from "pages/Calendar";

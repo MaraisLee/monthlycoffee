@@ -4,6 +4,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Checkbox,
   Switch,
   Typography,
 } from "@mui/material";
@@ -57,6 +58,12 @@ const Detail = ({ num, setNum }) => {
       };
     }
   };
+
+  const [checked, setChecked] = useState(true);
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+  };
+
   return (
     <Card variant="outlined" className="p-10">
       <div className="flex justify-between mb-8">
@@ -96,6 +103,12 @@ const Detail = ({ num, setNum }) => {
             }}
           />
         </div>
+
+        <Checkbox
+          checked={checked}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "controlled" }}
+        />
         <InputDiv>
           <textarea
             cols="30"

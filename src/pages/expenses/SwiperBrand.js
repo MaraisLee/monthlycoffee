@@ -6,8 +6,9 @@ import "swiper/css/navigation";
 
 import { Navigation } from "swiper";
 import { SwiperCss } from "styles/SwiperCss";
+import { Radio } from "@mui/joy";
 
-const SwiperBrand = () => {
+const SwiperBrand = ({ setBrand }) => {
   const path = process.env.PUBLIC_URL;
   const testArr = [
     {
@@ -34,10 +35,31 @@ const SwiperBrand = () => {
       name: "파스쿠치",
       img: `${path}/images/logo.png`,
     },
+    {
+      name: "파스쿠치",
+      img: `${path}/images/logo.png`,
+    },
   ];
 
   const [arr, setArr] = useState(testArr);
-  console.log(arr[0].img);
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   // 폼이 아니라 강제로 값을 셋팅하는 메서드
+  //   setValue,
+  //   trigger,
+  // } = useForm({
+  //   mode: "onChange", // mode 가 onChange 면 실행하라..
+  // });
+
+  // const handleBrand = (e) => {
+  //   console.log(e.target.value);
+  //   setBrand(e.target.value);
+  //   // setValue("brand", brand);
+  // };
+
   return (
     <SwiperCss>
       <Swiper
@@ -67,42 +89,27 @@ const SwiperBrand = () => {
         }}
       >
         {/* map 추후 적용 */}
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[0].img} alt="" />
-          {arr[0].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[1].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[2].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[3].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
+        {arr.map((item, index) => {
+          return (
+            <SwiperSlide className="swiperSlide" key={index}>
+              <img src={item.img} alt="" />
+              <Radio
+                variant="plain"
+                label={item.name}
+                overlay="true"
+                value={item.name}
+                onClick={(e) => setBrand(e.target.value)}
+                // slotProps={{
+                //   action: ({ checked }) => ({
+                //     sx: {
+                //       background: checked ? "yellow" : "blue",
+                //     },
+                //   }),
+                // }}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </SwiperCss>
   );

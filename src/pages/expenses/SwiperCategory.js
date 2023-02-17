@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -6,28 +6,29 @@ import "swiper/css/navigation";
 
 import { Navigation } from "swiper";
 import { SwiperCss } from "styles/SwiperCss";
+import { Radio } from "@mui/joy";
 
-const SwiperCategory = () => {
+const SwiperCategory = ({ category, setCategory }) => {
   const path = process.env.PUBLIC_URL;
   const testArr = [
     {
-      name: "추가",
-      img: `${path}/images/plus.png`,
-    },
-    {
       name: "아메리카노",
-      img: `${path}/images/logo.png`,
+      img: `${path}/images/americano.jpg`,
     },
     {
       name: "카페라떼",
-      img: `${path}/images/logo.png`,
+      img: `${path}/images/americano.jpg`,
     },
     {
       name: "바닐라라떼",
-      img: `${path}/images/logo.png`,
+      img: `${path}/images/americano.jpg`,
     },
     {
       name: "초코라떼",
+      img: `${path}/images/americano.jpg`,
+    },
+    {
+      name: "카푸치노",
       img: `${path}/images/logo.png`,
     },
     {
@@ -37,7 +38,8 @@ const SwiperCategory = () => {
   ];
 
   const [arr, setArr] = useState(testArr);
-  console.log(arr[0].img);
+  // useEffect(() => {}, [category]);
+  console.log(category);
   return (
     <SwiperCss>
       <Swiper
@@ -66,43 +68,37 @@ const SwiperCategory = () => {
           },
         }}
       >
+        <SwiperSlide className="swiperSlide">
+          <img src={`${path}/images/plus.png`} alt="" />
+          추가
+          <input
+            type="text"
+            value={category}
+            onClick={(e) => setCategory(e.target.value)}
+          />
+        </SwiperSlide>
         {/* map 추후 적용 */}
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[0].img} alt="" />
-          {arr[0].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[1].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[2].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[3].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
-        <SwiperSlide className="swiperSlide">
-          <img src={arr[1].img} alt="" />
-          {arr[4].name}
-        </SwiperSlide>
+        {arr.map((item, index) => {
+          return (
+            <SwiperSlide className="swiperSlide" key={index}>
+              <img src={item.img} alt="" />
+              <Radio
+                variant="plain"
+                label={item.name}
+                overlay="true"
+                value={item.name}
+                onClick={(e) => setCategory(e.target.value)}
+                // slotProps={{
+                //   action: ({ checked }) => ({
+                //     sx: {
+                //       background: checked ? "yellow" : "blue",
+                //     },
+                //   }),
+                // }}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </SwiperCss>
   );

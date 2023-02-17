@@ -4,7 +4,6 @@ import Detail from "./Detail";
 import Simple from "./Simple";
 // css
 import { VioletBt } from "styles/AddEXpenseCss";
-import { GreenBt } from "utils/basicCss";
 
 const AddExpense = () => {
   const [num, setNum] = useState(0);
@@ -29,7 +28,7 @@ const AddExpense = () => {
             상세 입력
           </VioletBt>
         </div>
-        <form className="flex flex-col">
+        <div className="flex flex-col">
           {btClick ? (
             <>
               {/* 간편입력 */}
@@ -41,10 +40,7 @@ const AddExpense = () => {
               <Detail num={num} setNum={setNum} />
             </>
           )}
-          <GreenBt style={{ alignSelf: "flex-end", marginTop: 40 }}>
-            등록
-          </GreenBt>
-        </form>
+        </div>
       </div>
     </>
   );

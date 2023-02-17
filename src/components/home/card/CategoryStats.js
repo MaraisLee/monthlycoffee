@@ -1,5 +1,6 @@
 import React from "react";
 import { txtShadow } from "utils/colors";
+import MyResponsivePie from "./MyResponsivePie";
 
 const CategoryStats = () => {
   return (
@@ -10,6 +11,9 @@ const CategoryStats = () => {
       >
         카테고리별 지출
       </span>
+      <div className="h-[20vh]">
+        <MyResponsivePie />
+      </div>
     </div>
   );
 };

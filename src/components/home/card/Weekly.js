@@ -13,10 +13,10 @@ const Weekly = () => {
     { x: "SAT", v: 4500 },
   ];
   return (
-    <div className="bg-[#F8F8E5] text-center p-10 border border-black md:col-span-2 md:row-span-3">
+    <div className="bg-[#F8F8E5] text-center p-10 border border-black md:row-span-2">
       <span className="text-2xl font-semibold text-white" style={{ textShadow: `${txtShadow}` }}>Weekly Coffee</span>
       <ResponsiveBar
-        height={250}
+        height={200}
         data={data}
         keys={["v"]}
         maxValue={15000}
@@ -25,13 +25,13 @@ const Weekly = () => {
           top: 10,
           right: 10,
           bottom: 36,
-          left: 36,
+          left: 40,
         }}
         indexBy="x"
         enableLabel={false}
         borderRadius={2}
         axisLeft={{
-          tickValues: 7,
+          tickValues: 4,
         }}
       />
     </div>

@@ -3,6 +3,17 @@ import styled from "@emotion/styled";
 const CalendarCss = styled.div`
   .react-calendar {
     width: 70vw;
+    border: none;
+    .react-calendar__tile--now {
+      background: #e1dbf0;
+    }
+    .react-calendar__tile--now:enabled:hover,
+    .react-calendar__tile--now:enabled:focus {
+      background: #f3effe;
+    }
+  }
+  /* .react-calendar {
+    width: 70vw;
     max-width: 100%;
     background: white;
     border: 1px solid black;
@@ -41,7 +52,6 @@ const CalendarCss = styled.div`
     height: 60px;
     margin-bottom: 1em;
   }
-  /* 년월 */
   .react-calendar__navigation button {
     min-width: 44px;
     background: none;
@@ -119,7 +129,7 @@ const CalendarCss = styled.div`
   }
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #F5E7DB;
-  }
+  } */
 `;
 
 export default CalendarCss;

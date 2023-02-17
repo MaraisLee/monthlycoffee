@@ -1,8 +1,33 @@
 import { Edit } from "@mui/icons-material";
 import React from "react";
 import { txtShadow } from "utils/colors";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutAccount } from "reducer/loggedState";
 
 const EditInfo = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const memberOut = () => {
+    if (window.confirm("정말 탈퇴하시겠습니까?")) {
+      window.Kakao.API.request({
+        url: "/v1/user/unlink",
+        success: function (res) {
+          console.log(res);
+          //callback(); //연결끊기(탈퇴)성공시 서버에서 처리할 함수
+          // window.location.href='/'
+          alert("회원탈퇴되었습니다.");
+          const uid = res.id;
+          dispatch(logoutAccount(uid));
+          navigate("/");
+        },
+        fail: function (error) {
+          console.log("탈퇴 미완료");
+          console.log(error);
+        },
+      });
+    }
+  };
   return (
     <div className="p-5">
       <span
@@ -21,7 +46,10 @@ const EditInfo = () => {
           <span>이번 달 목표</span>
           <span>150,000원</span>
         </div>
-        <div className="text-center text-red-600 py-7 bg-white border border-black">
+        <div
+          className="text-center text-red-600 py-7 bg-white border border-black cursor-pointer"
+          onClick={memberOut}
+        >
           <span>회원탈퇴</span>
         </div>
       </div>

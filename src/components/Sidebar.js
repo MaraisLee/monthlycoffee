@@ -2,16 +2,40 @@ import {
   AddOutlined,
   CalendarMonthOutlined,
   LibraryBooksOutlined,
+  Logout,
   OtherHousesOutlined,
   ReviewsOutlined,
 } from "@mui/icons-material";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logoutAccount } from "reducer/loggedState";
+
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const kakaoLogOut = () => {
+    if (!window.Kakao.Auth.getAccessToken()) {
+      console.log("Not logged in.");
+      return;
+    }
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      window.Kakao.Auth.logout(function (res) {
+        alert("로그아웃되었습니다.");
+        // window.location.href='/'
+        const uid = res.id;
+        dispatch(logoutAccount(uid));
+        navigate("/");
+      });
+    }
+  };
   return (
     // <aside className="md:w-[20%] p-10 bg-black overflow-y-auto antialiased transition-transform duration-200 -translate-x-full shadow-xl rounded-2xl xl:left-0 xl:translate-x-0">
     <aside className="flex md:flex-col justify-around md:justify-start items-center h-[5vh] md:h-full md:relative md:w-[20%] p-10 bg-black shadow-xl">
-      <Link to="/home" className="hidden md:block justify-center text-center my-10">
+      <Link
+        to="/home"
+        className="hidden md:block justify-center text-center my-10"
+      >
         <span className="text-white text-4xl font-semibold">
           MONTHLY <br />
           COFFEE
@@ -32,11 +56,8 @@ const Sidebar = () => {
           </span>
           <span className="hidden md:block">&nbsp;Expense Details</span>
         </NavLink>
-        <NavLink to="/addexpense" className="flex text-white">
-          <span>
-            <AddOutlined />
-          </span>
-          <span className="hidden md:block">&nbsp;Add Expense</span>
+        <NavLink to="/addexpense" className="text-white block md:hidden">
+          <AddOutlined />
         </NavLink>
         <NavLink to="/calendar" className="flex text-white">
           <span>
@@ -50,6 +71,12 @@ const Sidebar = () => {
           </span>
           <span className="hidden md:block">&nbsp;Community</span>
         </NavLink>
+      </div>
+      <div
+        className="absolute bottom-10 right-10 text-lg font-bold text-white"
+        onClick={kakaoLogOut}
+      >
+        Logout <Logout style={{ fontSize: "2vw" }} />
       </div>
     </aside>
   );

@@ -31,11 +31,12 @@ const Login = () => {
           // 사용자 정보 가져오기
           url: "/v2/user/me",
           success: (res) => {
-            const uid = res.id;
-            console.log("사용자 id", uid);
-            const kakao_account = res.kakao_account;
-            dispatch(loginAccount(uid));
-            console.log("사용자 정보", kakao_account);
+            // const uid = res.id;
+            // console.log("사용자 id", uid);
+            // const kakao_account = res.kakao_account;
+            // console.log("사용자 정보", kakao_account);
+            console.log(res);
+            dispatch(loginAccount(res));
             navigate("/home");
           },
         });
@@ -45,7 +46,7 @@ const Login = () => {
       },
     });
   };
-  
+
   useEffect(() => {
     if (authenticated) {
       navigate("/home");

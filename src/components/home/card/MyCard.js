@@ -10,6 +10,7 @@ const MyCard = () => {
       >
         내 카드
       </span>
+      <img src="./images/card.png" alt="card" className="w-4/5 mx-auto mt-5" />
     </div>
   );
 };

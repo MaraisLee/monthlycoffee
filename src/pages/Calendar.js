@@ -1,7 +1,7 @@
 import moment from "moment/moment";
 import React from "react";
 import { Calendar } from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 import CalendarCss from "styles/CalendarCss";
 import { txtShadow } from "utils/colors";
 
@@ -15,11 +15,13 @@ const Calender = () => {
         >
           이달의 커피
         </span>
-        <Calendar
-          calendarType="US"
-          locale="ko-KO"
-          formatDay={(locale, date) => moment(date).format("D")}
-        />
+        <div className="">
+          <Calendar
+            calendarType="US"
+            locale="ko-KO"
+            formatDay={(locale, date) => moment(date).format("D")}
+          />
+        </div>
       </div>
     </CalendarCss>
   );

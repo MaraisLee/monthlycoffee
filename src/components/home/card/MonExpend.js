@@ -19,7 +19,9 @@ const MonExpend = () => {
           100,000원
         </span>
       </div>
-      <Paid style={{fontSize:"55"}}/>
+      <span className="text-[#7A605B]">
+        <Paid style={{ fontSize: "55" }} />
+      </span>
     </div>
   );
 };

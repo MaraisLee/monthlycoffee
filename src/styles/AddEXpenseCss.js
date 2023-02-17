@@ -5,13 +5,18 @@ export const VioletBt = styled.button`
   width: 20%;
   border: 1px solid black;
   text-align: center;
-  background: #8b8fc8;
+  background: ivory;
   text-shadow: ${txtShadow};
   font-size: 20px;
   color: white;
   padding: 6px;
   margin-bottom: 8px;
+  &.active {
+    border: 2px solid black;
+    background: #8b8fc8;
+  }
 `;
+
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,6 +28,7 @@ export const InputDiv = styled.div`
   img {
     display: inline-block;
     max-width: 100px;
+    align-self: flex-end;
   }
   label {
     display: inline-block;
@@ -42,4 +48,14 @@ export const InputDiv = styled.div`
     clip: rect(0, 0, 0, 0);
     border: 0;
   }
+`;
+
+export const Box = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #bbb;
+  align-items: center;
+  padding: 25px;
+  white-space: nowrap;
 `;

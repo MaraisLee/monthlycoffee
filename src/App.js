@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "components/Sidebar";
-import Home from "components/home/Home";
+import Home from "pages/home/Home";
 import Header from "components/Header";
 import Login from "pages/member/Login";
-import EditInfo from "pages/EditInfo";
+import EditInfo from "pages/member/EditInfo";
 import ExpenseDetails from "pages/expenses/expense_details/ExpenseDetails";
-import Community from "pages/community/Community"; 
-import AddExpense from "pages/expenses/AddExpense";
-import Calendar from "pages/Calendar";
+import Community from "pages/community/Community";
+import AddExpense from "pages/expenses/addexpense/AddExpense";
+import Calendar from "pages/calender/Calendar";
 import { useSelector } from "react-redux";
-import NotFound from "pages/NotFound";
+import NotFound from "components/NotFound";
 import PrivateRoute from "components/PrivateRoute";
 
 const App = () => {

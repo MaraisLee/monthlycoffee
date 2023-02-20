@@ -14,6 +14,7 @@ import { logoutAccount } from "reducer/loggedState";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const kakaoLogOut = () => {
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
@@ -73,7 +74,7 @@ const Sidebar = () => {
         </NavLink>
       </div>
       <div
-        className="absolute bottom-10 right-10 text-lg font-bold text-white"
+        className="absolute bottom-10 right-10 text-lg font-bold text-white cursor-pointer"
         onClick={kakaoLogOut}
       >
         Logout <Logout style={{ fontSize: "2vw" }} />

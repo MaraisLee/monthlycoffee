@@ -12,6 +12,7 @@ const SwiperCategory = ({ category, setCategory }) => {
   const path = process.env.PUBLIC_URL;
   const testArr = [
     {
+      id: "아메리카노",
       name: "아메리카노",
       img: `${path}/images/americano.jpg`,
     },
@@ -39,7 +40,16 @@ const SwiperCategory = ({ category, setCategory }) => {
 
   const [arr, setArr] = useState(testArr);
   // useEffect(() => {}, [category]);
-  console.log(category);
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+    console.log(category);
+  };
+
+  const [addCategory, setAddCategory] = useState("");
+  const [bt, setBt] = useState(false);
+  const add = () => {
+    setBt(true);
+  };
   return (
     <SwiperCss>
       <Swiper
@@ -68,31 +78,44 @@ const SwiperCategory = ({ category, setCategory }) => {
           },
         }}
       >
-        <SwiperSlide className="swiperSlide">
-          <img src={`${path}/images/plus.png`} alt="" />
-          추가
-          <input
-            type="text"
-            value={category}
-            onClick={(e) => setCategory(e.target.value)}
-          />
+        <SwiperSlide className="swiperSlide ">
+          <div className="add" onClick={add}>
+            <img src={`${path}/images/plus.png`} alt="" />
+            추가
+            {add ? (
+              <input
+                type="text"
+                value={addCategory}
+                onChange={handleCategory}
+              />
+            ) : (
+              ""
+            )}
+          </div>
         </SwiperSlide>
         {/* map 추후 적용 */}
-        {arr.map((item, index) => {
+        {arr.map((item, id) => {
           return (
-            <SwiperSlide className="swiperSlide" key={index}>
+            <SwiperSlide className="swiperSlide" key={id}>
               <img src={item.img} alt="" />
               <Radio
                 variant="plain"
                 label={item.name}
+                name="category"
                 overlay="true"
                 value={item.name}
-                onClick={(e) => setCategory(e.target.value)}
+                onClick={handleCategory}
+                sx={{ paddingRight: 3 }}
                 // slotProps={{
                 //   action: ({ checked }) => ({
-                //     sx: {
-                //       background: checked ? "yellow" : "blue",
-                //     },
+                //     sx: (theme) => ({
+                //       ...(checked && {
+                //         "--variant-borderWidth": "2px",
+                //         "&&": {
+                //           borderColor: theme.vars.palette.warning[300],
+                //         },
+                //       }),
+                //     }),
                 //   }),
                 // }}
               />

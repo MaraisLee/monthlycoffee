@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { loginAccount } from "reducer/loggedState";
 import { useSelector } from "react-redux";
+import axios from "api/axios";
 
 const Login = () => {
   const path = process.env.PUBLIC_URL;
@@ -36,6 +37,21 @@ const Login = () => {
             // const kakao_account = res.kakao_account;
             // console.log("사용자 정보", kakao_account);
             console.log(res);
+
+            // const body = {
+            //   uid: res.id,
+            //   nickname: res.kakao_account.nickname,
+            // };
+            // axios
+            //   .post("api/member", body)
+            //   .then((res) => {
+            //     console.log("유저정보", res);
+            //     alert(`${res.kakao_account.nickname} 님 환영합니다.`);
+            //   })
+            //   .catch((err) => {
+            //     console.log(err);
+            //     alert("로그인에 실패하였습니다.");
+            //   });
             dispatch(loginAccount(res));
             navigate("/home");
           },

@@ -35,16 +35,35 @@ export const SwiperCss = styled.div`
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      .add{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        &:active {
+          > input{
+            display:block
+          }
+        }
+      }
       img {
         display: block;
-        width: 50px;
         height: 50px;
         padding: 10px;
         margin: 15px 0;
-        border: 1px solid black;
+        border: 2px solid black;
         border-radius: 50%;
         object-fit: cover;
       }
+      input[type="text"]{
+        width:80%;
+        border:1px solid black;
+        display:none;
+      }
+      }
+      // &:active  {
+      //   background: yellow;
+      // }
     }
   }
 `;

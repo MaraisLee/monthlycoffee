@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import axios from "api/axios";
 import { Card, CardContent, Checkbox, Switch, Typography } from "@mui/material";
 import Sheet from "@mui/joy/Sheet";
 import SwiperBrand from "./SwiperBrand";
@@ -16,9 +17,10 @@ import { GreenBt } from "utils/basicCss";
 const Detail = ({ num, setNum }) => {
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     // formState: { errors },
     reset,
+    setValue,
   } = useForm({
     // resolver: yupResolver(schema),
     mode: "onChange", // mode 가 onChange 면 실행하라..
@@ -26,6 +28,32 @@ const Detail = ({ num, setNum }) => {
 
   const MAX_LIMIT = 10000000;
   const path = process.env.PUBLIC_URL;
+  const beans = [
+    {
+      id: "BRAZIL",
+      name: "브라질",
+    },
+    {
+      id: "GUATEMALA",
+      name: "과테말라",
+    },
+    {
+      id: "COLOMBIA",
+      name: "콜롬비아",
+    },
+    {
+      id: "MEXICO",
+      name: "멕시코",
+    },
+    {
+      id: "INDONESIA",
+      name: "인도네시아",
+    },
+    {
+      id: "VIETNAM",
+      name: "베트남",
+    },
+  ];
 
   // 이미지 업로드 및 미리보기
   const [imgFile, setImgFile] = useState("");
@@ -56,6 +84,37 @@ const Detail = ({ num, setNum }) => {
     setChecked(e.target.checked);
   };
 
+  // 날짜
+  const dateNow = new Date();
+  const today = dateNow.toISOString().slice(0, 10);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // const body = {
+    //   data: {
+    //     category: category,
+    //     brand: brand,
+    //     price: price,
+    //   },
+    // };
+    // console.log("정보", body);
+    // // .post("api/expenses?userNo=0" + userNo, body)
+    // axios
+    //   .post("expenses?userNo=2", body)
+    //   .then((res) => {
+    //     console.log(res);
+    //     alert("지출이 입력되었습니다.");
+    //   })
+    //   .catch((err) => console.log(err));
+    // console.log("데이터", e);
+    // console.log(brand);
+    // console.log(category);
+    // console.log(price);
+    // console.log(date);
+    // alert("등록이 완료되었습니다.");
+    // navigate("/expense");
+  };
+
   return (
     <>
       <Card variant="outlined" className="p-10">
@@ -71,7 +130,13 @@ const Detail = ({ num, setNum }) => {
             지출
           </div>
         </div>
-        <CardContent>
+        <CardContent component="form" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="date"
+            defaultValue={today}
+            className="cursor-pointer pb-2"
+            {...register("date")}
+          />
           <div className="flex justify-between px-6">
             <Typography
               variant="h2"
@@ -84,7 +149,6 @@ const Detail = ({ num, setNum }) => {
               className="text-5xl outline-none text-right"
               style={{ textShadow: `${txtShadow}`, color: `${yellowcolor}` }}
               type="text"
-              value={num}
               maxLength="8"
               thousandSeparator=","
               renderText={(value) => {
@@ -94,6 +158,7 @@ const Detail = ({ num, setNum }) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
               }}
+              // {...register("price", setValue(num))}
             />
           </div>
 
@@ -108,7 +173,7 @@ const Detail = ({ num, setNum }) => {
               rows="5"
               // defaultValue={item.content}
               placeholder="내용을 입력해주세요."
-              {...register("content")}
+              {...register("memo")}
             />
             {/* 이미지 업로드 */}
             <label htmlFor="ex_file">
@@ -123,6 +188,7 @@ const Detail = ({ num, setNum }) => {
               // onChange={(e) => console.log(e.target.files[0])}
               onInput={onChangeImg}
               ref={imgRef}
+              {...register("file")}
             />
           </InputDiv>
           <Typography
@@ -181,6 +247,7 @@ const Detail = ({ num, setNum }) => {
                   }}
                 >
                   <Radio
+                    {...register("taste")}
                     label={value}
                     overlay
                     disableIcon
@@ -246,7 +313,7 @@ const Detail = ({ num, setNum }) => {
                 },
               }}
             >
-              {["working", "conversation", "selfie"].map((value) => (
+              {["work", "talk", "selfie"].map((value) => (
                 <Sheet
                   key={value}
                   variant="outlined"
@@ -262,6 +329,7 @@ const Detail = ({ num, setNum }) => {
                   }}
                 >
                   <Radio
+                    {...register("mood")}
                     label={value}
                     id={value}
                     value={value}
@@ -295,16 +363,9 @@ const Detail = ({ num, setNum }) => {
                 gap: 2,
               }}
             >
-              {[
-                "브라질",
-                "과테말라",
-                "콜롬비아",
-                "멕시코",
-                "인도네시아",
-                "베트남",
-              ].map((value) => (
+              {beans.map((value) => (
                 <Sheet
-                  key={value}
+                  key={value.id}
                   sx={{
                     p: 1,
                     borderRadius: "md",
@@ -317,10 +378,11 @@ const Detail = ({ num, setNum }) => {
                   }}
                 >
                   <Radio
-                    label={value}
+                    {...register("bean")}
+                    label={value.name}
                     overlay
                     disableIcon
-                    value={value}
+                    value={value.id}
                     slotProps={{
                       label: ({ checked }) => ({
                         sx: {
@@ -366,8 +428,8 @@ const Detail = ({ num, setNum }) => {
             >
               {[
                 { name: "좋아요", img: "like" },
-                { name: "보통이예요", img: "normal" },
-                { name: "싫어요", img: "dislike" },
+                { name: "무난해요", img: "soso" },
+                { name: "싫어요", img: "hate" },
               ].map((value) => (
                 <Sheet
                   key={value}
@@ -387,10 +449,11 @@ const Detail = ({ num, setNum }) => {
                     className="w-10 pb-2"
                   />
                   <Radio
+                    {...register("likeHate")}
                     label={value.name}
                     overlay
                     disableIcon
-                    value={value.name}
+                    value={value.img}
                     slotProps={{
                       label: ({ checked }) => ({
                         sx: {
@@ -415,11 +478,14 @@ const Detail = ({ num, setNum }) => {
               ))}
             </RadioGroup>
           </Box>
+          <GreenBt
+            type="submit"
+            style={{ alignSelf: "flex-end", marginTop: 40 }}
+          >
+            등록
+          </GreenBt>
         </CardContent>
       </Card>
-      <GreenBt type="submit" style={{ alignSelf: "flex-end", marginTop: 40 }}>
-        등록
-      </GreenBt>
     </>
   );
 };

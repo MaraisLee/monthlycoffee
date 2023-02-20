@@ -8,14 +8,11 @@ import { Navigation } from "swiper";
 import { SwiperCss } from "styles/SwiperCss";
 import { Radio } from "@mui/joy";
 
-const SwiperBrand = ({ setBrand }) => {
+const SwiperBrand = ({ brand, setBrand }) => {
   const path = process.env.PUBLIC_URL;
   const testArr = [
     {
-      name: "추가",
-      img: `${path}/images/plus.png`,
-    },
-    {
+      id: "스타벅스",
       name: "스타벅스",
       img: `${path}/images/logo.png`,
     },
@@ -41,7 +38,7 @@ const SwiperBrand = ({ setBrand }) => {
     },
   ];
 
-  const [arr, setArr] = useState(testArr);
+  // const [arr, setArr] = useState(testArr);
 
   // const {
   //   register,
@@ -54,11 +51,11 @@ const SwiperBrand = ({ setBrand }) => {
   //   mode: "onChange", // mode 가 onChange 면 실행하라..
   // });
 
-  // const handleBrand = (e) => {
-  //   console.log(e.target.value);
-  //   setBrand(e.target.value);
-  //   // setValue("brand", brand);
-  // };
+  const handleBrand = (e) => {
+    console.log(e.target.value);
+    setBrand(e.target.value);
+    // setValue("brand", brand);
+  };
 
   return (
     <SwiperCss>
@@ -88,17 +85,23 @@ const SwiperBrand = ({ setBrand }) => {
           },
         }}
       >
+        <SwiperSlide className="swiperSlide">
+          <img src={`${path}/images/plus.png`} alt="" />
+          추가
+          <input type="text" value={brand} onClick={handleBrand} />
+        </SwiperSlide>
         {/* map 추후 적용 */}
-        {arr.map((item, index) => {
+        {testArr.map((item, id) => {
           return (
-            <SwiperSlide className="swiperSlide" key={index}>
+            <SwiperSlide className="swiperSlide" key={id}>
               <img src={item.img} alt="" />
               <Radio
                 variant="plain"
                 label={item.name}
                 overlay="true"
+                name="brand"
                 value={item.name}
-                onClick={(e) => setBrand(e.target.value)}
+                onClick={handleBrand}
                 // slotProps={{
                 //   action: ({ checked }) => ({
                 //     sx: {

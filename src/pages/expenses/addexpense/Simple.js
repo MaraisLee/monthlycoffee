@@ -6,8 +6,11 @@ import SwiperBrand from "./SwiperBrand";
 import SwiperCategory from "./SwiperCategory";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
+import axios from "api/axios";
+import { useSelector } from "react-redux";
 
 const Simple = ({ num, setNum }) => {
+  const userNo = useSelector((state) => state.user.id);
   const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
 
@@ -15,20 +18,46 @@ const Simple = ({ num, setNum }) => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
+  // const handleChange = (e) => {
+  //   setDate(e.target.value);
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("등록이 완료되었습니다.");
-    navigate("/expense");
+    const body = {
+      data: {
+        category: category,
+        brand: brand,
+        price: price,
+      },
+    };
+
+    console.log("정보", body);
+    // .post("api/expenses?userNo=0" + userNo, body)
+    axios
+      .post("expenses?userNo=2", body)
+      .then((res) => {
+        console.log(res);
+        alert("지출이 입력되었습니다.");
+      })
+      .catch((err) => console.log(err));
+    console.log("데이터", e);
+    console.log(brand);
+    console.log(category);
+    console.log(price);
+    console.log(date);
+    // alert("등록이 완료되었습니다.");
+    // navigate("/expense");
   };
 
   // defaultValue 오늘 나오게
   const dateNow = new Date();
   const today = dateNow.toISOString().slice(0, 10);
+  const [date, setDate] = useState(today);
 
   return (
     <>
       <Card variant="outlined" className="p-10">
-        <div className="flex justify-between mb-8">
+        <div className="flex justify-between mb-2">
           <div>
             카드
             <Switch checked={true} color="warning" size="lg" />
@@ -41,7 +70,13 @@ const Simple = ({ num, setNum }) => {
           </div>
         </div>
         <CardContent component="form" onSubmit={handleSubmit}>
-          <input type="date" defaultValue={today} />
+          <input
+            type="date"
+            defaultValue={today}
+            className="cursor-pointer pb-2"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
           <div className="flex justify-between px-6">
             <Typography
               variant="h2"

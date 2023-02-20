@@ -1,8 +1,8 @@
-import Budget from "components/home/card/Budget";
-import CategoryStats from "components/home/card/CategoryStats";
-import MenuStats from "components/home/card/MenuStats";
-import MonExpend from "components/home/card/MonExpend";
-import Weekly from "components/home/card/Weekly";
+import Budget from "pages/home/card/Budget";
+import CategoryStats from "pages/home/card/CategoryStats";
+import MenuStats from "pages/home/card/MenuStats";
+import MonExpend from "pages/home/card/MonExpend";
+import Weekly from "pages/home/card/Weekly";
 import React from "react";
 
 const Statistics = () => {

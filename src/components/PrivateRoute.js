@@ -9,7 +9,7 @@ const PrivateRoute = () => {
   return authenticated ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" {...alert("접근할 수 없는 페이지입니다.")} />
+    <Navigate to="/" {...alert("접근할 수 없는 페이지입니다.")} />
   );
 };
 export default PrivateRoute;

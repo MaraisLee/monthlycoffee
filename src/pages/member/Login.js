@@ -4,6 +4,7 @@ import { useNavigate, useNavigation } from "react-router-dom";
 import { loginAccount } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
+import { CookieSharp } from "@mui/icons-material";
 
 const Login = () => {
   const path = process.env.PUBLIC_URL;
@@ -36,24 +37,26 @@ const Login = () => {
             // console.log("사용자 id", uid);
             // const kakao_account = res.kakao_account;
             // console.log("사용자 정보", kakao_account);
-            console.log(res);
+            console.log("카카오", res);
 
-            // const body = {
-            //   uid: res.id,
-            //   nickname: res.kakao_account.nickname,
-            // };
-            // axios
-            //   .post("api/member", body)
-            //   .then((res) => {
-            //     console.log("유저정보", res);
-            //     alert(`${res.kakao_account.nickname} 님 환영합니다.`);
-            //   })
-            //   .catch((err) => {
-            //     console.log(err);
-            //     alert("로그인에 실패하였습니다.");
-            //   });
+            const body = {
+              uid: res.id,
+              nickname: res.properties.nickname,
+              authDomain: "KAKAO",
+            };
+            console.log(body);
+            axios
+              .post("members", body)
+              .then((res) => {
+                console.log("성공", res.data);
+                alert(`${res.data.nickname} 님 환영합니다.`);
+                navigate("/home");
+              })
+              .catch((err) => {
+                console.log(err);
+                alert("로그인에 실패하였습니다.");
+              });
             dispatch(loginAccount(res));
-            navigate("/home");
           },
         });
       },

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import DetailEdit from "./DetailEdit";
 import DetailInfo from "./DetailInfo";
-
 const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
   const [edit, setEdit] = useState(false);
   const customStyles = {
@@ -52,5 +51,4 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
     </Modal>
   );
 };
-
 export default ExpDetailModal;

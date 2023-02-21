@@ -96,27 +96,6 @@ const Simple = ({ num, setNum }) => {
               }}
             />
           </div>
-          <Typography
-            sx={{
-              py: 2,
-              my: 5,
-              fontSize: 20,
-              borderTop: "1px solid #bbb",
-            }}
-          >
-            Category
-            <SwiperCategory category={category} setCategory={setCategory} />
-          </Typography>
-          <Typography
-            sx={{
-              pt: 2,
-              fontSize: 20,
-              borderTop: "1px solid #bbb",
-            }}
-          >
-            Brand
-            <SwiperBrand brand={brand} setBrand={setBrand} />
-          </Typography>
           <GreenBt
             type="submit"
             style={{ alignSelf: "flex-end", marginTop: 40 }}

@@ -6,9 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const schema = yup.object({
-  title: yup.string().trim().required("제목을 입력해주세요."),
-  content: yup.string().trim().required("내용을 입력해주세요."),
-  timestamp: yup.string().required("날짜를 선택해주세요."),
+  price: yup.string().trim().required("금액을 입력해주세요."),
+  memo: yup.string().trim().required("내용을 입력해주세요."),
 });
 
 const DetailEdit = ({ setModalIsOpen, edit, setEdit }) => {

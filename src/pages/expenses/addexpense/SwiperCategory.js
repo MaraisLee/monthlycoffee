@@ -102,7 +102,7 @@ const SwiperCategory = ({ category, setCategory }) => {
                 variant="plain"
                 label={item.name}
                 name="category"
-                overlay="true"
+                overlay={true}
                 value={item.name}
                 onClick={handleCategory}
                 sx={{ paddingRight: 3 }}

@@ -124,11 +124,6 @@ const Detail = ({ num, setNum }) => {
             <Switch checked={true} color="warning" size="lg" />
             현금
           </div>
-          <div>
-            수입
-            <Switch checked={true} color="secondary" size="lg" />
-            지출
-          </div>
         </div>
         <CardContent component="form" onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -249,7 +244,7 @@ const Detail = ({ num, setNum }) => {
                   <Radio
                     {...register("taste")}
                     label={value}
-                    overlay
+                    overlay={true}
                     disableIcon
                     value={value}
                     slotProps={{
@@ -289,7 +284,7 @@ const Detail = ({ num, setNum }) => {
             </FormLabel>
             <RadioGroup
               aria-label="platform"
-              overlay
+              overlay={true}
               name="platform"
               sx={{
                 width: "75%",
@@ -380,7 +375,7 @@ const Detail = ({ num, setNum }) => {
                   <Radio
                     {...register("bean")}
                     label={value.name}
-                    overlay
+                    overlay={true}
                     disableIcon
                     value={value.id}
                     slotProps={{
@@ -451,7 +446,7 @@ const Detail = ({ num, setNum }) => {
                   <Radio
                     {...register("likeHate")}
                     label={value.name}
-                    overlay
+                    overlay={true}
                     disableIcon
                     value={value.img}
                     slotProps={{

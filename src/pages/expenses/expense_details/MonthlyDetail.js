@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { txtShadow } from "utils/colors";
 import ExpDetailModal from "./ExpDetailModal";
@@ -11,6 +11,7 @@ import moment from "moment";
 
 const MonthlyDetail = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [listId, setListId] = useState("");
   // const [list, setList] = useState([]);
 
   const dummy = [
@@ -39,14 +40,14 @@ const MonthlyDetail = () => {
       category: "까페라떼",
       brand: "빽다방",
       price: 5000,
-      memo: "맛있다",
+      memo: "괜찮음",
       tumbler: false,
       taste: "SWEET",
       mood: "WORK",
       bean: "BRAZIL",
-      likeHate: "LIKE",
+      likeHate: "SOSO",
       payment: 0,
-      date: "2023-02-15",
+      date: "2023-02-13",
       images: [
         {
           id: 1,
@@ -75,7 +76,10 @@ const MonthlyDetail = () => {
       {value}
     </button>
   ));
-  console.log(moment(startDate).format("YYMM"));
+  // console.log(moment(startDate).format("YYMM"));
+  // console.log(listId);
+  const clickData = dummy.filter((item) => item.id === listId);
+  console.log(clickData);
   return (
     <>
       <MonthlyDetailCss>
@@ -99,11 +103,13 @@ const MonthlyDetail = () => {
                 key={item.id}
                 item={item}
                 setModalIsOpen={setModalIsOpen}
+                setListId={setListId}
               />
             );
           })}
         </div>
         <ExpDetailModal
+          clickData={clickData}
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}
         />

@@ -8,11 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import MonthlyDetailCss from "styles/MonthlyDetailCss";
 import moment from "moment";
-
 const MonthlyDetail = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [listId, setListId] = useState("");
   // const [list, setList] = useState([]);
-
   const dummy = [
     {
       id: 1,
@@ -55,9 +54,7 @@ const MonthlyDetail = () => {
       ],
     },
   ];
-
   const userData = useSelector((state) => state.user);
-
   // const getPosts = async () => {
   //   const posts = await axios.get(
   //     // `http://192.168.0.203:8080/api/expenses/${userData.id}?date=2302`
@@ -75,7 +72,10 @@ const MonthlyDetail = () => {
       {value}
     </button>
   ));
-  console.log(moment(startDate).format("YYMM"));
+  // console.log(moment(startDate).format("YYMM"));
+  // console.log(listId);
+  const clickData = dummy.filter((item) => item.id === listId);
+  console.log(clickData);
   return (
     <>
       <MonthlyDetailCss>
@@ -99,11 +99,13 @@ const MonthlyDetail = () => {
                 key={item.id}
                 item={item}
                 setModalIsOpen={setModalIsOpen}
+                setListId={setListId}
               />
             );
           })}
         </div>
         <ExpDetailModal
+          clickData={clickData}
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}
         />
@@ -111,5 +113,4 @@ const MonthlyDetail = () => {
     </>
   );
 };
-
 export default MonthlyDetail;

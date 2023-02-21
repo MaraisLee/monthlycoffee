@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -98,7 +98,7 @@ const SwiperBrand = ({ brand, setBrand }) => {
               <Radio
                 variant="plain"
                 label={item.name}
-                overlay="true"
+                overlay={true}
                 name="brand"
                 value={item.name}
                 onClick={handleBrand}

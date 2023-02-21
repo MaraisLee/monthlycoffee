@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { txtShadow } from "utils/colors";
+import { yellow } from "@mui/material/colors";
+import { txtShadow, yellowcolor } from "utils/colors";
 
 export const VioletBt = styled.button`
   width: 20%;
@@ -58,4 +59,21 @@ export const Box = styled.div`
   align-items: center;
   padding: 25px;
   white-space: nowrap;
+`;
+
+export const CustomBt = styled.button`
+  width: 90px;
+  border: 1px solid black;
+  text-align: center;
+  background: black;
+  font-size: 14px;
+  color: white;
+  padding: 6px;
+  margin-bottom: 8px;
+  &.active {
+    color: black;
+    font-weight: 600;
+    border: 2px solid black;
+    background: ${yellowcolor};
+  }
 `;

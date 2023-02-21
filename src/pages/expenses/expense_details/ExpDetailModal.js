@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import DetailEdit from "./DetailEdit";
 import DetailInfo from "./DetailInfo";
-
-const ExpDetailModal = ({ modalIsOpen, setModalIsOpen }) => {
+const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
   const [edit, setEdit] = useState(false);
   const customStyles = {
     overlay: {
@@ -29,18 +28,26 @@ const ExpDetailModal = ({ modalIsOpen, setModalIsOpen }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
+      ariaHideApp={false}
       onRequestClose={() => setModalIsOpen(false)}
       style={customStyles}
     >
       <div className="bg-stone-100 p-10">
         {edit ? (
-          <DetailEdit setModalIsOpen={setModalIsOpen} edit={edit} setEdit={setEdit} />
+          <DetailEdit
+            setModalIsOpen={setModalIsOpen}
+            edit={edit}
+            setEdit={setEdit}
+          />
         ) : (
-          <DetailInfo setModalIsOpen={setModalIsOpen} edit={edit} setEdit={setEdit} />
+          <DetailInfo
+            setModalIsOpen={setModalIsOpen}
+            edit={edit}
+            setEdit={setEdit}
+          />
         )}
       </div>
     </Modal>
   );
 };
-
 export default ExpDetailModal;

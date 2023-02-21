@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { txtShadow } from "utils/colors";
 import MonthlyDetail from "./MonthlyDetail";
 import Statistics from "./Statistics";
 
 const ExpenseDetails = () => {
   const [page, setPage] = useState(true);
+  const userData = useSelector((state) => state.user);
+
   return (
     <div className="p-5">
       <div className="inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
@@ -17,7 +20,7 @@ const ExpenseDetails = () => {
           style={{ textShadow: `${txtShadow}` }}
           onClick={() => setPage(true)}
         >
-          이달의 커피
+          {userData.nickname} 님의 커피
         </button>
         <button
           className={`inline-block rounded-md px-4 py-2 text-3xl font-bold ${

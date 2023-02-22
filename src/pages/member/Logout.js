@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAccount } from "reducer/loggedState";
+import { removeCookie } from "api/cookie";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Logout = () => {
       alert("로그아웃되었습니다.");
       // window.location.href='/'
       const uid = res.id;
+      removeCookie("is_login")
       dispatch(logoutAccount(uid));
       navigate("/");
     });

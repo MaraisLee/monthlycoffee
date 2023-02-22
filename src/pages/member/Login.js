@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginAccount } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
-import { CookieSharp } from "@mui/icons-material";
+import { setCookie } from "api/cookie";
 
 const Login = () => {
   const path = process.env.PUBLIC_URL;
   const dispatch = useDispatch();
   const authenticated = useSelector((state) => state.user.authenticated);
-
   // Kakao 로그인
   // 등록된 앱의 JavaScript key
   const jsKey = process.env.REACT_APP_KAKAO;
@@ -28,7 +27,7 @@ const Login = () => {
     window.Kakao.Auth.login({
       scope: "profile_nickname, profile_image, account_email", //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
       success: function (response) {
-        console.log(response); // 로그인 성공하면 받아오는 데이터
+        // console.log(response); // 로그인 성공하면 받아오는 데이터
         window.Kakao.API.request({
           // 사용자 정보 가져오기
           url: "/v2/user/me",
@@ -48,7 +47,12 @@ const Login = () => {
             axios
               .post("members", body)
               .then((res) => {
-                console.log("성공", res.data);
+                console.log("성공", res.headers.authorization);
+                const accessToken = res.headers.authorization;
+                // const refreshToken = res.headers.refreshToken;
+                // console.log(refreshToken)
+                setCookie("is_login", `${accessToken}`);
+                // dispatch(loginAccount(res.headers.refresh - token));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
               })

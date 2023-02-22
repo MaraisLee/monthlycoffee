@@ -19,8 +19,6 @@ const Detail = ({ num, setNum }) => {
     register,
     handleSubmit,
     // formState: { errors },
-    reset,
-    setValue,
   } = useForm({
     // resolver: yupResolver(schema),
     mode: "onChange", // mode 가 onChange 면 실행하라..
@@ -90,12 +88,11 @@ const Detail = ({ num, setNum }) => {
 
   const onSubmit = (data) => {
     console.log(data);
+    console.log("memo")
     // const body = {
-    //   data: {
-    //     category: category,
-    //     brand: brand,
-    //     price: price,
-    //   },
+    //   category: category,
+    //   brand: brand,
+    //   price: price,
     // };
     // console.log("정보", body);
     // // .post("api/expenses?userNo=0" + userNo, body)
@@ -106,11 +103,11 @@ const Detail = ({ num, setNum }) => {
     //     alert("지출이 입력되었습니다.");
     //   })
     //   .catch((err) => console.log(err));
-    // console.log("데이터", e);
-    // console.log(brand);
-    // console.log(category);
-    // console.log(price);
-    // console.log(date);
+    // // console.log("데이터", e);
+    // // console.log(brand);
+    // // console.log(category);
+    // // console.log(price);
+    // // console.log(date);
     // alert("등록이 완료되었습니다.");
     // navigate("/expense");
   };

@@ -5,6 +5,8 @@ const initialState = {
   id: "",
   nickname: "",
   profileImage: "",
+  authorization: "",
+  refreshToken: "",
 };
 
 const loggedState = createSlice({
@@ -18,12 +20,16 @@ const loggedState = createSlice({
       state.id = data.id;
       state.nickname = profile.nickname;
       state.profileImage = profile.profile_image;
+      state.authorization = data.authorization;
+      state.refreshToken = data.refreshToken;
     },
     logoutAccount: (state, action) => {
       state.authenticated = false;
       state.id = "";
       state.nickname = "";
       state.profileImage = "";
+      state.authorization = "";
+      state.refreshToken = "";
     },
   },
 });

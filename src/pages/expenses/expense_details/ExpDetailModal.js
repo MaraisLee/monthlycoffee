@@ -41,6 +41,7 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
           />
         ) : (
           <DetailInfo
+            clickData={clickData}
             setModalIsOpen={setModalIsOpen}
             edit={edit}
             setEdit={setEdit}

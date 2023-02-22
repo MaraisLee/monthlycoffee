@@ -1,10 +1,13 @@
 import React from "react";
 
-const ExpenseList = ({ item, setModalIsOpen }) => {
+const ExpenseList = ({ item, setModalIsOpen, setListId }) => {
   return (
     <div
       className="flex justify-between items-center px-24 h-[13vh] bg-white border border-black"
-      onClick={() => setModalIsOpen(true)}
+      onClick={() => {
+        setModalIsOpen(true);
+        setListId(item.id);
+      }}
     >
       <span className="text-xl">{item.date}</span>
       <div className="flex flex-col items-center">

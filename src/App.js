@@ -18,11 +18,11 @@ const App = () => {
   const authenticated = useSelector((state) => state.user.authenticated);
   return (
     <Router>
-      <div className="flex flex-col-reverse h-[100vh] md:flex-row overflow-hidden">
+      <div className="flex flex-col-reverse md:flex-row">
         {authenticated ? (
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         ) : null}
-        <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="relative md:ml-[20%] flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           {authenticated ? (
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           ) : null}

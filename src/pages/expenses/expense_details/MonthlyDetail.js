@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { txtShadow } from "utils/colors";
 import ExpDetailModal from "./ExpDetailModal";
@@ -38,14 +38,14 @@ const MonthlyDetail = () => {
       category: "까페라떼",
       brand: "빽다방",
       price: 5000,
-      memo: "맛있다",
+      memo: "괜찮음",
       tumbler: false,
       taste: "SWEET",
       mood: "WORK",
       bean: "BRAZIL",
-      likeHate: "LIKE",
+      likeHate: "SOSO",
       payment: 0,
-      date: "2023-02-15",
+      date: "2023-02-13",
       images: [
         {
           id: 1,

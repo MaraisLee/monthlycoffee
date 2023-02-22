@@ -79,7 +79,7 @@ const Calender = () => {
         >
           이달의 커피
         </span>
-        <div className="w-full">
+        {/* <div className="w-full">
           <FullCalendar
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin]}
@@ -88,14 +88,14 @@ const Calender = () => {
               { title: "event 2", date: "2023-02-06" },
             ]}
           />
-        </div>
-        {/* <div className="">
-        <Calendar
+        </div> */}
+        <div className="">
+          <Calendar
             calendarType="US"
             locale="ko-KO"
             formatDay={(locale, date) => moment(date).format("D")}
           />
-      </div> */}
+        </div>
       </div>
     </CalendarCss>
   );

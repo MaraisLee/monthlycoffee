@@ -22,7 +22,11 @@ const App = () => {
         {authenticated ? (
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         ) : null}
-        <div className="relative md:ml-[20%] flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        <div
+          className={`relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden ${
+            authenticated ? "md:ml-[20%]" : ""
+          }`}
+        >
           {authenticated ? (
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           ) : null}

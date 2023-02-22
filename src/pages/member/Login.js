@@ -48,7 +48,7 @@ const Login = () => {
             axios
               .post("members", body)
               .then((res) => {
-                console.log("성공", res.data);
+                console.log("성공", res);
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
               })
@@ -73,30 +73,28 @@ const Login = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex w-screen h-screen justify-center">
-        <div className=" bg-black w-full flex-1 h-full justify-center">
-          <div className="flex h-full justify-center items-center">
-            <img src="./images/logo.png" alt="logo" className="w-44" />
-            <span className="text-white text-6xl font-semibold ">
-              MONTHLY <br />
-              COFFEE
-            </span>
-          </div>
-        </div>
-        <div className="flex-1">
-          <div className="flex flex-col h-full justify-center items-center">
-            <span className="text-3xl font-bold mb-20">
-              “The cafe is the community’s
-              <br /> third place.”
-            </span>
-            <button onClick={kakaoLogin}>
-              <img src={`${path}/images/kakao.png`} alt="" />
-            </button>
-          </div>
+    <div className="flex w-screen h-screen justify-center">
+      <div className=" bg-black w-full flex-1 h-full justify-center">
+        <div className="flex h-full justify-center items-center">
+          <img src="./images/logo.png" alt="logo" className="w-44" />
+          <span className="text-white text-6xl font-semibold ">
+            MONTHLY <br />
+            COFFEE
+          </span>
         </div>
       </div>
-    </>
+      <div className="flex-1">
+        <div className="flex flex-col h-full justify-center items-center">
+          <span className="text-3xl font-bold mb-20">
+            “The cafe is the community’s
+            <br /> third place.”
+          </span>
+          <button onClick={kakaoLogin}>
+            <img src={`${path}/images/kakao.png`} alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

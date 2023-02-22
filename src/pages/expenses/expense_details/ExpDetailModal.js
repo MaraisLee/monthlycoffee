@@ -25,6 +25,7 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
       border: "none",
     },
   };
+  const modalData = clickData[0];
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -35,13 +36,14 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
       <div className="bg-stone-100 p-10">
         {edit ? (
           <DetailEdit
+            modalData={modalData}
             setModalIsOpen={setModalIsOpen}
             edit={edit}
             setEdit={setEdit}
           />
         ) : (
           <DetailInfo
-            clickData={clickData}
+            modalData={modalData}
             setModalIsOpen={setModalIsOpen}
             edit={edit}
             setEdit={setEdit}

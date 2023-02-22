@@ -1,7 +1,7 @@
 import React from "react";
 import { Close, Edit } from "@mui/icons-material";
 
-const DetailInfo = ({ clickData, setModalIsOpen, edit, setEdit }) => {
+const DetailInfo = ({ modalData, setModalIsOpen, edit, setEdit }) => {
   return (
     <>
       <div className="flex justify-between mb-5">
@@ -15,7 +15,7 @@ const DetailInfo = ({ clickData, setModalIsOpen, edit, setEdit }) => {
         <div>
           <span>지출</span> - <span>카드</span>
         </div>
-        <p className="text-right">{clickData[0].date}</p>
+        <p className="text-right">{modalData.date}</p>
       </div>
       <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p>
       <div className="flex justify-center">
@@ -28,20 +28,20 @@ const DetailInfo = ({ clickData, setModalIsOpen, edit, setEdit }) => {
       <hr className="border-black border-dashed" />
       <div className="m-5 flex justify-between items-center text-2xl">
         <div className="flex flex-col items-center">
-          <span className="font-bold">{clickData[0].category}</span>
-          <span className="text-lg">{clickData[0].brand}</span>
+          <span className="font-bold">{modalData.category}</span>
+          <span className="text-lg">{modalData.brand}</span>
         </div>
-        <span className="font-bold">{clickData[0].price}원</span>
+        <span className="font-bold">{modalData.price}원</span>
       </div>
       <hr className=" border-black border-dashed" />
       <div className="my-5 flex flex-col gap-3">
         <div className="flex justify-between text-lg">
-          <p className="font-bold">{clickData[0].likeHate}</p>
+          <p className="font-bold">{modalData.likeHate}</p>
           <span className="text-blue-600">
-            #{clickData[0].taste} #{clickData[0].mood} #{clickData[0].bean}
+            #{modalData.taste} #{modalData.mood} #{modalData.bean}
           </span>
         </div>
-        <span className="text-lg">{clickData[0].memo}</span>
+        <span className="text-lg">{modalData.memo}</span>
       </div>
       <hr className=" border-black border-dashed" />
       <div className="mt-3">

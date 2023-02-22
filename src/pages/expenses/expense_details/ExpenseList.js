@@ -3,7 +3,7 @@ import React from "react";
 const ExpenseList = ({ item, setModalIsOpen, setListId }) => {
   return (
     <div
-      className="flex justify-between items-center px-24 h-[13vh] bg-white border border-black"
+      className="flex justify-between items-center px-24 h-[13vh] bg-white border border-black cursor-pointer"
       onClick={() => {
         setModalIsOpen(true);
         setListId(item.id);

@@ -44,7 +44,7 @@ const MonthlyDetail = () => {
       mood: "WORK",
       bean: "BRAZIL",
       likeHate: "SOSO",
-      payment: 0,
+      payment: 1,
       date: "2023-02-13",
       images: [
         {

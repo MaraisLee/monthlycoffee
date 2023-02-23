@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Card, CardContent, Switch, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { NumericFormat } from "react-number-format";
 import { txtShadow, yellowcolor } from "utils/colors";
 import SwiperBrand from "./SwiperBrand";
@@ -7,10 +15,8 @@ import SwiperCategory from "./SwiperCategory";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
 import axios from "api/axios";
-import { useSelector } from "react-redux";
-import { getCookie } from "api/cookie";
 
-const Simple = ({ num, setNum }) => {
+const Simple = () => {
   const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
 
@@ -31,20 +37,14 @@ const Simple = ({ num, setNum }) => {
     };
 
     console.log("정보", body);
-    // .post("api/expenses?userNo=0" + userNo, body)
     axios
       .post("expenses", body)
       .then((res) => {
         console.log(res);
         alert("지출이 입력되었습니다.");
+        navigate("/expense");
       })
       .catch((err) => console.log(err));
-    console.log(brand);
-    console.log(category);
-    console.log(price);
-    console.log(date);
-    // alert("등록이 완료되었습니다.");
-    // navigate("/expense");
   };
 
   // defaultValue 오늘 나오게
@@ -55,13 +55,20 @@ const Simple = ({ num, setNum }) => {
   return (
     <>
       <Card variant="outlined" className="p-10">
-        <div className="flex justify-between mb-2">
-          <div>
-            카드
-            <Switch checked={true} color="warning" size="lg" />
-            현금
-          </div>
-        </div>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-standard-label">
+            Payment
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            label="Payment"
+            defaultValue="0"
+          >
+            <MenuItem value="0">카드</MenuItem>
+            <MenuItem value="1">현금</MenuItem>
+          </Select>
+        </FormControl>
         <CardContent component="form" onSubmit={handleSubmit}>
           <input
             type="date"

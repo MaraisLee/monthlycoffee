@@ -16,7 +16,8 @@ const Logout = () => {
       alert("로그아웃되었습니다.");
       // window.location.href='/'
       const uid = res.id;
-      removeCookie("is_login")
+      removeCookie("access_token");
+      removeCookie("refresh_token");
       dispatch(logoutAccount(uid));
       navigate("/");
     });
@@ -29,6 +30,8 @@ const Logout = () => {
         console.log(res);
         //callback(); //연결끊기(탈퇴)성공시 서버에서 처리할 함수
         // window.location.href='/'
+        removeCookie("access_token");
+        removeCookie("refresh_token");
         alert("회원탈퇴되었습니다.");
         const uid = res.id;
         dispatch(logoutAccount(uid));

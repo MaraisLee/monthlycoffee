@@ -47,14 +47,15 @@ const Login = () => {
             axios
               .post("members", body)
               .then((res) => {
-                console.log("성공", res.headers.authorization);
+                console.log("성공", res.headers);
                 const accessToken = res.headers.authorization;
-                // const refreshToken = res.headers.refreshToken;
-                // console.log(refreshToken)
-                setCookie("is_login", `${accessToken}`);
+                const refreshToken = res.headers.refreshtoken;
+                console.log(refreshToken);
+                setCookie("access_token", `${accessToken}`);
+                setCookie("refresh_token", `${refreshToken}`);
                 // dispatch(loginAccount(res.headers.refresh - token));
-                alert(`${res.data.nickname} 님 환영합니다.`);
-                navigate("/home");
+                // alert(`${res.data.nickname} 님 환영합니다.`);
+                // navigate("/home");
               })
               .catch((err) => {
                 console.log(err);

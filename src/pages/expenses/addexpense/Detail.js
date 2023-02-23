@@ -1,6 +1,15 @@
 import React, { useRef, useState } from "react";
 import axios from "api/axios";
-import { Card, CardContent, Checkbox, Switch, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import Sheet from "@mui/joy/Sheet";
 import SwiperBrand from "./SwiperBrand";
 import SwiperCategory from "./SwiperCategory";
@@ -13,17 +22,13 @@ import Radio, { radioClasses } from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { GreenBt } from "utils/basicCss";
+import { useNavigate } from "react-router-dom";
 
 const Detail = ({ num, setNum }) => {
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm({
-    // resolver: yupResolver(schema),
-    mode: "onChange", // mode 가 onChange 면 실행하라..
+  const { register, handleSubmit } = useForm({
+    mode: "onChange",
   });
-
+  const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
   const path = process.env.PUBLIC_URL;
   const beans = [
@@ -86,42 +91,58 @@ const Detail = ({ num, setNum }) => {
   const dateNow = new Date();
   const today = dateNow.toISOString().slice(0, 10);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log("memo")
-    // const body = {
-    //   category: category,
-    //   brand: brand,
-    //   price: price,
-    // };
-    // console.log("정보", body);
-    // // .post("api/expenses?userNo=0" + userNo, body)
-    // axios
-    //   .post("expenses?userNo=2", body)
-    //   .then((res) => {
-    //     console.log(res);
-    //     alert("지출이 입력되었습니다.");
-    //   })
-    //   .catch((err) => console.log(err));
-    // // console.log("데이터", e);
-    // // console.log(brand);
-    // // console.log(category);
-    // // console.log(price);
-    // // console.log(date);
-    // alert("등록이 완료되었습니다.");
-    // navigate("/expense");
+
+    const body = {
+      payment: data.payment,
+      date: data.date,
+      price: data.price,
+      memo: data.memo,
+      tumbler: false,
+      // category: ,
+      // brand: ,
+      taste: data.taste,
+      mood: data.mood,
+      bean: data.bean,
+      likeHate: data.likeHate,
+    };
+    console.log("바디", body);
+    await axios
+      .post("expenses", body)
+      .then((res) => {
+        if (res) {
+          console.log(res.id);
+          axios
+            .post(`expenses/${res.id}`)
+            .then((res) => console.log("파일전송성공", res))
+            .catch((err) => console.log(err));
+          console.log("지출입력 데이터", res);
+          alert("지출이 입력되었습니다.");
+          // navigate("/expense");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <Card variant="outlined" className="p-10">
-        <div className="flex justify-between mb-8">
-          <div>
-            카드
-            <Switch checked={true} color="warning" size="lg" />
-            현금
-          </div>
-        </div>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-standard-label">
+            Payment
+          </InputLabel>
+          <Select
+            {...register("payment")}
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            label="Payment"
+            defaultValue="0"
+          >
+            <MenuItem value="0">카드</MenuItem>
+            <MenuItem value="1">현금</MenuItem>
+          </Select>
+        </FormControl>
         <CardContent component="form" onSubmit={handleSubmit(onSubmit)}>
           <input
             type="date"
@@ -138,6 +159,7 @@ const Detail = ({ num, setNum }) => {
               ￦{" "}
             </Typography>
             <NumericFormat
+              {...register("price")}
               className="text-5xl outline-none text-right"
               style={{ textShadow: `${txtShadow}`, color: `${yellowcolor}` }}
               type="text"
@@ -150,7 +172,6 @@ const Detail = ({ num, setNum }) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
               }}
-              // {...register("price", setValue(num))}
             />
           </div>
 
@@ -222,10 +243,15 @@ const Detail = ({ num, setNum }) => {
               sx={{
                 width: "75%",
                 flexDirection: "row",
-                gap: 22,
+                gap: 10,
               }}
             >
-              {["신맛", "단맛", "고소한맛"].map((value) => (
+              {[
+                { id: "SWEET", name: "단맛" },
+                { id: "SOUR", name: "신맛" },
+                { id: "SAVORY", name: "고소한맛" },
+                { id: "SAVORY", name: "쓴맛" },
+              ].map((value) => (
                 <Sheet
                   key={value}
                   sx={{
@@ -240,10 +266,10 @@ const Detail = ({ num, setNum }) => {
                 >
                   <Radio
                     {...register("taste")}
-                    label={value}
+                    label={value.name}
                     overlay={true}
                     disableIcon
-                    value={value}
+                    value={value.id}
                     slotProps={{
                       label: ({ checked }) => ({
                         sx: {

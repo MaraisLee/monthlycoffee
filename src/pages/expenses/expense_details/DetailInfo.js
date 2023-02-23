@@ -1,5 +1,7 @@
 import React from "react";
 import { Close, Edit } from "@mui/icons-material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrescriptionBottle } from "@fortawesome/free-solid-svg-icons";
 
 const DetailInfo = ({ modalData, setModalIsOpen, edit, setEdit }) => {
   return (
@@ -36,7 +38,12 @@ const DetailInfo = ({ modalData, setModalIsOpen, edit, setEdit }) => {
       <hr className=" border-black border-dashed" />
       <div className="my-5 flex flex-col gap-3">
         <div className="flex justify-between text-lg">
-          <p className="font-bold">{modalData.likeHate}</p>
+          <div>
+            <span className="font-bold">{modalData.likeHate}</span>
+            <span>
+              <FontAwesomeIcon icon={faPrescriptionBottle} />
+            </span>
+          </div>
           <span className="text-blue-600">
             #{modalData.taste} #{modalData.mood} #{modalData.bean}
           </span>

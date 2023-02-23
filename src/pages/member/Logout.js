@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutAccount, refreshTokenOut } from "reducer/loggedState";
+import { logoutAccount } from "reducer/loggedState";
 import { removeCookie } from "api/cookie";
 import axios from "api/axios";
 const Logout = () => {
@@ -20,7 +20,6 @@ const Logout = () => {
           // window.location.href='/'
           const uid = res.id;
           removeCookie("access_token");
-          dispatch(refreshTokenOut());
           dispatch(logoutAccount(uid));
           navigate("/");
         })
@@ -38,7 +37,6 @@ const Logout = () => {
         //callback(); //연결끊기(탈퇴)성공시 서버에서 처리할 함수
         // window.location.href='/'
         removeCookie("access_token");
-        removeCookie("refresh_token");
         alert("회원탈퇴되었습니다.");
         const uid = res.id;
         dispatch(logoutAccount(uid));

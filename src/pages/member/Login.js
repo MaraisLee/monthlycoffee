@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginAccount, refreshTokenIn } from "reducer/loggedState";
+import { loginAccount } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 import { setCookie } from "api/cookie";
@@ -29,7 +29,7 @@ const Login = () => {
         window.Kakao.API.request({
           // 사용자 정보 가져오기
           url: "/v2/user/me",
-          success: (res) => {
+          success: async (res) => {
             // const uid = res.id;
             // console.log("사용자 id", uid);
             // const kakao_account = res.kakao_account;
@@ -41,7 +41,7 @@ const Login = () => {
               authDomain: "KAKAO",
             };
             console.log(body);
-            axios
+            await axios
               .post("members", body)
               .then((res) => {
                 console.log("성공", res.headers);
@@ -49,7 +49,7 @@ const Login = () => {
                 const refreshToken = res.headers.refreshtoken;
                 console.log(refreshToken);
                 setCookie("access_token", `${accessToken}`);
-                dispatch(refreshTokenIn(refreshToken));
+                dispatch(loginAccount(refreshToken));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
               })

@@ -4,8 +4,6 @@ import { Calendar } from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import CalendarCss from "styles/CalendarCss";
 import { txtShadow } from "utils/colors";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 
 const Calender = () => {
   const dummy = [

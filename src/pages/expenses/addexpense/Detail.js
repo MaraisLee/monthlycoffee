@@ -91,38 +91,46 @@ const Detail = ({ num, setNum }) => {
   const dateNow = new Date();
   const today = dateNow.toISOString().slice(0, 10);
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  // 브랜드,카테고리,입력금액
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
 
+  const onSubmit = (data) => {
+  
     const body = {
       payment: data.payment,
       date: data.date,
-      price: data.price,
+      price: price,
       memo: data.memo,
       tumbler: false,
-      // category: ,
-      // brand: ,
+      category: category,
+      brand: brand,
       taste: data.taste,
       mood: data.mood,
       bean: data.bean,
       likeHate: data.likeHate,
     };
     console.log("바디", body);
-    await axios
+    axios
       .post("expenses", body)
       .then((res) => {
-        if (res) {
-          console.log(res.id);
-          axios
-            .post(`expenses/${res.id}`)
-            .then((res) => console.log("파일전송성공", res))
-            .catch((err) => console.log(err));
-          console.log("지출입력 데이터", res);
-          alert("지출이 입력되었습니다.");
+        console.log("반응", res);
+        console.log("id:", res.data.id);
+        // if (!res.id === "") {
+          // axios
+          //   .post(`expenses/${res.data.id}`, data.file)
+          //   .then((res) => console.log("파일전송성공", res))
+          //   .catch((err) => console.log(err));
+          // console.log("지출입력 데이터", res);
+          // alert("지출이 입력되었습니다.");
           // navigate("/expense");
-        }
+        // }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("머지");
+      });
   };
 
   return (
@@ -159,15 +167,13 @@ const Detail = ({ num, setNum }) => {
               ￦{" "}
             </Typography>
             <NumericFormat
-              {...register("price")}
               className="text-5xl outline-none text-right"
               style={{ textShadow: `${txtShadow}`, color: `${yellowcolor}` }}
               type="text"
               maxLength="8"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               thousandSeparator=","
-              renderText={(value) => {
-                <b>{value}</b>;
-              }}
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
@@ -213,7 +219,7 @@ const Detail = ({ num, setNum }) => {
             }}
           >
             Category
-            <SwiperCategory />
+            <SwiperCategory category={category} setCategory={setCategory} />
           </Typography>
           <Typography
             sx={{
@@ -224,7 +230,7 @@ const Detail = ({ num, setNum }) => {
             }}
           >
             Brand
-            <SwiperBrand />
+            <SwiperBrand brand={brand} setBrand={setBrand} />
           </Typography>
           {/* 상세입력 옵션들 */}
           <Box>

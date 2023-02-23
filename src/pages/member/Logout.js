@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutAccount } from "reducer/loggedState";
+import { logoutAccount, refreshTokenOut } from "reducer/loggedState";
 import { removeCookie } from "api/cookie";
-
+import axios from "api/axios";
 const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,16 +13,23 @@ const Logout = () => {
       return;
     }
     window.Kakao.Auth.logout(function (res) {
-      alert("로그아웃되었습니다.");
-      // window.location.href='/'
-      const uid = res.id;
-      removeCookie("access_token");
-      removeCookie("refresh_token");
-      dispatch(logoutAccount(uid));
-      navigate("/");
+      axios
+        .post("members/logout")
+        .then((res) => {
+          alert("로그아웃되었습니다.");
+          // window.location.href='/'
+          const uid = res.id;
+          removeCookie("access_token");
+          dispatch(refreshTokenOut());
+          dispatch(logoutAccount(uid));
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("다시 로그아웃 해주세요.");
+        });
     });
   };
-
   const memberOut = () => {
     window.Kakao.API.request({
       url: "/v1/user/unlink",
@@ -43,7 +50,6 @@ const Logout = () => {
       },
     });
   };
-
   return (
     <div>
       <button onClick={kakaoLogOut}>카카오로그아웃</button>
@@ -51,5 +57,4 @@ const Logout = () => {
     </div>
   );
 };
-
 export default Logout;

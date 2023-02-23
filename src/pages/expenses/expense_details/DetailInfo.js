@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrescriptionBottle } from "@fortawesome/free-solid-svg-icons";
 
 const DetailInfo = ({ modalData, setModalIsOpen, edit, setEdit }) => {
+  console.log(modalData);
   return (
     <>
       <div className="flex justify-between mb-5">
@@ -38,7 +39,7 @@ const DetailInfo = ({ modalData, setModalIsOpen, edit, setEdit }) => {
       <hr className=" border-black border-dashed" />
       <div className="my-5 flex flex-col gap-3">
         <div className="flex justify-between text-lg">
-          <div>
+          <div className="flex gap-3">
             <span className="font-bold">{modalData.likeHate}</span>
             <span>
               <FontAwesomeIcon icon={faPrescriptionBottle} />

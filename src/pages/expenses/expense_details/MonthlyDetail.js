@@ -56,18 +56,19 @@ const MonthlyDetail = () => {
       ],
     },
   ];
-  // const userData = useSelector((state) => state.user);
-  // const getPosts = async () => {
-  //   const params = {
-  //     date: moment(startDate).format("YYMM"),
-  //   };
-  //   const posts = await axios.get("expenses", { params });
-  //   console.log(posts);
-  //   setList(posts.data);
-  // };
-  // useEffect(() => {
-  //   getPosts();
-  // }, [startDate]);
+  const userData = useSelector((state) => state.user);
+  const getPosts = async () => {
+    const params = {
+      date: moment(startDate).format("YYMM"),
+    };
+    const posts = await axios.get("expenses", { params });
+    console.log(moment(startDate).format("YYMM"));
+    console.log(posts);
+    setList(posts.data);
+  };
+  useEffect(() => {
+    getPosts();
+  }, [startDate]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input" onClick={onClick} ref={ref}>
       {value}
@@ -75,8 +76,8 @@ const MonthlyDetail = () => {
   ));
   // console.log(moment(startDate).format("YYMM"));
   // console.log(listId);
-  const clickData = dummy.filter((item) => item.id === listId);
-  // const clickData = list.filter((item) => item.id === listId);
+  // const clickData = dummy.filter((item) => item.id === listId);
+  const clickData = list.filter((item) => item.id === listId);
   console.log(clickData);
   return (
     <>
@@ -95,8 +96,8 @@ const MonthlyDetail = () => {
           />
         </div>
         <div className="space-y-5">
-          {dummy.map((item) => {
-          {/* {list.map((item) => { */}
+          {/* {dummy.map((item) => { */}
+          {list.map((item) => {
             return (
               <ExpenseList
                 key={item.id}

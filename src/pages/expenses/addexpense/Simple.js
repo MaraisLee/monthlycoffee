@@ -8,9 +8,9 @@ import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
 import axios from "api/axios";
 import { useSelector } from "react-redux";
+import { getCookie } from "api/cookie";
 
 const Simple = ({ num, setNum }) => {
-  const userNo = useSelector((state) => state.user.id);
   const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
 
@@ -24,23 +24,21 @@ const Simple = ({ num, setNum }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
-      data: {
-        category: category,
-        brand: brand,
-        price: price,
-      },
+      date: date,
+      price: price,
+      category: category,
+      brand: brand,
     };
 
     console.log("정보", body);
     // .post("api/expenses?userNo=0" + userNo, body)
     axios
-      .post("expenses?userNo=2", body)
+      .post("expenses", body)
       .then((res) => {
         console.log(res);
         alert("지출이 입력되었습니다.");
       })
       .catch((err) => console.log(err));
-    console.log("데이터", e);
     console.log(brand);
     console.log(category);
     console.log(price);

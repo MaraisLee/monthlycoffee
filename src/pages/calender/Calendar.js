@@ -77,16 +77,6 @@ const Calender = () => {
         >
           이달의 커피
         </span>
-        {/* <div className="w-full">
-          <FullCalendar
-            defaultView="dayGridMonth"
-            plugins={[dayGridPlugin]}
-            events={[
-              { title: "event 1", date: "2023-02-01" },
-              { title: "event 2", date: "2023-02-06" },
-            ]}
-          />
-        </div> */}
         <div className="">
           <Calendar
             calendarType="US"

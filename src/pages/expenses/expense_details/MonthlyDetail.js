@@ -8,10 +8,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import MonthlyDetailCss from "styles/MonthlyDetailCss";
 import moment from "moment";
+import axios from "api/axios";
 const MonthlyDetail = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [listId, setListId] = useState("");
-  // const [list, setList] = useState([]);
+  const [list, setList] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
   const dummy = [
     {
       id: 1,
@@ -55,18 +57,18 @@ const MonthlyDetail = () => {
     },
   ];
   const userData = useSelector((state) => state.user);
-  // const getPosts = async () => {
-  //   const posts = await axios.get(
-  //     // `http://192.168.0.203:8080/api/expenses/${userData.id}?date=2302`
-  //     `http://192.168.0.203:8080/api/expenses/0?date=2302`
-  //   );
-  //   console.log(posts)
-  //   // setList(posts);
-  // };
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
-  const [startDate, setStartDate] = useState(new Date());
+  const getPosts = async () => {
+    const params = {
+      date: moment(startDate).format("YYMM"),
+    };
+    const posts = await axios.get("expenses", { params });
+    console.log(moment(startDate).format("YYMM"));
+    console.log(posts);
+    setList(posts.data);
+  };
+  useEffect(() => {
+    getPosts();
+  }, [startDate]);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input" onClick={onClick} ref={ref}>
       {value}
@@ -74,7 +76,8 @@ const MonthlyDetail = () => {
   ));
   // console.log(moment(startDate).format("YYMM"));
   // console.log(listId);
-  const clickData = dummy.filter((item) => item.id === listId);
+  // const clickData = dummy.filter((item) => item.id === listId);
+  const clickData = list.filter((item) => item.id === listId);
   console.log(clickData);
   return (
     <>
@@ -87,13 +90,14 @@ const MonthlyDetail = () => {
             showMonthYearPicker
             // readOnly
             todayButton="이달의 커피"
-            maxDate={new Date()}
+            // maxDate={new Date()}
             onChange={(date) => setStartDate(date)}
             customInput={<ExampleCustomInput />}
           />
         </div>
         <div className="space-y-5">
-          {dummy.map((item) => {
+          {/* {dummy.map((item) => { */}
+          {list.map((item) => {
             return (
               <ExpenseList
                 key={item.id}

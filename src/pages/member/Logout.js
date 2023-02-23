@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { logoutAccount } from "reducer/loggedState";
 import { removeCookie } from "api/cookie";
 import axios from "api/axios";
-
 const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ const Logout = () => {
         });
     });
   };
-
   const memberOut = () => {
     window.Kakao.API.request({
       url: "/v1/user/unlink",
@@ -50,7 +48,6 @@ const Logout = () => {
       },
     });
   };
-
   return (
     <div>
       <button onClick={kakaoLogOut}>카카오로그아웃</button>
@@ -58,5 +55,4 @@ const Logout = () => {
     </div>
   );
 };
-
 export default Logout;

@@ -5,7 +5,6 @@ import { loginAccount } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 import { setCookie } from "api/cookie";
-
 const Login = () => {
   const path = process.env.PUBLIC_URL;
   const dispatch = useDispatch();
@@ -13,7 +12,6 @@ const Login = () => {
   // Kakao 로그인
   // 등록된 앱의 JavaScript key
   const jsKey = process.env.REACT_APP_KAKAO;
-
   // SDK는 한 번만 초기화해야 한다.
   // 중복되는 초기화를 막기 위해 isInitialized()로 SDK 초기화 여부를 판단한다.
   if (!window.Kakao.isInitialized()) {
@@ -37,7 +35,6 @@ const Login = () => {
             // const kakao_account = res.kakao_account;
             // console.log("사용자 정보", kakao_account);
             console.log("카카오", res);
-
             const body = {
               uid: res.id,
               nickname: res.properties.nickname,
@@ -69,13 +66,11 @@ const Login = () => {
       },
     });
   };
-
   useEffect(() => {
     if (authenticated) {
       navigate("/home");
     }
   }, []);
-
   return (
     <div className="flex w-screen h-screen justify-center">
       <div className=" bg-black w-full flex-1 h-full justify-center">
@@ -101,5 +96,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

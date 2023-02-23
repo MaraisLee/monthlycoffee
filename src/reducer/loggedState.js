@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
   authenticated: false,
   id: "",
@@ -7,7 +6,6 @@ const initialState = {
   profileImage: "",
   refreshToken: "",
 };
-
 const loggedState = createSlice({
   name: "user",
   initialState: initialState,

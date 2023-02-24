@@ -12,11 +12,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutAccount } from "reducer/loggedState";
 import axios from "api/axios";
 import { removeCookie } from "api/cookie";
-
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const kakaoLogOut = () => {
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");

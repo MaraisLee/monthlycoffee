@@ -59,6 +59,7 @@ const EditInfo = () => {
         });
     }
   };
+  // const changeNickname = () => {};
   return (
     <div className="p-5">
       <span
@@ -119,5 +120,4 @@ const EditInfo = () => {
     </div>
   );
 };
-
 export default EditInfo;

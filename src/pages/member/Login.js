@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginAccount } from "reducer/loggedState";
+import { loginAccount, serverDataIn } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 import { setCookie } from "api/cookie";
@@ -44,12 +44,12 @@ const Login = () => {
             await axios
               .post("members", body)
               .then((res) => {
-                console.log("성공", res.headers);
+                console.log("성공", res);
                 const accessToken = res.headers.authorization;
-                const refreshToken = res.headers.refreshtoken;
-                console.log(refreshToken);
+                // const refreshToken = res.headers.refreshtoken;
+                // console.log(refreshToken);
                 setCookie("access_token", `${accessToken}`);
-                // dispatch(loginAccount(refreshToken));
+                dispatch(serverDataIn(res));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
               })

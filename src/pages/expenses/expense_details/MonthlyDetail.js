@@ -61,7 +61,16 @@ const MonthlyDetail = () => {
     const params = {
       date: moment(startDate).format("YYMM"),
     };
-    const posts = await axios.get("expenses", { params });
+    const posts = await axios.get(
+      "expenses",
+      { params }
+      // {
+      //   headers: {
+      //     Authorization:
+      //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzcxMzM2MjcsIm1lbWJlcklkIjoxfQ.xaFlziTbzhQTP5x8RphEQesVW-7688Ae3Vq6FSgKt_c",
+      //   },
+      // }
+    );
     console.log(moment(startDate).format("YYMM"));
     console.log(posts);
     setList(posts.data);

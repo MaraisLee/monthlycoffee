@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
+import { txtShadow, yellowcolor } from "utils/colors";
 
 export const CalendarDiv = styled.div`
+ display:flex;
+ justify-content: center;
   .react-calendar {
-    margin: 40px auto;
-    width: 80%;
+    margin: 60px auto;
+    width: 60%;
     background-color: #fff;
     color: #222;
     border-radius: 8px;
@@ -12,15 +15,16 @@ export const CalendarDiv = styled.div`
     line-height: 1.125em;
 
   .react-calendar__navigation {
-    color: #d4a713;
+    color: ${yellowcolor};
     min-width: 44px;
     background: none;
-    font-size: 20px;
     margin-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px;
+    padding-bottom:60px;
     button{
       display:block;
-      height: 30px;
+      font-size: 30px;
+      text-shadow: ${txtShadow};
     }
   }
 
@@ -34,15 +38,20 @@ export const CalendarDiv = styled.div`
   abbr[title] {
     text-decoration: none;
   }
-
-  /* .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
-   } */
-
+  .react-calendar__month-view__weekdays{
+    font-size:20px;
+    line-height:20px;
+  }
+  .react-calendar__month-view__days {
+    margin-top:15px;
+    button{
+      font-size:18px;
+      line-height:60px;
+    }
+  }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     background: #f8f8fa;
-
     border-radius: 6px;
   }
   // 오늘날짜
@@ -63,7 +72,6 @@ export const CalendarDiv = styled.div`
   .react-calendar__tile--hasActive:enabled:focus {
     background: #50da7e;
   }
-
   .react-calendar__tile--active {
     background: #50da7e;
     color: black;
@@ -81,7 +89,6 @@ export const CalendarDiv = styled.div`
 
   .react-calendar__tile--range {
     background: #f8f8fa;
-
     border-radius: 0;
   }
 
@@ -99,5 +106,10 @@ export const CalendarDiv = styled.div`
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     background: #d4a713;
+  }
+`;
+
+export const CalenderDetail = styled.div`
+  .calender-detail {
   }
 `;

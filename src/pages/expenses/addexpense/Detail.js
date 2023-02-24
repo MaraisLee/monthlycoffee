@@ -173,7 +173,7 @@ const Detail = ({ num, setNum }) => {
               maxLength="8"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              thousandSeparator=","
+              // thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;

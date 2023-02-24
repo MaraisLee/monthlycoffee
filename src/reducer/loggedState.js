@@ -14,10 +14,16 @@ const loggedState = createSlice({
       const data = action.payload;
       const profile = data.properties;
       state.authenticated = true;
-      state.id = data.id;
-      state.nickname = profile.nickname;
       state.profileImage = profile.profile_image;
-      state.refreshToken = data.refreshToken;
+      if (!state.nickname) {
+        state.nickname = profile.nickname;
+      }
+    },
+    serverDataIn: (state, action) => {
+      const data = action.payload;
+      state.refreshToken = data.headers.refreshtoken;
+      state.id = data.data.id;
+      state.nickname = data.data.nickname;
     },
     logoutAccount: (state, action) => {
       state.authenticated = false;
@@ -34,6 +40,11 @@ const loggedState = createSlice({
     // },
   },
 });
-export const { loginAccount, logoutAccount, refreshTokenIn, refreshTokenOut } =
-  loggedState.actions;
+export const {
+  loginAccount,
+  logoutAccount,
+  serverDataIn,
+  refreshTokenIn,
+  refreshTokenOut,
+} = loggedState.actions;
 export default loggedState;

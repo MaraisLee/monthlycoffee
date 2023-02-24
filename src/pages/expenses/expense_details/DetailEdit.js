@@ -6,6 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailEditCss from "styles/DetailEditCss";
+import axios from "api/axios";
 
 const schema = yup.object({
   price: yup.string().trim().required("금액을 입력해주세요."),
@@ -19,6 +20,39 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
   });
   const onSubmit = (data) => {
     console.log(data);
+    console.log(modalData.id);
+    const body = {
+      id: modalData.id,
+      category: data.category,
+      brand: data.brand,
+      price: data.price,
+      date: data.date,
+      // memo: null,
+      // tumbler: null,
+      // taste: null,
+      // mood: null,
+      // bean: null,
+      // likeHate: null,
+      // payment: null,
+      // images: [],
+    };
+    axios
+      .patch(
+        `expenses/${modalData.id}`,
+        // {
+        //   headers: {
+        //     Authorization:
+        //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzcxMzM2MjcsIm1lbWJlcklkIjoxfQ.xaFlziTbzhQTP5x8RphEQesVW-7688Ae3Vq6FSgKt_c",
+        //   },
+        // },
+        body
+      )
+      .then((res) => {
+        return console.log(res);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
   };
   return (
     <>

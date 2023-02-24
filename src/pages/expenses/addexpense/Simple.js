@@ -94,7 +94,7 @@ const Simple = () => {
               maxLength="8"
               placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
-              thousandSeparator=","
+              // thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;

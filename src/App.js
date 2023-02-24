@@ -12,7 +12,6 @@ import Calendar from "pages/calender/Calendar";
 import { useSelector } from "react-redux";
 import NotFound from "components/NotFound";
 import PrivateRoute from "components/PrivateRoute";
-
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const authenticated = useSelector((state) => state.user.authenticated);

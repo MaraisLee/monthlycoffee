@@ -5,7 +5,6 @@ import { Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
   const authenticated = useSelector((state) => state.user.authenticated);
-
   return authenticated ? (
     <Outlet />
   ) : (

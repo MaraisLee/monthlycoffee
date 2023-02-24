@@ -10,8 +10,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutAccount } from "reducer/loggedState";
-import axios from "api/axios";
-import { removeCookie } from "api/cookie";
+import axios from "axios";
+import { getCookie, removeCookie } from "api/cookie";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,22 +20,30 @@ const Sidebar = () => {
       console.log("Not logged in.");
       return;
     }
-    window.Kakao.Auth.logout(function (res) {
-      axios
-        .post("members/logout")
-        .then((res) => {
-          alert("로그아웃되었습니다.");
-          // window.location.href='/'
-          const uid = res.id;
-          removeCookie("access_token");
-          dispatch(logoutAccount(uid));
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("다시 로그아웃 해주세요.");
-        });
-    });
+
+    window.Kakao.Auth.logout(function (res) {});
+    // axios
+    //   .post("http://192.168.0.203:8080/api/members/logout", {
+    //     headers: { Authorization: getCookie("access_token") },
+    //   })
+    //   .then((res) => {
+    //     alert("로그아웃되었습니다.");
+    //     // window.location.href='/'
+    //     // const uid = res.id;
+    //     removeCookie("access_token");
+    //     dispatch(logoutAccount());
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert("다시 로그아웃 해주세요.");
+    //   });
+    alert("로그아웃되었습니다.");
+    //     // window.location.href='/'
+    //     // const uid = res.id;
+    removeCookie("access_token");
+    dispatch(logoutAccount());
+    navigate("/");
   };
   return (
     <div className="relative">

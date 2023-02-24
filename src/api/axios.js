@@ -4,6 +4,7 @@ import { getCookie, removeCookie, setCookie } from "./cookie";
 const instance = axios.create({
   baseURL: "http://192.168.0.203:8080/api/",
   params: {},
+  // timeout: 2500,
   headers: { Authorization: getCookie("access_token") },
 });
 
@@ -14,33 +15,33 @@ const instance = axios.create({
 //   async (error) => {
 //     // response에서 error가 발생했을 경우 catch로 넘어가기 전에 처리
 //     try {
-//       const errResponseStatus = error.response.status;
 //       const errResponseData = error.response.data;
 //       const prevRequest = error.config;
-
 //       // access token이 만료되어 발생하는 에러인 경우
 //       if (
 //         errResponseData.error?.message === "The access token expired" ||
-//         errResponseStatus === 401
+//         errResponseData.error?.status === "401 UNAUTHORIZED"
 //       ) {
-//         const preRefreshToken = getCookie("access_token");
+//         console.log("오류넘어오니", errResponseData.error?.message);
+//         const preRefreshToken = getCookie("refresh_token");
 //         if (preRefreshToken) {
 //           // refresh token을 이용하여 access token 재발급
 //           async function regenerateToken() {
 //             return await axios
-//               .post("reissue-token", {
-//                 refresh_token: preRefreshToken,
+//               .post("http://192.168.0.203:8080/api/reissue-token", {
+//                 headers: {
+//                   RefreshToken: preRefreshToken,
+//                 },
 //               })
 //               .then(async (res) => {
 //                 console.log("결과", res);
-//                 const { access_token, refresh_token } = res.data;
 //                 // 새로 받은 token들 저장
-//                 setCookie("access_token", `${access_token}`);
-//                 setCookie("refresh_token", `${refresh_token}`);
-
+//                 const accessToken = res.headers.authorization;
+//                 const refreshToken = res.headers.refreshtoken;
+//                 setCookie("access_token", { accessToken });
+//                 setCookie("refresh_token", { refreshToken });
 //                 // header 새로운 token으로 재설정
-//                 prevRequest.headers.Authorization = `Bearer ${access_token}`;
-
+//                 prevRequest.headers.Authorization = { accessToken };
 //                 // 실패했던 기존 request 재시도
 //                 return await axios(prevRequest);
 //               })

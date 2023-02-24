@@ -61,6 +61,7 @@ const Detail = ({ num, setNum }) => {
 
   // 이미지 업로드 및 미리보기
   const [imgFile, setImgFile] = useState("");
+  const [img, setImg] = useState("");
   const imgRef = useRef(null);
   const onChangeImg = async (e) => {
     e.preventDefault();
@@ -70,8 +71,8 @@ const Detail = ({ num, setNum }) => {
       // files는 배열에 담긴다.
       // file 이 1개 이므로 e.target.files[0]
       const uploadFile = e.target.files[0];
-      console.log(uploadFile);
-
+      console.log("파일", uploadFile);
+      setImg(uploadFile);
       // 이미지를 읽어들이는 바닐라 함수
       const reader = new FileReader();
       reader.readAsDataURL(uploadFile);
@@ -98,7 +99,8 @@ const Detail = ({ num, setNum }) => {
   const [price, setPrice] = useState("");
 
   const onSubmit = async (data) => {
-    console.log(imgFile);
+    console.log("버튼", img);
+
     const body = {
       payment: data.payment,
       date: data.date,
@@ -112,19 +114,32 @@ const Detail = ({ num, setNum }) => {
       bean: data.bean,
       likeHate: data.likeHate,
     };
-    console.log("바디", body);
-    await axios
-      .post("expenses", body)
-      .then((res) => {
-        console.log("id:", res.data.id);
 
-        // const formData = new FormData();
-        // formData.append("files", event.target.files[0]);
-        // const response = await axios.post(`expenses/${res.data.id}/image`, formData)
+    await axios
+      .post("expenses", body, {
+        headers: { Authorization: getCookie("access_token") },
+      })
+      .then((res) => {
+        const expenseId = res.data.id;
+        const formData = new FormData();
+        formData.append("file", img);
+        axios({
+          method: "post",
+          url: `expenses/${expenseId}/image`,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: getCookie("access_token"),
+          },
+        });
         // axios
-        //   .post(`expenses/280/image`, imgFile)
+        //   .post(`expenses/${expenseId}/image`, img)
         //   .then((res) => console.log("파일전송성공", res))
         //   .catch((err) => console.log(err));
+
+        // 실제 서버가 있을 경우 여기서 전송 후 다시 받아옴
+        // const formData = new FormData();
+        // formData.append("files", uploadFile);
         // await axios({
         //   method: "post",
         //   url: "/api/files/images",
@@ -133,7 +148,7 @@ const Detail = ({ num, setNum }) => {
         //     "Content-Type": "multipart/form-data",
         //   },
         // });
-        console.log("지출입력 데이터", res);
+        // console.log("지출입력 데이터", res);
         alert("지출이 입력되었습니다.");
         navigate("/expense");
       })

@@ -15,6 +15,7 @@ import SwiperCategory from "./SwiperCategory";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
 import axios from "api/axios";
+import { getCookie } from "api/cookie";
 
 const Simple = () => {
   const navigate = useNavigate();
@@ -37,13 +38,19 @@ const Simple = () => {
 
     console.log("정보", body);
     axios
-      .post("expenses", body)
+      .post("expenses", body, {
+        headers: { Authorization: getCookie("access_token") },
+      })
       .then((res) => {
         console.log(res);
+        const errResponseData = res.status;
+        console.log(errResponseData);
         alert("지출이 입력되었습니다.");
         navigate("/expense");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // defaultValue 오늘 나오게

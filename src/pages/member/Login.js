@@ -47,8 +47,13 @@ const Login = () => {
                 console.log("성공", res);
                 const accessToken = res.headers.authorization;
                 // const refreshToken = res.headers.refreshtoken;
+                // const tokens = {
+                //   access_token: accessToken,
+                //   refresh_token: refreshToken,
+                // };
                 // console.log(refreshToken);
-                setCookie("access_token", `${accessToken}`);
+                setCookie("access_token", accessToken);
+                // setCookie("tokens", tokens);
                 dispatch(serverDataIn(res));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");

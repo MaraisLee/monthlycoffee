@@ -23,32 +23,25 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
     console.log(modalData.id);
     const body = {
       id: modalData.id,
+      payment: data.payment,
+      date: data.date,
       category: data.category,
       brand: data.brand,
       price: data.price,
-      date: data.date,
-      // memo: null,
-      // tumbler: null,
-      // taste: null,
-      // mood: null,
-      // bean: null,
-      // likeHate: null,
-      // payment: null,
-      // images: [],
+      memo: data.memo,
+      tumbler: null,
+      taste: data.taste,
+      mood: data.mood,
+      bean: data.bean,
+      likeHate: data.likeHate,
+      images: [],
     };
     axios
-      .patch(
-        `expenses/${modalData.id}`,
-        // {
-        //   headers: {
-        //     Authorization:
-        //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzcxMzM2MjcsIm1lbWJlcklkIjoxfQ.xaFlziTbzhQTP5x8RphEQesVW-7688Ae3Vq6FSgKt_c",
-        //   },
-        // },
-        body
-      )
+      .patch(`expenses/${modalData.id}`, body)
       .then((res) => {
-        return console.log(res);
+        console.log(res);
+        setModalIsOpen(false);
+        setEdit(false);
       })
       .catch((err) => {
         return console.log(err);
@@ -167,6 +160,23 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
               </FormControl>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
                 <InputLabel id="demo-simple-select-standard-label">
+                  Tumbler
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  defaultValue={modalData.tumbler}
+                  // value={beanType}
+                  // onChange={(e) => setPayment(e.target.value)}
+                  label="Tumbler"
+                  {...register("tumbler")}
+                >
+                  <MenuItem value="0">사용안함</MenuItem>
+                  <MenuItem value="1">사용</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+                <InputLabel id="demo-simple-select-standard-label">
                   Taste
                 </InputLabel>
                 <Select
@@ -232,7 +242,7 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
           </div>
           <hr className=" border-black border-dashed" />
           <div className="flex justify-around text-xl font-bold mt-5">
-            <button onClick={() => setEdit(!edit)}>취소</button>
+            <button onClick={() => setEdit(false)}>취소</button>
             <button type="submit">수정</button>
           </div>
         </form>

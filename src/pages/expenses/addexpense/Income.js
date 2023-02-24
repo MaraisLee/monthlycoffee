@@ -6,47 +6,38 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Switch,
   Typography,
 } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 import { txtShadow, yellowcolor } from "utils/colors";
-import SwiperBrand from "./SwiperBrand";
-import SwiperCategory from "./SwiperCategory";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
 import axios from "api/axios";
+import { InputDiv } from "styles/AddEXpenseCss";
 
 const Income = ({ num, setNum }) => {
   const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
-
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [note, setNote] = useState("");
 
-  // const handleChange = (e) => {
-  //   setDate(e.target.value);
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
-      category: category,
-      brand: brand,
-      price: price,
+      amount: price,
+      note: note,
+      date: date,
     };
 
-    // console.log("정보", body);
-    // // .post("api/expenses?userNo=0" + userNo, body)
-    // axios
-    //   .post("expenses?userNo=2", body)
-    //   .then((res) => {
-    //     console.log(res);
-    //     alert("지출이 입력되었습니다.");
-    //   })
-    //   .catch((err) => console.log(err));
+    console.log("정보", body);
+    axios
+      .post("incomes", body)
+      .then((res) => {
+        console.log(res);
+        alert("등록이 완료되었습니다..");
+      })
+      .catch((err) => console.log(err));
 
-    // alert("등록이 완료되었습니다.");
     // navigate("/expense");
   };
 
@@ -57,23 +48,7 @@ const Income = ({ num, setNum }) => {
 
   return (
     <>
-      <Card variant="outlined" className="p-10">
-        <div className="flex justify-between mb-2">
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-standard-label">
-              Payment
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              label="Payment"
-              defaultValue="0"
-            >
-              <MenuItem value="0">카드</MenuItem>
-              <MenuItem value="1">현금</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+      <Card variant="outlined" className="p-10 mt-5">
         <CardContent component="form" onSubmit={handleSubmit}>
           <input
             type="date"
@@ -99,17 +74,23 @@ const Income = ({ num, setNum }) => {
               maxLength="8"
               placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
-              thousandSeparator=","
+              // thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
               }}
             />
           </div>
-          <GreenBt
-            type="submit"
-            style={{ alignSelf: "flex-end", marginTop: 40 }}
-          >
+          <InputDiv>
+            <textarea
+              cols="30"
+              rows="3"
+              placeholder="내용을 입력해주세요."
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            />
+          </InputDiv>
+          <GreenBt type="submit" style={{ textAlign: "", marginTop: 40 }}>
             등록
           </GreenBt>
         </CardContent>

@@ -23,6 +23,7 @@ import RadioGroup from "@mui/joy/RadioGroup";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "api/cookie";
 
 const Detail = ({ num, setNum }) => {
   const { register, handleSubmit } = useForm({
@@ -96,8 +97,8 @@ const Detail = ({ num, setNum }) => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
-  const onSubmit = (data) => {
-  
+  const onSubmit = async (data) => {
+    console.log(imgFile);
     const body = {
       payment: data.payment,
       date: data.date,
@@ -112,20 +113,29 @@ const Detail = ({ num, setNum }) => {
       likeHate: data.likeHate,
     };
     console.log("바디", body);
-    axios
+    await axios
       .post("expenses", body)
       .then((res) => {
-        console.log("반응", res);
         console.log("id:", res.data.id);
-        // if (!res.id === "") {
-          // axios
-          //   .post(`expenses/${res.data.id}`, data.file)
-          //   .then((res) => console.log("파일전송성공", res))
-          //   .catch((err) => console.log(err));
-          // console.log("지출입력 데이터", res);
-          // alert("지출이 입력되었습니다.");
-          // navigate("/expense");
-        // }
+
+        // const formData = new FormData();
+        // formData.append("files", event.target.files[0]);
+        // const response = await axios.post(`expenses/${res.data.id}/image`, formData)
+        // axios
+        //   .post(`expenses/280/image`, imgFile)
+        //   .then((res) => console.log("파일전송성공", res))
+        //   .catch((err) => console.log(err));
+        // await axios({
+        //   method: "post",
+        //   url: "/api/files/images",
+        //   data: formData,
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // });
+        console.log("지출입력 데이터", res);
+        alert("지출이 입력되었습니다.");
+        navigate("/expense");
       })
       .catch((err) => {
         console.log(err);
@@ -173,7 +183,7 @@ const Detail = ({ num, setNum }) => {
               maxLength="8"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              thousandSeparator=","
+              // thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
@@ -207,7 +217,6 @@ const Detail = ({ num, setNum }) => {
               // onChange={(e) => console.log(e.target.files[0])}
               onInput={onChangeImg}
               ref={imgRef}
-              {...register("file")}
             />
           </InputDiv>
           <Typography

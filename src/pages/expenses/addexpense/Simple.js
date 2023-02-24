@@ -23,13 +23,12 @@ const Simple = () => {
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [payment, setPayment] = useState(0);
 
-  // const handleChange = (e) => {
-  //   setDate(e.target.value);
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
+      payment: payment,
       date: date,
       price: price,
       category: category,
@@ -63,10 +62,10 @@ const Simple = () => {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             label="Payment"
-            defaultValue="0"
+            onChange={(e) => setPayment(e.target.value)}
           >
-            <MenuItem value="0">카드</MenuItem>
-            <MenuItem value="1">현금</MenuItem>
+            <MenuItem value={0}>카드</MenuItem>
+            <MenuItem value={1}>현금</MenuItem>
           </Select>
         </FormControl>
         <CardContent component="form" onSubmit={handleSubmit}>
@@ -94,7 +93,7 @@ const Simple = () => {
               maxLength="8"
               placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
-              thousandSeparator=","
+              // thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;

@@ -49,7 +49,7 @@ const Login = () => {
                 const refreshToken = res.headers.refreshtoken;
                 console.log(refreshToken);
                 setCookie("access_token", `${accessToken}`);
-                dispatch(loginAccount(refreshToken));
+                // dispatch(loginAccount(refreshToken));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
               })

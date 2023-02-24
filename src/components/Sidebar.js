@@ -10,25 +10,32 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutAccount } from "reducer/loggedState";
-
+import axios from "api/axios";
+import { removeCookie } from "api/cookie";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const kakaoLogOut = () => {
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
       return;
     }
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      window.Kakao.Auth.logout(function (res) {
-        alert("로그아웃되었습니다.");
-        // window.location.href='/'
-        const uid = res.id;
-        dispatch(logoutAccount(uid));
-        navigate("/");
-      });
-    }
+    window.Kakao.Auth.logout(function (res) {
+      axios
+        .post("members/logout")
+        .then((res) => {
+          alert("로그아웃되었습니다.");
+          // window.location.href='/'
+          const uid = res.id;
+          removeCookie("access_token");
+          dispatch(logoutAccount(uid));
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("다시 로그아웃 해주세요.");
+        });
+    });
   };
   return (
     <div className="relative">

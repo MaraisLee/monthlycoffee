@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 
 const instance = axios.create({

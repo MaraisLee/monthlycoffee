@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "api/axios";
 import moment from "moment";
+import IncomeList from "./IncomeList";
 
 const IncomeBox = ({ startDate }) => {
   const [list, setList] = useState([]);
@@ -9,20 +10,20 @@ const IncomeBox = ({ startDate }) => {
 
   const getPosts = async () => {
     const params = {
-      date: moment(startDate).format("YYYY-MM"),
+      date: moment(startDate).format("YYMM"),
     };
-    const posts = await axios.get("expenses", { params });
-    console.log(posts);
-    setList(posts.data);
+    const posts = await axios.get("incomes/list", { params });
+    console.log(posts.data[0].income);
+    setList(posts.data[0].income);
   };
   useEffect(() => {
     getPosts();
   }, []);
-  const clickData = list.filter((item) => item.id === listId);
+  // const clickData = list.filter((item) => item.id === listId);
 
   return (
     <>
-      {/* <div className="space-y-5">
+      <div className="space-y-5">
         {list
           .sort((a, b) => {
             if (a.date > b.date) return -1;
@@ -31,7 +32,7 @@ const IncomeBox = ({ startDate }) => {
           })
           .map((item) => {
             return (
-              <ExpenseList
+              <IncomeList
                 key={item.id}
                 item={item}
                 setModalIsOpen={setModalIsOpen}
@@ -39,7 +40,7 @@ const IncomeBox = ({ startDate }) => {
               />
             );
           })}
-      </div> */}
+      </div>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Close, DeleteForever } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -7,20 +7,101 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailEditCss from "styles/DetailEditCss";
 import axios from "api/axios";
+import { getCookie } from "api/cookie";
 
-const schema = yup.object({
-  price: yup.string().trim().required("금액을 입력해주세요."),
-  memo: yup.string().trim().required("내용을 입력해주세요."),
-});
-
-const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
+const DetailEdit = ({
+  modalData,
+  updateBt,
+  setUpdateBt,
+  setModalIsOpen,
+  edit,
+  setEdit,
+}) => {
   const { register, handleSubmit } = useForm({
     // resolver: yupResolver(schema),
     mode: "onChange", // mode 가 onChange 면 실행하라..
   });
+  console.log(modalData);
+  const [imgSrc, setImgSrc] = useState("");
+  const price = [modalData.price]
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // console.log(modalData.images[0].filename);
+  const getImg = () => {
+    // console.log(modalData.images.length);
+    if (modalData.images.length > 0) {
+      const imgName = modalData.images[0].filename;
+      axios
+        .get(`expenses/image/${imgName}`)
+        .then((res) => {
+          // console.log(res);
+          setImgSrc(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  useEffect(() => {
+    getImg();
+  }, []);
+  useEffect(() => {
+    getImg();
+  }, [updateBt]);
+
+  // 이미지 업로드 및 미리보기
+  const [imgFile, setImgFile] = useState("");
+  const [img, setImg] = useState("");
+  const imgRef = useRef(null);
+  const path = process.env.PUBLIC_URL;
+  const onChangeImg = async (e) => {
+    e.preventDefault();
+    // 미리보기 기능
+    if (e.target.files) {
+      // files는 배열에 담긴다.
+      // file 이 1개 이므로 e.target.files[0]
+      const uploadFile = e.target.files[0];
+      console.log("파일", uploadFile);
+      setImg(uploadFile);
+      // 이미지를 읽어들이는 바닐라 함수
+      const reader = new FileReader();
+      reader.readAsDataURL(uploadFile);
+      reader.onloadend = () => {
+        // 임시 이미지가 만들어진다.
+        // useState 입니다.
+        setImgFile(reader.result);
+      };
+    }
+  };
+
+  const deleteExpense = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios
+        .delete(`expenses/${modalData.id}`)
+        .then((res) => {
+          console.log(res);
+          setUpdateBt(++updateBt);
+          setModalIsOpen(false);
+          alert("삭제되었습니다.");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  const deleteImg = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      const imgName = modalData.images[0].filename;
+      axios
+        .delete(`expenses/image/${imgName}`)
+        .then((res) => {
+          console.log(res);
+          setUpdateBt(++updateBt);
+          alert("삭제되었습니다.");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   const onSubmit = (data) => {
     console.log(data);
-    console.log(modalData.id);
+    // console.log(modalData.id);
     const body = {
       id: modalData.id,
       payment: data.payment,
@@ -28,18 +109,31 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
       category: data.category,
       brand: data.brand,
       price: data.price,
-      memo: data.memo,
-      tumbler: null,
-      taste: data.taste,
-      mood: data.mood,
-      bean: data.bean,
-      likeHate: data.likeHate,
-      images: [],
+      memo: data.memo === "" ? modalData.memo : data.memo,
+      // tumbler: data.tumbler === "" ? modalData.tumbler : data.tumbler,
+      taste: data.taste === "" ? modalData.taste : data.taste,
+      mood: data.mood === "" ? modalData.mood : data.mood,
+      bean: data.bean === "" ? modalData.bean : data.bean,
+      likeHate: data.likeHate === "" ? modalData.likeHate : data.likeHate,
+      // images: [],
     };
+    console.log(body);
     axios
       .patch(`expenses/${modalData.id}`, body)
       .then((res) => {
         console.log(res);
+        const expenseId = res.data.id;
+        const formData = new FormData();
+        formData.append("file", img);
+        axios({
+          method: "post",
+          url: `expenses/${expenseId}/image`,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: getCookie("access_token"),
+          },
+        });
         setModalIsOpen(false);
         setEdit(false);
       })
@@ -51,7 +145,10 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
     <>
       <DetailEditCss>
         <div className="flex justify-between gap-5 mb-5">
-          <DeleteForever style={{ fontSize: 30, cursor: "pointer" }} />
+          <DeleteForever
+            style={{ fontSize: 30, cursor: "pointer" }}
+            onClick={deleteExpense}
+          />
           <Close
             style={{ fontSize: 30, cursor: "pointer" }}
             onClick={() => setModalIsOpen(false)}
@@ -61,7 +158,7 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
           <div className="flex justify-between">
             <div className="flex items-center">
               <span>지출 - </span>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Payment
                 </InputLabel>
@@ -85,11 +182,41 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
               />
             </div>
           </div>
-          <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p>
-          <hr className="border-black border-dashed" />
-          <div className="m-5 flex justify-between items-center text-2xl">
-            <div className="flex flex-col items-center">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <p className="my-5 text-3xl font-bold text-center">MONTHLY COFFEE</p>
+          {imgSrc ? (
+            <div className="flex justify-center items-center gap-2">
+              <img
+                className="w-1/4"
+                // src={imgSrc}
+                src="./images/coffee.jpg"
+                alt="pic"
+              />
+              <span className="text-red-800 font-bold cursor-pointer" onClick={deleteImg}>
+                삭제
+              </span>
+            </div>
+          ) : (
+            <div className="uploadImg">
+              <label htmlFor="ex_file">
+                <img src={imgFile} alt="" />
+                <img src={`${path}/images/camera.png`} alt="img" />
+              </label>
+              <input
+                type="file"
+                id="ex_file"
+                accept="image/*"
+                multiple
+                // onChange={(e) => console.log(e.target.files[0])}
+                onInput={onChangeImg}
+                ref={imgRef}
+              />
+            </div>
+          )}
+
+          <hr className="mt-2 border-black border-dashed" />
+          <div className="m-5 flex justify-between items-center text-lg">
+            <div className="flex flex-col gap-1 w-[45%] items-center">
+              {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Category
                 </InputLabel>
@@ -125,40 +252,36 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   <MenuItem value="이디야">이디야</MenuItem>
                   <MenuItem value="빽다방">빽다방</MenuItem>
                 </Select>
-              </FormControl>
-            </div>
-            <span className="font-bold">
+              </FormControl> */}
               <input
-                className="price"
+                className="border w-full"
+                type="text"
+                defaultValue={modalData.category}
+                required
+                {...register("category")}
+              />
+              <input
+                className="border w-full"
+                type="text"
+                defaultValue={modalData.brand}
+                required
+                {...register("brand")}
+              />
+            </div>
+            <div className="flex w-[40%]">
+              <input
+                className="border w-full"
                 type="text"
                 defaultValue={modalData.price}
                 {...register("price")}
               />
               원
-            </span>
+            </div>
           </div>
           <hr className=" border-black border-dashed" />
           <div className="my-5 flex flex-col gap-3">
-            <div className="flex">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Total Rate
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  defaultValue={modalData.likeHate}
-                  // value={beanType}
-                  // onChange={(e) => setPayment(e.target.value)}
-                  label="TotalRate"
-                  {...register("totalrate")}
-                >
-                  <MenuItem value="LIKE">좋아요</MenuItem>
-                  <MenuItem value="SOSO">무난해요</MenuItem>
-                  <MenuItem value="HATE">싫어요</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+            <div className="flex justify-around flex-wrap">
+              {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Tumbler
                 </InputLabel>
@@ -171,11 +294,12 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   label="Tumbler"
                   {...register("tumbler")}
                 >
-                  <MenuItem value="0">사용안함</MenuItem>
-                  <MenuItem value="1">사용</MenuItem>
+                  <MenuItem value={null}>없음</MenuItem>
+                  <MenuItem value="false">사용안함</MenuItem>
+                  <MenuItem value="true">사용</MenuItem>
                 </Select>
-              </FormControl>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+              </FormControl> */}
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Taste
                 </InputLabel>
@@ -188,12 +312,13 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   label="Taste"
                   {...register("taste")}
                 >
+                  <MenuItem value={null}>없음</MenuItem>
                   <MenuItem value="SOUR">신맛</MenuItem>
                   <MenuItem value="SWEET">단맛</MenuItem>
                   <MenuItem value="SAVORY">고소한맛</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Mood
                 </InputLabel>
@@ -206,12 +331,13 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   label="Mood"
                   {...register("mood")}
                 >
+                  <MenuItem value={null}>없음</MenuItem>
                   <MenuItem value="WORK">Work</MenuItem>
                   <MenuItem value="TALK">Talk</MenuItem>
                   <MenuItem value="SELFIE">Selfie</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 70 }}>
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Bean Type
                 </InputLabel>
@@ -222,6 +348,7 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   label="BeanType"
                   {...register("bean")}
                 >
+                  <MenuItem value={null}>없음</MenuItem>
                   <MenuItem value="BRAZIL">브라질</MenuItem>
                   <MenuItem value="GUATEMALA">과테말라</MenuItem>
                   <MenuItem value="COLOMBIA">콜롬비아</MenuItem>
@@ -230,11 +357,30 @@ const DetailEdit = ({ modalData, setModalIsOpen, edit, setEdit }) => {
                   <MenuItem value="VIETNAM">베트남</MenuItem>
                 </Select>
               </FormControl>
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Total Rate
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  defaultValue={modalData.likeHate}
+                  // value={beanType}
+                  // onChange={(e) => setPayment(e.target.value)}
+                  label="TotalRate"
+                  {...register("likeHate")}
+                >
+                  <MenuItem value={null}>없음</MenuItem>
+                  <MenuItem value="LIKE">좋아요</MenuItem>
+                  <MenuItem value="SOSO">무난해요</MenuItem>
+                  <MenuItem value="HATE">싫어요</MenuItem>
+                </Select>
+              </FormControl>
             </div>
             <textarea
-              className="memo"
+              className="memo px-3 py-1"
               rows="3"
-              defaultValue={modalData.memo}
+              defaultValue={modalData.memo ? modalData.memo : undefined}
               placeholder="내용을 입력해주세요."
               // ref={textareaEdit}
               {...register("memo")}

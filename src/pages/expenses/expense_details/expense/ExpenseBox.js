@@ -3,11 +3,13 @@ import moment from "moment";
 import axios from "api/axios";
 import ExpenseList from "./ExpenseList";
 import ExpDetailModal from "./ExpDetailModal";
+import NoList from "../NoList";
 
 const ExpenseBox = ({ startDate }) => {
   const [list, setList] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [listId, setListId] = useState("");
+  const [updateBt, setUpdateBt] = useState(1);
 
   const getPosts = async () => {
     const params = {
@@ -15,38 +17,49 @@ const ExpenseBox = ({ startDate }) => {
     };
     const posts = await axios.get("expenses", { params });
     console.log(moment(startDate).format("YYMM"));
-    console.log(posts);
+    // console.log(posts);
     setList(posts.data);
   };
   useEffect(() => {
     getPosts();
-  }, [startDate, modalIsOpen]);
+  }, []);
+  useEffect(() => {
+    getPosts();
+  }, [startDate, modalIsOpen, updateBt]);
   const clickData = list.filter((item) => item.id === listId);
-
+  // console.log(list);
   return (
     <>
       <div className="space-y-5">
-        {list
-          .sort((a, b) => {
-            if (a.date > b.date) return -1;
-            if (a.date < b.date) return 1;
-            return 0;
-          })
-          .map((item) => {
-            return (
-              <ExpenseList
-                key={item.id}
-                item={item}
-                setModalIsOpen={setModalIsOpen}
-                setListId={setListId}
-              />
-            );
-          })}
+        {list.length > 1 ? (
+          list
+            .sort((a, b) => {
+              if (a.date > b.date) return -1;
+              if (a.date < b.date) return 1;
+              return 0;
+            })
+            .map((item) => {
+              return (
+                <ExpenseList
+                  key={item.id}
+                  item={item}
+                  setModalIsOpen={setModalIsOpen}
+                  setListId={setListId}
+                  updateBt={updateBt}
+                  setUpdateBt={setUpdateBt}
+                />
+              );
+            })
+        ) : (
+          <NoList />
+        )}
       </div>
       <ExpDetailModal
         clickData={clickData}
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
+        updateBt={updateBt}
+        setUpdateBt={setUpdateBt}
       />
     </>
   );

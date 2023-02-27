@@ -12,6 +12,7 @@ const Community = () => {
   const [listDetail, setListDetail] = useState([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
+  const [like, setLike] = useState(false);
 
   const getPosts = async () => {
     const params = {
@@ -28,7 +29,7 @@ const Community = () => {
   }, []);
   useEffect(() => {
     getPosts();
-  }, [page]);
+  }, [page, like]);
   // console.log(list);
 
   const handlePageChange = (value) => {
@@ -57,6 +58,7 @@ const Community = () => {
                 item={item}
                 setModalIsOpen={setModalIsOpen}
                 setListDetail={setListDetail}
+                like={like}
               />
             ))}
         </div>
@@ -65,6 +67,8 @@ const Community = () => {
         listDetail={listDetail}
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
+        like={like}
+        setLike={setLike}
       />
       <div className="flex justify-center">
         <ListPagination

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 import axios from "api/axios";
 
-const CommunityPost = ({ item, setModalIsOpen, setListDetail }) => {
-  console.log(item);
+const CommunityPost = ({ item, like, setModalIsOpen, setListDetail }) => {
+  // console.log(item);
   const [imgSrc, setImgSrc] = useState("");
   const getImg = async () => {
     // console.log(modalData.images.length);
@@ -44,7 +44,7 @@ const CommunityPost = ({ item, setModalIsOpen, setListDetail }) => {
       }}
     >
       <img
-        className="absolute inset-0 w-full h-full object-cover transition duration-500"
+        className="absolute inset-0 w-full h-full transition duration-500"
         src={imgSrc}
         // src="./images/coffee.jpg"
         alt="pic"

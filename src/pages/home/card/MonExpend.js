@@ -1,11 +1,38 @@
 import { Paid } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { txtShadow } from "utils/colors";
+import axios from "api/axios";
+import moment from "moment";
 
 const MonExpend = () => {
+  const [monExp, setMonExp] = useState("");
+  const getPosts = async () => {
+    const params = {
+      startDate: moment(new Date()).format("YYMM"),
+      endDate: moment(new Date()).format("YYMM"),
+    };
+    await axios
+      .get("expenses/total", { params })
+      .then((res) => {
+        console.log(res.data);
+        setMonExp(
+          [res.data.totalExpense]
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
+  // console.log(monExp);
   return (
-    <div className="flex justify-between items-center bg-[#F8F8E5] p-10 border border-black md:row-span-2">
-      <div className="flex flex-col text-center gap-2">
+    <div className="flex flex-col gap-5 justify-center items-center bg-[#F8F8E5] p-10 border border-black md:row-span-2">
+      <span className="text-[#7A605B]">
+        <Paid style={{ fontSize: "55" }} />
+      </span>
+      <div className="flex flex-col items-center gap-2">
         <span
           className="text-xl font-semibold text-white"
           style={{ textShadow: `${txtShadow}` }}
@@ -16,12 +43,9 @@ const MonExpend = () => {
           className="text-3xl text-center text-yellow-300"
           style={{ textShadow: `${txtShadow}` }}
         >
-          100,000원
+          {monExp}원
         </span>
       </div>
-      <span className="text-[#7A605B]">
-        <Paid style={{ fontSize: "55" }} />
-      </span>
     </div>
   );
 };

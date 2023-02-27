@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import ExpenseDetailsCss from "styles/ExpenseDetailsCss";
 import { txtShadow } from "utils/colors";
 import MonthlyDetail from "./MonthlyDetail";
-import Statistics from "./Statistics";
+import Statistics from "./statistics/Statistics";
 
 const ExpenseDetails = () => {
   const [page, setPage] = useState(true);

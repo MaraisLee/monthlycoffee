@@ -41,16 +41,7 @@ const EditInfo = () => {
     };
     if (body.nickname) {
       axios
-        .patch(
-          `members/${userData.id}`,
-          // {
-          //   headers: {
-          //     Authorization:
-          //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzcxNDI4ODgsIm1lbWJlcklkIjoxfQ.s-WtKgtgxrjfVw9pX1k9kGhLSPT4sMKkInT9GPGYnzw",
-          //   },
-          // },
-          body
-        )
+        .patch(`members/${userData.id}`, body)
         .then((res) => {
           return console.log(res);
         })

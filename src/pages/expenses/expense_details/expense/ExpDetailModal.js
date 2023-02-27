@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import DetailEdit from "./DetailEdit";
 import DetailInfo from "./DetailInfo";
-const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
+const ExpDetailModal = ({
+  clickData,
+  updateBt,
+  setUpdateBt,
+  modalIsOpen,
+  setModalIsOpen,
+}) => {
   const [edit, setEdit] = useState(false);
+  const [openCommu, setOpenCommu] = useState(false);
   const customStyles = {
     overlay: {
       position: "fixed",
@@ -30,14 +37,20 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
     <Modal
       isOpen={modalIsOpen}
       ariaHideApp={false}
-      onRequestClose={() => setModalIsOpen(false)}
+      onRequestClose={() => {
+        setModalIsOpen(false);
+        setEdit(false);
+        setOpenCommu(false);
+      }}
       style={customStyles}
     >
-      <div className="bg-stone-100 p-10">
+      <div className="bg-stone-100 p-7 overflow-x-auto">
         {edit ? (
           <DetailEdit
             modalData={modalData}
             setModalIsOpen={setModalIsOpen}
+            updateBt={updateBt}
+            setUpdateBt={setUpdateBt}
             edit={edit}
             setEdit={setEdit}
           />
@@ -47,6 +60,8 @@ const ExpDetailModal = ({ clickData, modalIsOpen, setModalIsOpen }) => {
             setModalIsOpen={setModalIsOpen}
             edit={edit}
             setEdit={setEdit}
+            openCommu={openCommu}
+            setOpenCommu={setOpenCommu}
           />
         )}
       </div>

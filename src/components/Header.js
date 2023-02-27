@@ -4,19 +4,20 @@ import {
   Logout,
 } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { GreenBt } from "utils/basicCss";
 import { txtShadow } from "utils/colors";
 import { logoutAccount } from "reducer/loggedState";
 import { removeCookie } from "api/cookie";
+import axios from "api/axios";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
-  console.log(userData);
+  // 카카오 로그아웃
   const kakaoLogOut = () => {
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
@@ -47,6 +48,34 @@ const Header = () => {
     dispatch(logoutAccount());
     navigate("/");
   };
+
+  // 텀블러 랭킹
+  const [tumblerRank, setTumblerRank] = useState("");
+  const getTumblerRank = async () => {
+    const rank = await axios.get("expenses/rank");
+    // console.log(rank.data);
+    const myRank = rank.data.filter(
+      (item) => item.nickname === userData.nickname
+    );
+
+    setTumblerRank(myRank[0]);
+    // setLists(expenses[0]);
+  };
+  useEffect(() => {
+    getTumblerRank();
+  }, []);
+
+  let rankColor = null;
+  if (tumblerRank.grade === "GrandMaster") {
+    rankColor = "green";
+  } else if (tumblerRank.grade === "Gold") {
+    rankColor = "gold";
+  } else if (tumblerRank.grade === "Silver") {
+    rankColor = "gray";
+  } else if (tumblerRank.grade === "Bronze") {
+    rankColor = "brown";
+  }
+  console.log(rankColor);
   return (
     <header className="flex justify-between items-center px-5 w-full h-[15vh] bg-white border-b border-black">
       <div className="flex items-center">
@@ -66,9 +95,21 @@ const Header = () => {
           >
             {userData.nickname}
           </span>
+          <span
+            style={{
+              color: `${rankColor}`,
+              paddingLeft: 15,
+              fontSize: 20,
+              fontWeight: 600,
+              textShadow:
+                "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+            }}
+          >
+            {tumblerRank.grade}
+          </span>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-10">
         <Link to="/addexpense" className="hidden md:block">
           <GreenBt>+ 입력</GreenBt>
         </Link>
@@ -80,10 +121,10 @@ const Header = () => {
         </div>
         <Link
           to="/edit"
-          className="flex justify-center items-center h-10 w-10 bg-slate-300 rounded-full"
+          className="flex justify-center items-center h-20 w-20 border border-green-100  rounded-full mr-7"
         >
           <img
-            className="h-9 w-9 rounded-full"
+            className="h-full w-full rounded-full "
             src={userData.profileImage}
             alt="pic"
           />

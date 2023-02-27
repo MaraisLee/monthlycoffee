@@ -42,14 +42,13 @@ const SwiperCategory = ({ category, setCategory }) => {
   // useEffect(() => {}, [category]);
   const handleCategory = (e) => {
     setCategory(e.target.value);
-    console.log(category);
   };
 
-  const [addCategory, setAddCategory] = useState("");
-  const [bt, setBt] = useState(false);
-  const add = () => {
-    setBt(true);
-  };
+  // const [addCategory, setAddCategory] = useState("");
+  // const [bt, setBt] = useState(false);
+  // const add = () => {
+  //   setBt(true);
+  // };
   return (
     <SwiperCss>
       <Swiper
@@ -79,19 +78,8 @@ const SwiperCategory = ({ category, setCategory }) => {
         }}
       >
         <SwiperSlide className="swiperSlide ">
-          <div className="add" onClick={add}>
-            <img src={`${path}/images/plus.png`} alt="" />
-            추가
-            {add ? (
-              <input
-                type="text"
-                value={addCategory}
-                onChange={handleCategory}
-              />
-            ) : (
-              ""
-            )}
-          </div>
+          <img src={`${path}/images/plus.png`} alt="" />
+          추가
         </SwiperSlide>
         {/* map 추후 적용 */}
         {arr.map((item, id) => {

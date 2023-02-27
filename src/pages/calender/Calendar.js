@@ -30,10 +30,9 @@ const Calender = () => {
     const incomes = posts.data.map((item, index) => {
       return item.income;
     });
-    console.log(incomes[0]);
+
     setIncomLists(incomes[0]);
   };
-  console.log(incomLists);
 
   useEffect(() => {
     getPosts();

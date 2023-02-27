@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -38,23 +38,10 @@ const SwiperBrand = ({ brand, setBrand }) => {
     },
   ];
 
-  // const [arr, setArr] = useState(testArr);
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   // 폼이 아니라 강제로 값을 셋팅하는 메서드
-  //   setValue,
-  //   trigger,
-  // } = useForm({
-  //   mode: "onChange", // mode 가 onChange 면 실행하라..
-  // });
-
   const handleBrand = (e) => {
-    console.log(e.target.value);
     setBrand(e.target.value);
-    // setValue("brand", brand);
+    // clicked.current.style =
+    //   "width:10px; border:2px solid blue; background: red";
   };
 
   return (
@@ -88,7 +75,6 @@ const SwiperBrand = ({ brand, setBrand }) => {
         <SwiperSlide className="swiperSlide">
           <img src={`${path}/images/plus.png`} alt="" />
           추가
-          <input type="text" value={brand} onClick={handleBrand} />
         </SwiperSlide>
         {/* map 추후 적용 */}
         {testArr.map((item, id) => {
@@ -102,6 +88,7 @@ const SwiperBrand = ({ brand, setBrand }) => {
                 name="brand"
                 value={item.name}
                 onClick={handleBrand}
+                sx={{ paddingRight: 3 }}
                 // slotProps={{
                 //   action: ({ checked }) => ({
                 //     sx: {

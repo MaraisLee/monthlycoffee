@@ -28,10 +28,12 @@ const Simple = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // 천의자리 없애기
+    const priceRaw = price.split(",").join("");
     const body = {
       payment: payment,
       date: date,
-      price: price,
+      price: priceRaw,
       category: category,
       brand: brand,
     };
@@ -69,6 +71,7 @@ const Simple = () => {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             label="Payment"
+            value={payment}
             onChange={(e) => setPayment(e.target.value)}
           >
             <MenuItem value={0}>카드</MenuItem>
@@ -100,7 +103,7 @@ const Simple = () => {
               maxLength="8"
               placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
-              // thousandSeparator=","
+              thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;
@@ -108,6 +111,7 @@ const Simple = () => {
             />
           </div>
           <Typography
+            component="div"
             sx={{
               py: 2,
               my: 5,
@@ -119,6 +123,7 @@ const Simple = () => {
             <SwiperCategory category={category} setCategory={setCategory} />
           </Typography>
           <Typography
+            component="div"
             sx={{
               pt: 2,
               fontSize: 20,

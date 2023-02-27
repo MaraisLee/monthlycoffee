@@ -11,7 +11,7 @@ const MenuStats = () => {
       >
         메뉴별 지출
       </span>
-      <div className="h-[20vh]">
+      <div className="h-4/5">
         <MyResponsivePie />
       </div>
     </div>

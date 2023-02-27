@@ -3,7 +3,6 @@ import axios from "api/axios";
 import {
   Card,
   CardContent,
-  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
@@ -24,6 +23,8 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { GreenBt } from "utils/basicCss";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "api/cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrescriptionBottle } from "@fortawesome/free-solid-svg-icons";
 
 const Detail = ({ num, setNum }) => {
   const { register, handleSubmit } = useForm({
@@ -83,10 +84,10 @@ const Detail = ({ num, setNum }) => {
       };
     }
   };
-
-  const [checked, setChecked] = useState(true);
+  // tumbler check
+  const [tumbler, setTumbler] = useState(false);
   const handleChange = (e) => {
-    setChecked(e.target.checked);
+    setTumbler(e.target.checked);
   };
 
   // 날짜
@@ -99,14 +100,13 @@ const Detail = ({ num, setNum }) => {
   const [price, setPrice] = useState("");
 
   const onSubmit = async (data) => {
-    console.log("버튼", img);
-
+    const priceRaw = price.split(",").join("");
     const body = {
       payment: data.payment,
       date: data.date,
-      price: price,
+      price: priceRaw,
       memo: data.memo,
-      tumbler: false,
+      tumbler: tumbler,
       category: category,
       brand: brand,
       taste: data.taste,
@@ -132,23 +132,6 @@ const Detail = ({ num, setNum }) => {
             Authorization: getCookie("access_token"),
           },
         });
-        // axios
-        //   .post(`expenses/${expenseId}/image`, img)
-        //   .then((res) => console.log("파일전송성공", res))
-        //   .catch((err) => console.log(err));
-
-        // 실제 서버가 있을 경우 여기서 전송 후 다시 받아옴
-        // const formData = new FormData();
-        // formData.append("files", uploadFile);
-        // await axios({
-        //   method: "post",
-        //   url: "/api/files/images",
-        //   data: formData,
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // });
-        // console.log("지출입력 데이터", res);
         alert("지출이 입력되었습니다.");
         navigate("/expense");
       })
@@ -197,6 +180,7 @@ const Detail = ({ num, setNum }) => {
               type="text"
               maxLength="8"
               value={price}
+              placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
               // thousandSeparator=","
               isAllowed={(values) => {
@@ -205,12 +189,6 @@ const Detail = ({ num, setNum }) => {
               }}
             />
           </div>
-
-          <Checkbox
-            checked={checked}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
           <InputDiv>
             <textarea
               cols="30"
@@ -219,6 +197,29 @@ const Detail = ({ num, setNum }) => {
               placeholder="내용을 입력해주세요."
               {...register("memo")}
             />
+            <label className="mr-9">
+              {tumbler ? (
+                <>
+                  <FontAwesomeIcon
+                    icon={faPrescriptionBottle}
+                    className="text-4xl text-green-700"
+                  />
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon
+                    icon={faPrescriptionBottle}
+                    className="text-4xl"
+                  />
+                </>
+              )}
+              <input
+                type="checkbox"
+                checked={tumbler}
+                onChange={handleChange}
+                style={{ display: "none" }}
+              />
+            </label>
             {/* 이미지 업로드 */}
             <label htmlFor="ex_file">
               <img src={imgFile} alt="" />
@@ -235,6 +236,7 @@ const Detail = ({ num, setNum }) => {
             />
           </InputDiv>
           <Typography
+            component="div"
             sx={{
               py: 2,
               my: 5,
@@ -246,6 +248,7 @@ const Detail = ({ num, setNum }) => {
             <SwiperCategory category={category} setCategory={setCategory} />
           </Typography>
           <Typography
+            component="div"
             sx={{
               py: 2,
               my: 5,
@@ -280,10 +283,10 @@ const Detail = ({ num, setNum }) => {
                 { id: "SWEET", name: "단맛" },
                 { id: "SOUR", name: "신맛" },
                 { id: "SAVORY", name: "고소한맛" },
-                { id: "SAVORY", name: "쓴맛" },
+                { id: "BITTER", name: "쓴맛" },
               ].map((value) => (
                 <Sheet
-                  key={value}
+                  key={value.id}
                   sx={{
                     p: 2,
                     borderRadius: "md",
@@ -480,7 +483,7 @@ const Detail = ({ num, setNum }) => {
                 { name: "싫어요", img: "hate" },
               ].map((value) => (
                 <Sheet
-                  key={value}
+                  key={value.img}
                   sx={{
                     p: 2,
                     borderRadius: "md",

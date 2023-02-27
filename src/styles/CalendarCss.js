@@ -5,8 +5,8 @@ export const CalendarDiv = styled.div`
  display:flex;
  justify-content: center;
   .react-calendar {
-    margin: 60px auto;
-    width: 60%;
+    margin: 20px auto;
+    width: 80%;
     background-color: #fff;
     color: #222;
     border-radius: 8px;

@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import axios from "api/axios";
 import { CalendarDiv, CalenderDetail } from "styles/CalendarCss";
-import { list } from "postcss";
 
 const Calender = () => {
   // 선택된 날짜
@@ -15,45 +14,70 @@ const Calender = () => {
   // 이미지 출력
   const publicFolder = process.env.PUBLIC_URL;
   // 정보 호출
-  // const getPosts = async () => {
-  //   const params = {
-  //     date: moment(date).format("YYMM"),
-  //   };
-  //   const posts = await axios
-  //     .get("incomes/list", { params })
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
-  //   console.log(moment(date).format("YYMM"));
-  //   console.log(posts);
-  //   // setLists(posts.data);
-  // };
   const [lists, setLists] = useState([]);
-  // 지출 정보 호출
+  const [incomLists, setIncomLists] = useState([]);
   const getPosts = async () => {
     const params = {
       date: moment(date).format("YYMM"),
     };
-    const posts = await axios.get("expenses", { params });
-    // console.log(moment(date).format("YYMM"));
-    // console.log(posts);
-    setLists(posts.data);
+    const posts = await axios.get("incomes/list", { params });
+
+    const expenses = posts.data.map((item, index) => {
+      return item.expense;
+    });
+    setLists(expenses[0]);
+
+    const incomes = posts.data.map((item, index) => {
+      return item.income;
+    });
+    console.log(incomes[0]);
+    setIncomLists(incomes[0]);
   };
+  console.log(incomLists);
 
   useEffect(() => {
     getPosts();
   }, []);
 
-  // console.log("??", lists);
-  // console.log("mm", date);
-  const [filteredList, setFilteredList] = useState([]);
-  const find = lists.filter((item, index) => {
-    // 현재 date와 starBucks는 포맷이 다르다.
-    // console.log("아이템", item.price);
-    if (item.date === moment(date).format("YYYY-MM-DD")) {
-      return item;
+  const tile = ({ date, view }) => {
+    let html = []; //업데이트 가능 (let)
+    // 각각의 날짜 영역에 출력하고 싶은 내용을 작성한다.
+
+    const findData = lists.find((item, index) => {
+      return item.date === moment(date).format("YYYY-MM-DD");
+    });
+
+    const findIncomeData = incomLists.find((item, index) => {
+      return item.date === moment(date).format("YYYY-MM-DD");
+    });
+
+    if (findData) {
+      html.push(
+        <div className="flex justify-center items-center">
+          <img
+            key={`list_${moment(date)}}`}
+            src={`${publicFolder}/images/logo.png`}
+            alt="아이콘"
+            style={{ width: 20, height: 20 }}
+          />
+          <span className="text-sm text-red-800 font-bold">
+            {findData.price}
+          </span>
+        </div>
+      );
     }
-  });
-  console.log("find:", find);
+    if (findIncomeData) {
+      html.push(
+        <div className="flex justify-center items-center">
+          <span className="text-sm text-green-700  font-bold text-right">
+            {findIncomeData.amount}
+          </span>
+        </div>
+      );
+    }
+
+    return <div>{html}</div>;
+  };
 
   return (
     <CalendarDiv>
@@ -63,34 +87,10 @@ const Calender = () => {
         // 날짜 선택시 날짜변경
         onChange={setDate}
         // 달력에 출력될 html작성
-        tileContent={({ date, view }) => {
-          let html = []; //업데이트 가능 (let)
-          // 각각의 날짜 영역에 출력하고 싶은 내용을 작성한다.
-          if (
-            lists.find((item, index) => {
-              // 현재 date와 starBucks는 포맷이 다르다.
-              // console.log("아이템", item.price);
-              return item.date === moment(date).format("YYYY-MM-DD");
-            })
-          ) {
-            // 조건에 맞으므로 html을 생성해 준다.
-            html.push(
-              <div>
-                <img
-                  key={`list_${moment(date)}}`}
-                  src={`${publicFolder}/images/logo.png`}
-                  alt="아이콘"
-                  style={{ width: 20, height: 20 }}
-                />
-                {/* {find[0].price} */}
-              </div>
-            );
-          }
-          return <div>{html}</div>;
-        }}
+        tileContent={tile}
       />
       {/* 상세 정보 내역 출력 */}
-      <CalenderDetail>
+      {/* <CalenderDetail>
         <div className="calender-detail">
           {lists && (
             <div className="calender-detail__item">
@@ -103,7 +103,7 @@ const Calender = () => {
         </div>
         <div>{moment(date).format("YYYY년 MM월 DD일")}</div>
         <div> {lists.map((item, index) => item.title)}</div>
-      </CalenderDetail>
+      </CalenderDetail> */}
     </CalendarDiv>
   );
 };

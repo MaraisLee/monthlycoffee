@@ -26,8 +26,12 @@ const loggedState = createSlice({
       state.nickname = "";
       state.profileImage = "";
     },
+    updateNickname: (state, action) => {
+      const data = action.payload;
+      state.nickname = data;
+    },
   },
 });
-export const { loginAccount, logoutAccount, serverDataIn } =
+export const { loginAccount, logoutAccount, serverDataIn, updateNickname } =
   loggedState.actions;
 export default loggedState;

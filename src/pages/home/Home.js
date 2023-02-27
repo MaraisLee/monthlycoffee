@@ -13,8 +13,8 @@ const Home = () => {
       <Monthly />
       <Budget />
       <MonExpend />
-      <Weekly />
-      {/* <CategoryStats /> */}
+      {/* <Weekly /> */}
+      <CategoryStats />
       <MenuStats />
       <MyCard />
     </div>

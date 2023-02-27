@@ -32,10 +32,21 @@ const DetailEdit = ({
     if (modalData.images.length > 0) {
       const imgName = modalData.images[0].filename;
       axios
-        .get(`expenses/image/${imgName}`)
+        .get(`expenses/image/${imgName}`, {
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+          responseType: "blob",
+          timeout: 5000,
+        })
         .then((res) => {
-          // console.log(res);
-          setImgSrc(res.data);
+          console.log(res.data);
+          // setImgSrc(res.data);
+          const myFile = new File([res.data], "imageName");
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const previewImage = String(e.target?.result);
+            setImgSrc(previewImage); // myImage라는 state에 저장했음
+          };
+          reader.readAsDataURL(myFile);
         })
         .catch((err) => console.log(err));
     }
@@ -43,9 +54,6 @@ const DetailEdit = ({
   useEffect(() => {
     getImg();
   }, []);
-  useEffect(() => {
-    getImg();
-  }, [updateBt]);
 
   // 이미지 업로드 및 미리보기
   const [imgFile, setImgFile] = useState("");
@@ -85,6 +93,7 @@ const DetailEdit = ({
         .catch((err) => console.log(err));
     }
   };
+
   const deleteImg = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       const imgName = modalData.images[0].filename;
@@ -93,13 +102,14 @@ const DetailEdit = ({
         .then((res) => {
           console.log(res);
           setUpdateBt(++updateBt);
+          setImgSrc("");
           alert("삭제되었습니다.");
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     // console.log(modalData.id);
     const body = {
@@ -118,7 +128,7 @@ const DetailEdit = ({
       // images: [],
     };
     console.log(body);
-    axios
+    await axios
       .patch(`expenses/${modalData.id}`, body)
       .then((res) => {
         console.log(res);
@@ -136,6 +146,7 @@ const DetailEdit = ({
         });
         setModalIsOpen(false);
         setEdit(false);
+        alert("수정이 완료되었습니다.")
       })
       .catch((err) => {
         return console.log(err);
@@ -187,11 +198,14 @@ const DetailEdit = ({
             <div className="flex justify-center items-center gap-2">
               <img
                 className="w-1/4"
-                // src={imgSrc}
-                src="./images/coffee.jpg"
+                src={imgSrc}
+                // src="./images/coffee.jpg"
                 alt="pic"
               />
-              <span className="text-red-800 font-bold cursor-pointer" onClick={deleteImg}>
+              <span
+                className="text-red-800 font-bold cursor-pointer"
+                onClick={deleteImg}
+              >
                 삭제
               </span>
             </div>
@@ -212,7 +226,6 @@ const DetailEdit = ({
               />
             </div>
           )}
-
           <hr className="mt-2 border-black border-dashed" />
           <div className="m-5 flex justify-between items-center text-lg">
             <div className="flex flex-col gap-1 w-[45%] items-center">

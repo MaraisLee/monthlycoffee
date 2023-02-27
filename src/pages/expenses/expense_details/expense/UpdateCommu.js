@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 
-const UpdateCommu = ({ modalData, setModalIsOpen, setOpenCommu }) => {
+const UpdateCommu = ({ modalData, imgSrc, setModalIsOpen, setOpenCommu }) => {
   const userData = useSelector((state) => state.user);
   const { register, handleSubmit } = useForm({
     // resolver: yupResolver(schema),
@@ -22,10 +22,12 @@ const UpdateCommu = ({ modalData, setModalIsOpen, setOpenCommu }) => {
       .then((res) => {
         console.log(res);
         alert("게시글이 등록되었습니다!");
+        setOpenCommu(false);
         setModalIsOpen(false);
       })
       .catch((err) => {
-        return console.log(err);
+        console.log(err);
+        alert(err.response.data.message);
       });
   };
   return (
@@ -48,8 +50,8 @@ const UpdateCommu = ({ modalData, setModalIsOpen, setOpenCommu }) => {
         <div className="w-[80%] bg-black flex justify-center items-center drop-shadow">
           <img
             className="w-[98%] h-[98%]"
-            // src={imgSrc}
-            src="./images/coffee.jpg"
+            src={imgSrc}
+            // src="./images/coffee.jpg"
             alt="pic"
           />
         </div>

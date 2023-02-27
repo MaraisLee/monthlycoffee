@@ -12,12 +12,12 @@ const ExpenseBox = ({ startDate }) => {
   const [updateBt, setUpdateBt] = useState(1);
 
   const getPosts = async () => {
+    // console.log(startDate);
     const params = {
       date: moment(startDate).format("YYMM"),
     };
     const posts = await axios.get("expenses", { params });
     console.log(moment(startDate).format("YYMM"));
-    // console.log(posts);
     setList(posts.data);
   };
   useEffect(() => {

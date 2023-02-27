@@ -89,7 +89,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div
-          className="absolute bottom-10 right-10 text-lg font-bold text-white cursor-pointer"
+          className="hidden md:block md:absolute bottom-10 right-10 text-lg font-bold text-white cursor-pointer"
           onClick={kakaoLogOut}
         >
           Logout <Logout style={{ fontSize: "2vw" }} />

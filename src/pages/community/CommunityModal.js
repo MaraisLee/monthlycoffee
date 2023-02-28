@@ -9,6 +9,7 @@ import CommunityModalCss from "styles/CommunityModalCss";
 const CommunityModal = ({
   listDetail,
   like,
+  clickData,
   setLike,
   modalIsOpen,
   setModalIsOpen,
@@ -35,6 +36,7 @@ const CommunityModal = ({
     },
   };
   const userData = useSelector((state) => state.user);
+  let [update, setUpdate] = useState(1);
   const [detail, setDetail] = useState([]);
   const [comment, setComment] = useState([]);
 
@@ -45,7 +47,7 @@ const CommunityModal = ({
 
   const getPosts = async () => {
     const posts = await axios.get(`posts/${listDetail.id}`);
-    console.log(posts.data);
+    // console.log(posts.data);
     setDetail(posts.data);
     setLike(posts.data.isLiked);
     if (posts.data.comments) {
@@ -54,7 +56,7 @@ const CommunityModal = ({
   };
   useEffect(() => {
     getPosts();
-  }, [listDetail, like]);
+  }, [listDetail, like, update]);
 
   const postLikes = async () => {
     await axios.post(`postlikes/${listDetail.id}`).then((res) => {
@@ -71,6 +73,8 @@ const CommunityModal = ({
       .post("comments", body)
       .then((res) => {
         console.log(res);
+        setUpdate(++update);
+        alert("댓글이 등록되었습니다.");
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +120,7 @@ const CommunityModal = ({
               >
                 {like ? <Favorite /> : <FavoriteBorder />}
               </span>
-              &nbsp;{listDetail.likeNumber}
+              &nbsp;
             </p>
             <div className="flex justify-end gap-1 text-xl">
               {detail.taste && (
@@ -145,12 +149,18 @@ const CommunityModal = ({
           </form>
           <div className="comments flex flex-wrap max-h-[5rem] mt-2 mx-2 gap-1 overflow-y-auto">
             {comment &&
-              comment.map((item) => (
-                <div key={item.id} className="w-full flex gap-3">
-                  <span className="font-bold">{item.nickname}</span>
-                  <span>{item.content}</span>
-                </div>
-              ))}
+              comment
+                .sort((a, b) => {
+                  if (a.id > b.id) return -1;
+                  if (a.id < b.id) return 1;
+                  return 0;
+                })
+                .map((item) => (
+                  <div key={item.id} className="w-full flex gap-3">
+                    <span className="font-bold">{item.nickname}</span>
+                    <span>{item.content}</span>
+                  </div>
+                ))}
           </div>
         </div>
         {/* <button onClick={() => setModalIsOpen(false)}>Modal close</button> */}

@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { txtShadow } from "utils/colors";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { logoutAccount, updateNickname } from "reducer/loggedState";
 import { removeCookie } from "api/cookie";
 import axios from "api/axios";
 import { useForm } from "react-hook-form";
+import { NumericFormat } from "react-number-format";
 
 const EditInfo = () => {
   const { register, handleSubmit } = useForm({
@@ -16,6 +17,9 @@ const EditInfo = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
   console.log();
+
+  const MAX_LIMIT = 10000000;
+  const [price, setPrice] = useState("");
 
   const memberOut = () => {
     window.Kakao.API.request({
@@ -54,13 +58,21 @@ const EditInfo = () => {
     }
   };
   const changeBudget = (data) => {
+    // 천의자리 없애기
+    const priceRaw = price.split(",").join("");
     const body = {
-      amount: data.budget,
+      amount: priceRaw,
     };
     axios
       .post("budgets", body)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log(res);
+        alert("등록되었습니다.");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("이미 등록된 목표가 있습니다.");
+      });
   };
   // const getBudgets = async () => {
   //   axios
@@ -90,9 +102,11 @@ const EditInfo = () => {
             <input
               className="bg-stone-100 w-3/4 py-2 text-center"
               type="text"
+              thousandSeparator=","
               defaultValue={userData.nickname}
               {...register("nickname")}
             />
+
             <button
               className="w-1/4 text-end text-blue-800 cursor-pointer"
               type="submit"
@@ -107,11 +121,20 @@ const EditInfo = () => {
             className="flex gap-2 w-[35%]"
             onSubmit={handleSubmit(changeBudget)}
           >
-            <input
+            <NumericFormat
+              component="input"
               className="bg-stone-100 w-3/4 py-2 text-center"
+              name="price"
+              value={price}
               type="text"
-              // defaultValue={userData.nickname}
-              {...register("budget")}
+              maxLength="8"
+              placeholder="0"
+              onChange={(e) => setPrice(e.target.value)}
+              thousandSeparator=","
+              isAllowed={(values) => {
+                const { floatValue } = values;
+                return floatValue < MAX_LIMIT;
+              }}
             />
             <button
               className="w-1/4 text-end text-blue-800 cursor-pointer"

@@ -5,6 +5,7 @@ import { loginAccount, serverDataIn } from "reducer/loggedState";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 import { setCookie } from "api/cookie";
+import localStorage from "redux-persist/es/storage";
 const Login = () => {
   const path = process.env.PUBLIC_URL;
   const dispatch = useDispatch();
@@ -46,29 +47,11 @@ const Login = () => {
               .then((res) => {
                 console.log("성공", res);
                 const accessToken = res.headers.authorization;
-                // const refreshToken = res.headers.refreshtoken;
-                // const tokens = {
-                //   access_token: accessToken,
-                //   refresh_token: refreshToken,
-                // };
-                // console.log(refreshToken);
+                localStorage.setItem("refresh_token", res.headers.refreshtoken);
                 setCookie("access_token", accessToken);
                 dispatch(serverDataIn(res));
                 alert(`${res.data.nickname} 님 환영합니다.`);
                 navigate("/home");
-                // .then((res) => {
-                //   console.log("성공", res);
-                //   const accessToken = res.headers.authorization;
-                //   const refreshToken = res.headers.refreshtoken;
-                //   const tokens = {
-                //     access_token: { accessToken },
-                //     refresh_token: { refreshToken },
-                //   };
-                //   // console.log(refreshToken);
-                //   setCookie("tokens", tokens);
-                //   dispatch(serverDataIn(res));
-                //   alert(`${res.data.nickname} 님 환영합니다.`);
-                //   navigate("/home");
               })
               .catch((err) => {
                 console.log(err);

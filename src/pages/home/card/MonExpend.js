@@ -28,10 +28,7 @@ const MonExpend = () => {
   }, []);
   // console.log(monExp);
   return (
-    <div className="flex flex-col gap-5 justify-center items-center bg-[#F8F8E5] p-10 border border-black md:row-span-2">
-      <span className="text-[#7A605B]">
-        <Paid style={{ fontSize: "55" }} />
-      </span>
+    <div className="flex gap-10 justify-center items-center bg-[#F8F8E5] p-10 border border-black md:row-span-1">
       <div className="flex flex-col items-center gap-2">
         <span
           className="text-xl font-semibold text-white"
@@ -46,6 +43,9 @@ const MonExpend = () => {
           {monExp}원
         </span>
       </div>
+      <span className="text-[#7A605B]">
+        <Paid style={{ fontSize: "55" }} />
+      </span>
     </div>
   );
 };

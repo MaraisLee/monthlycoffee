@@ -38,9 +38,9 @@ const Sidebar = () => {
     //     console.log(err);
     //     alert("다시 로그아웃 해주세요.");
     //   });
-    alert("로그아웃되었습니다.");
     //     // window.location.href='/'
     //     // const uid = res.id;
+    alert("로그아웃되었습니다.");
     removeCookie("access_token");
     dispatch(logoutAccount());
     navigate("/");

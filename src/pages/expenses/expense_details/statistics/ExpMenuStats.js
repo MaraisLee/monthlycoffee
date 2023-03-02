@@ -36,7 +36,7 @@ const ExpMenuStats = () => {
     .sort((a, b) => b[1] - a[1])
     .map(([brand, count]) => ({ id: brand, value: count }));
 
-  // console.log(brandRanking);
+  console.log(brandRanking);
 
   return (
     <MonthlyDetailCss>
@@ -60,25 +60,29 @@ const ExpMenuStats = () => {
             메뉴별 지출
           </span>
         </div>
-        <div className="w-1/2 h-[250px]">
-          <ResponsivePie
-            data={brandRanking}
-            theme={{
-              fontSize: 16, // 텍스트 크기 설정
-            }}
-            margin={{ top: 20, right: 45, bottom: 20, left: 45 }}
-            innerRadius={0}
-            activeOuterRadiusOffset={8}
-            padAngle={0.7}
-            arcLinkLabelsDiagonalLength={6}
-            arcLinkLabelsStraightLength={7}
-            cornerRadius={3}
-            colors={{ scheme: "pastel1" }}
-            borderWidth={1}
-            borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
-            enableRadialLabels={false}
-            enableSlicesLabels={false}
-          />
+        <div className="flex justify-center items-center w-1/2 h-[250px]">
+          {brandRanking.length > 0 ? (
+            <ResponsivePie
+              data={brandRanking}
+              theme={{
+                fontSize: 16, // 텍스트 크기 설정
+              }}
+              margin={{ top: 20, right: 45, bottom: 20, left: 45 }}
+              innerRadius={0}
+              activeOuterRadiusOffset={8}
+              padAngle={0.7}
+              arcLinkLabelsDiagonalLength={6}
+              arcLinkLabelsStraightLength={7}
+              cornerRadius={3}
+              colors={{ scheme: "pastel1" }}
+              borderWidth={1}
+              borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
+              enableRadialLabels={false}
+              enableSlicesLabels={false}
+            />
+          ) : (
+            <span className="text-red-800 text-3xl font-bold">데이터가 없습니다.</span>
+          )}
         </div>
       </div>
     </MonthlyDetailCss>

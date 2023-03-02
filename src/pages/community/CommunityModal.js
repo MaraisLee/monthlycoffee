@@ -1,14 +1,17 @@
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import axios from "api/axios";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import CommunityModalCss from "styles/CommunityModalCss";
+import CommuLike from "./CommuLike";
+import Comment from "./Comment";
 
 const CommunityModal = ({
   listDetail,
   like,
+  clickData,
+  setListDetail,
   setLike,
   modalIsOpen,
   setModalIsOpen,
@@ -35,17 +38,19 @@ const CommunityModal = ({
     },
   };
   const userData = useSelector((state) => state.user);
+  let [update, setUpdate] = useState(1);
   const [detail, setDetail] = useState([]);
   const [comment, setComment] = useState([]);
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     // resolver: yupResolver(schema),
     mode: "onChange", // mode 가 onChange 면 실행하라..
   });
+  const inputRef = useRef(null);
 
   const getPosts = async () => {
     const posts = await axios.get(`posts/${listDetail.id}`);
-    console.log(posts.data);
+    // console.log(posts.data);
     setDetail(posts.data);
     setLike(posts.data.isLiked);
     if (posts.data.comments) {
@@ -54,7 +59,9 @@ const CommunityModal = ({
   };
   useEffect(() => {
     getPosts();
-  }, [listDetail, like]);
+  }, [listDetail, like, update]);
+
+  const likeData = clickData[0];
 
   const postLikes = async () => {
     await axios.post(`postlikes/${listDetail.id}`).then((res) => {
@@ -71,6 +78,9 @@ const CommunityModal = ({
       .post("comments", body)
       .then((res) => {
         console.log(res);
+        reset();
+        setUpdate(++update);
+        alert("댓글이 등록되었습니다.");
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +108,7 @@ const CommunityModal = ({
           </div>
           {/* <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p> */}
           <div className="flex justify-center mb-5">
-            <div className="w-[80%] bg-black flex justify-center items-center drop-shadow">
+            <div className="w-[65%] bg-black flex justify-center items-center drop-shadow">
               <img className="w-[98%] h-[98%]" src={listDetail.src} alt="pic" />
             </div>
           </div>
@@ -109,15 +119,7 @@ const CommunityModal = ({
           </div>
           <hr className=" border-black border-dashed" />
           <div className="flex justify-between items-center my-5 font-bold">
-            <p className="text-2xl">
-              <span
-                className="text-red-600 text-2xl cursor-pointer"
-                onClick={postLikes}
-              >
-                {like ? <Favorite /> : <FavoriteBorder />}
-              </span>
-              &nbsp;{listDetail.likeNumber}
-            </p>
+            <CommuLike postLikes={postLikes} like={like} likeData={likeData} />
             <div className="flex justify-end gap-1 text-xl">
               {detail.taste && (
                 <span className="text-blue-600">#{detail.taste}</span>
@@ -145,12 +147,20 @@ const CommunityModal = ({
           </form>
           <div className="comments flex flex-wrap max-h-[5rem] mt-2 mx-2 gap-1 overflow-y-auto">
             {comment &&
-              comment.map((item) => (
-                <div key={item.id} className="w-full flex gap-3">
-                  <span className="font-bold">{item.nickname}</span>
-                  <span>{item.content}</span>
-                </div>
-              ))}
+              comment
+                .sort((a, b) => {
+                  if (a.id > b.id) return -1;
+                  if (a.id < b.id) return 1;
+                  return 0;
+                })
+                .map((item) => (
+                  <Comment
+                    key={item.id}
+                    item={item}
+                    update={update}
+                    setUpdate={setUpdate}
+                  />
+                ))}
           </div>
         </div>
         {/* <button onClick={() => setModalIsOpen(false)}>Modal close</button> */}

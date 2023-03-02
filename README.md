@@ -11,8 +11,7 @@
 1. 커피기록 및 소비관리 
 2. 커뮤니티를 통한 커피마니아들의 공유문화 형성
 3. 커피 소비문화의 질 향상
-
-<br>
+4. 텀블러 랭킹을 통한 에코소비자 
 
 ## 🕰️ 개발 기간
 
@@ -48,6 +47,7 @@
 
 - 주소 API 연동
 - 회원정보 변경
+- 텀블러 기능
 
 #### 지출 내역 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%81%ED%99%94-%EC%98%88%EB%A7%A4)" >상세보기 - WIKI 이동</a>
 

@@ -36,7 +36,7 @@ const ExpenseDetails = () => {
             통계
           </button>
         </div>
-        <div className="expenseDetail bg-[#F5E7DB] block w-[94vw] md:w-[75vw] p-10 mt-5 space-y-5 rounded-lg md:h-[70vh] md:overflow-y-scroll">
+        <div className="expenseDetail bg-[#F5E7DB] block w-[94vw] md:w-[60vw] p-10 mt-5 space-y-5 rounded-lg md:h-[70vh] md:overflow-y-scroll">
           {page ? <MonthlyDetail /> : <Statistics />}
         </div>
       </div>

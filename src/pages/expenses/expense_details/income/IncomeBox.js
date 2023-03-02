@@ -29,7 +29,7 @@ const IncomeBox = ({ startDate }) => {
   return (
     <>
       <div className="space-y-5">
-        {list ? (
+        {list.length > 1 ? (
           list
             .sort((a, b) => {
               if (a.date > b.date) return -1;

@@ -23,7 +23,7 @@ const ExpenseList = ({
     }
   };
   return (
-    <div className="relative px-20 h-[11vh] bg-white border border-black cursor-pointer">
+    <div className="relative px-20 h-[7vh] bg-white border border-black cursor-pointer">
       <div
         className="flex h-full items-center"
         onClick={() => {
@@ -31,12 +31,14 @@ const ExpenseList = ({
           setListId(item.id);
         }}
       >
-        <span className="text-xl flex-1">{item.date}</span>
-        <div className="flex flex-1 flex-col items-center">
-          <span className="text-3xl">{item.category}</span>
+        <span className="text-lg flex-1">{item.date}</span>
+        <div className="flex flex-1 gap-5 items-center">
+          <span className="text-2xl font-bold">{item.category}</span>
           <span>{item.brand}</span>
         </div>
-        <div className="text-3xl flex-1 text-end text-red-700">{price}원</div>
+        <div className="text-xl flex-1 text-end text-red-700 font-bold">
+          {price}원
+        </div>
       </div>
       <span
         className="absolute right-3 top-3 text-red-800 z-99 cursor-point"

@@ -59,7 +59,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // getTumblerRank();
+    getTumblerRank();
   }, []);
 
   let rankColor = null;

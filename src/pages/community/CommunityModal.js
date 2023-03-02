@@ -49,6 +49,7 @@ const CommunityModal = ({
   });
   const inputRef = useRef(null);
 
+  console.log(detail);
   const getPosts = async () => {
     const posts = await axios.get(`posts/${listDetail.id}`);
     // console.log(posts.data);
@@ -100,11 +101,11 @@ const CommunityModal = ({
           <div className="flex items-center mb-5">
             <img
               className="h-9 w-9 rounded-full"
-              src={userData.profileImage}
+              src="./images/profile.jpg"
               alt="pic"
             />
             <span className="ml-3 text-xl font-semibold antialiased block leading-tight">
-              {userData.nickname}
+              {detail.nickname}
             </span>
           </div>
           {/* <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p> */}

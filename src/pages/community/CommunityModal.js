@@ -15,6 +15,7 @@ const CommunityModal = ({
   setLike,
   modalIsOpen,
   setModalIsOpen,
+  setToast,
 }) => {
   const customStyles = {
     overlay: {
@@ -79,8 +80,8 @@ const CommunityModal = ({
       .then((res) => {
         console.log(res);
         reset();
+        setToast(true);
         setUpdate(++update);
-        alert("댓글이 등록되었습니다.");
       })
       .catch((err) => {
         console.log(err);

@@ -8,6 +8,7 @@ const ExpDetailModal = ({
   setUpdateBt,
   modalIsOpen,
   setModalIsOpen,
+  setToast
 }) => {
   const [edit, setEdit] = useState(false);
   const [openCommu, setOpenCommu] = useState(false);
@@ -62,6 +63,7 @@ const ExpDetailModal = ({
             setEdit={setEdit}
             openCommu={openCommu}
             setOpenCommu={setOpenCommu}
+            setToast={setToast}
           />
         )}
       </div>

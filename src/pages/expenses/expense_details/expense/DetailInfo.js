@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrescriptionBottle } from "@fortawesome/free-solid-svg-icons";
 import UpdateCommu from "./UpdateCommu";
 import axios from "api/axios";
+import { Tooltip } from "@mui/material";
 
 const DetailInfo = ({
   modalData,
@@ -12,6 +13,7 @@ const DetailInfo = ({
   setEdit,
   openCommu,
   setOpenCommu,
+  setToast
 }) => {
   const [imgSrc, setImgSrc] = useState("");
   const price = [modalData.price]
@@ -55,6 +57,7 @@ const DetailInfo = ({
           setModalIsOpen={setModalIsOpen}
           setOpenCommu={setOpenCommu}
           imgSrc={imgSrc}
+          setToast={setToast}
         />
       ) : (
         <div>
@@ -77,7 +80,7 @@ const DetailInfo = ({
           <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p>
           <div className="flex justify-center mb-5">
             {imgSrc && (
-              <div className="w-[80%] bg-black flex justify-center items-center drop-shadow">
+              <div className="w-[70%] bg-black flex justify-center items-center drop-shadow">
                 <img
                   className="w-[98%] h-[98%]"
                   src={imgSrc}
@@ -102,9 +105,18 @@ const DetailInfo = ({
                 <span className="font-bold">{modalData.likeHate}</span>
               )}
               {modalData.tumbler ? (
-                <span>
-                  <FontAwesomeIcon icon={faPrescriptionBottle} />
-                </span>
+                <Tooltip
+                  title="tumbler"
+                  arrow={false}
+                  style={{ color: "green", fontWeight: 600 }}
+                  color="success"
+                  placement="top"
+                  size="md"
+                >
+                  <span className="text-green-700">
+                    <FontAwesomeIcon icon={faPrescriptionBottle} />
+                  </span>
+                </Tooltip>
               ) : (
                 <span className="text-stone-300">
                   <FontAwesomeIcon icon={faPrescriptionBottle} />

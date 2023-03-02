@@ -1,9 +1,9 @@
 import {
   AddOutlined,
-  CalendarMonthOutlined,
   LibraryBooksOutlined,
   Logout,
   OtherHousesOutlined,
+  PieChartOutlined,
   ReviewsOutlined,
 } from "@mui/icons-material";
 import React from "react";
@@ -20,7 +20,6 @@ const Sidebar = () => {
       console.log("Not logged in.");
       return;
     }
-
     window.Kakao.Auth.logout(function (res) {});
     // axios
     //   .post("http://192.168.0.203:8080/api/members/logout", {
@@ -75,11 +74,11 @@ const Sidebar = () => {
           <NavLink to="/addexpense" className="text-white block md:hidden">
             <AddOutlined />
           </NavLink>
-          <NavLink to="/calendar" className="flex text-white">
+          <NavLink to="/statistics" className="flex text-white">
             <span>
-              <CalendarMonthOutlined />
+              <PieChartOutlined />
             </span>
-            <span className="hidden md:block">&nbsp;Calendar</span>
+            <span className="hidden md:block">&nbsp;Statistics</span>
           </NavLink>
           <NavLink to="/community" className="flex text-white">
             <span>

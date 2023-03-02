@@ -62,7 +62,7 @@ const Header = () => {
     // setLists(expenses[0]);
   };
   useEffect(() => {
-    getTumblerRank();
+    // getTumblerRank();
   }, []);
 
   let rankColor = null;

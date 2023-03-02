@@ -26,10 +26,7 @@ const IncomeInfo = ({ item, updateBt, setUpdateBt, editIn, setEditIn }) => {
         <span className="flex-1 text-xl font-bold text-green-700 text-end">
           {price}원
         </span>
-        <div className="flex flex-col gap-1 py-3 h-[7vh] absolute right-3">
-          <span className="text-red-800 cursor-pointer" onClick={deleteIncome}>
-            <Close />
-          </span>
+        <div className="flex h-[7vh] pt-3 absolute right-3">
           <span
             className="cursor-pointer"
             onClick={() => {
@@ -37,6 +34,9 @@ const IncomeInfo = ({ item, updateBt, setUpdateBt, editIn, setEditIn }) => {
             }}
           >
             <Edit />
+          </span>
+          <span className="text-red-800 cursor-pointer" onClick={deleteIncome}>
+            <Close />
           </span>
         </div>
       </div>

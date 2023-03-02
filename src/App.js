@@ -8,11 +8,11 @@ import EditInfo from "pages/member/EditInfo";
 import ExpenseDetails from "pages/expenses/expense_details/ExpenseDetails";
 import Community from "pages/community/Community";
 import AddExpense from "pages/expenses/addexpense/AddExpense";
-import Calendar from "pages/calender/Calendar";
 import { useSelector } from "react-redux";
 import NotFound from "components/NotFound";
 import PrivateRoute from "components/PrivateRoute";
-import CreditCard from "pages/member/CreditCard";
+import Statistics from "pages/statistics/Statistics";
+
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const authenticated = useSelector((state) => state.user.authenticated);
@@ -39,7 +39,7 @@ const App = () => {
                 <Route path="/expense" element={<ExpenseDetails />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/addexpense" element={<AddExpense />} />
-                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/statistics" element={<Statistics />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

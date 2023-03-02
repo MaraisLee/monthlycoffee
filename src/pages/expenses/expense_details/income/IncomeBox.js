@@ -24,7 +24,7 @@ const IncomeBox = ({ startDate }) => {
   useEffect(() => {
     getPosts();
   }, [startDate, updateBt]);
-  // const clickData = list.filter((item) => item.id === listId);
+  const clickData = list.filter((item) => item.id === listId);
 
   return (
     <>

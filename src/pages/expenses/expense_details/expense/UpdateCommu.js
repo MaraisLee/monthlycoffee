@@ -3,7 +3,13 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import axios from "api/axios";
 
-const UpdateCommu = ({ modalData, imgSrc, setModalIsOpen, setOpenCommu }) => {
+const UpdateCommu = ({
+  modalData,
+  imgSrc,
+  setModalIsOpen,
+  setOpenCommu,
+  setToast,
+}) => {
   const userData = useSelector((state) => state.user);
   const { register, handleSubmit } = useForm({
     // resolver: yupResolver(schema),
@@ -21,7 +27,8 @@ const UpdateCommu = ({ modalData, imgSrc, setModalIsOpen, setOpenCommu }) => {
       .post("posts", body)
       .then((res) => {
         console.log(res);
-        alert("게시글이 등록되었습니다!");
+        setToast(true);
+        // alert("게시글이 등록되었습니다!");
         setOpenCommu(false);
         setModalIsOpen(false);
       })

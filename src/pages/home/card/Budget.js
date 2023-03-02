@@ -55,15 +55,16 @@ const Budget = () => {
         style={{
           width: "100%",
           backgroundColor: "rgb(233, 233, 233)",
-          borderRadius: "0.5rem",
+          border: "1px solid #000",
+          // borderRadius: "0.5rem",
         }}
       >
         <div
           style={{
             width: `${value}%`,
-            backgroundColor: "#7A605B",
+            backgroundColor: "#F4CC4F",
             height: 25,
-            borderRadius: "1rem",
+            // borderRadius: "0.5rem",
             transition: "1s ease",
           }}
           className="progress"

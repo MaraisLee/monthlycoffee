@@ -5,6 +5,7 @@ import CommunityModal from "./CommunityModal";
 import CommunityPost from "./CommunityPost";
 import axios from "api/axios";
 import ListPagination from "./ListPagination";
+import { Alert, Snackbar } from "@mui/material";
 
 const Community = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -13,6 +14,15 @@ const Community = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [like, setLike] = useState(false);
+
+  const [toast, setToast] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToast(false);
+  };
 
   const getPosts = async () => {
     const params = {
@@ -39,7 +49,7 @@ const Community = () => {
   };
   // console.log(page);
   return (
-    <div className="block m-5">
+    <div className="block m:auto md:my-10">
       <span
         className="text-4xl ml-5 font-bold text-yellow-400"
         style={{ textShadow: `${txtShadow}` }}
@@ -73,7 +83,21 @@ const Community = () => {
         setModalIsOpen={setModalIsOpen}
         like={like}
         setLike={setLike}
+        setToast={setToast}
       />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={toast}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          댓글이 등록되었습니다!
+        </Alert>
+      </Snackbar>
       <div className="flex justify-center">
         <ListPagination
           count={pageCount}

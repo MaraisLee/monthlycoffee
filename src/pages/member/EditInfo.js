@@ -15,6 +15,8 @@ const EditInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
+  console.log();
+
   const memberOut = () => {
     window.Kakao.API.request({
       url: "/v1/user/unlink",

@@ -1,6 +1,4 @@
 import React from "react";
-import moment from "moment";
-import { txtShadow } from "utils/colors";
 
 import Calender from "pages/calender/Calendar";
 

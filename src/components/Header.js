@@ -1,9 +1,4 @@
-import {
-  LocalCafeOutlined,
-  LocalCafeTwoTone,
-  Logout,
-} from "@mui/icons-material";
-import { Avatar, Button } from "@mui/material";
+import { Logout } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -59,8 +54,10 @@ const Header = () => {
     );
 
     setTumblerRank(myRank[0]);
+    console.log(myRank);
     // setLists(expenses[0]);
   };
+
   useEffect(() => {
     getTumblerRank();
   }, []);
@@ -75,7 +72,7 @@ const Header = () => {
   } else if (tumblerRank.grade === "Bronze") {
     rankColor = "brown";
   }
-  console.log(rankColor);
+  console.log(tumblerRank.grade);
   return (
     <header className="flex justify-between items-center px-5 w-full h-[15vh] bg-white border-b border-black">
       <div className="flex items-center">

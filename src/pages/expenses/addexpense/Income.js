@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 import { txtShadow, yellowcolor } from "utils/colors";
 import { GreenBt } from "utils/basicCss";
@@ -15,16 +7,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "api/axios";
 import { InputDiv } from "styles/AddEXpenseCss";
 
-const Income = ({ num, setNum }) => {
+const Income = () => {
   const navigate = useNavigate();
   const MAX_LIMIT = 10000000;
   const [price, setPrice] = useState("");
   const [note, setNote] = useState("");
+  // const [form] = useForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const priceRaw = price.split(",").join("");
     const body = {
-      amount: price,
+      amount: priceRaw,
       note: note,
       date: date,
     };
@@ -38,7 +32,7 @@ const Income = ({ num, setNum }) => {
       })
       .catch((err) => console.log(err));
 
-    // navigate("/expense");
+    navigate("/expense");
   };
 
   // defaultValue 오늘 나오게
@@ -74,7 +68,7 @@ const Income = ({ num, setNum }) => {
               maxLength="8"
               placeholder="0"
               onChange={(e) => setPrice(e.target.value)}
-              // thousandSeparator=","
+              thousandSeparator=","
               isAllowed={(values) => {
                 const { floatValue } = values;
                 return floatValue < MAX_LIMIT;

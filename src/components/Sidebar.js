@@ -75,7 +75,7 @@ const Sidebar = () => {
           <NavLink to="/addexpense" className="text-white block md:hidden">
             <AddOutlined />
           </NavLink>
-          <NavLink to="/calendar" className="flex text-white">
+          <NavLink to="/credit" className="flex text-white">
             <span>
               <CalendarMonthOutlined />
             </span>

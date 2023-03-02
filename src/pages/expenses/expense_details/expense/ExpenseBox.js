@@ -31,7 +31,7 @@ const ExpenseBox = ({ startDate }) => {
   return (
     <>
       <div className="space-y-5">
-        {list.length > 1 ? (
+        {list.length > 0 ? (
           list
             .sort((a, b) => {
               if (a.date > b.date) return -1;

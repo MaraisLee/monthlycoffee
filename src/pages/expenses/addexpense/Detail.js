@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "api/cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrescriptionBottle } from "@fortawesome/free-solid-svg-icons";
+import Tooltip from "@mui/joy/Tooltip";
 
 const Detail = ({ num, setNum }) => {
   const { register, handleSubmit } = useForm({
@@ -197,13 +198,23 @@ const Detail = ({ num, setNum }) => {
               placeholder="내용을 입력해주세요."
               {...register("memo")}
             />
+
             <label className="mr-9">
               {tumbler ? (
                 <>
-                  <FontAwesomeIcon
-                    icon={faPrescriptionBottle}
-                    className="text-4xl text-green-700"
-                  />
+                  <Tooltip
+                    title="tumbler"
+                    arrow={false}
+                    style={{ color: "green", fontWeight: 600 }}
+                    color="success"
+                    placement="top"
+                    size="md"
+                  >
+                    <FontAwesomeIcon
+                      icon={faPrescriptionBottle}
+                      className="text-4xl text-green-700"
+                    />
+                  </Tooltip>
                 </>
               ) : (
                 <>
@@ -213,6 +224,7 @@ const Detail = ({ num, setNum }) => {
                   />
                 </>
               )}
+
               <input
                 type="checkbox"
                 checked={tumbler}
@@ -220,6 +232,7 @@ const Detail = ({ num, setNum }) => {
                 style={{ display: "none" }}
               />
             </label>
+
             {/* 이미지 업로드 */}
             <label htmlFor="ex_file">
               <img src={imgFile} alt="" />

@@ -30,11 +30,12 @@ const CategoryStats = () => {
     .map(([category, count]) => ({ id: category, value: count }));
 
   return (
-    <div className="flex flex-col justify-center items-center bg-[#F8F8E5] text-center p-5 border border-black md:row-span-2">
+    <div className="flex flex-col gap-3 justify-center items-center bg-[#F8F8E5] text-center p-5 border border-black md:row-span-2">
       <span
         className="text-xl font-semibold text-white"
         style={{ textShadow: `${txtShadow}` }}
       >
+        이번 달 <br />
         카테고리별 지출
       </span>
       <div className="w-full h-[250px]">

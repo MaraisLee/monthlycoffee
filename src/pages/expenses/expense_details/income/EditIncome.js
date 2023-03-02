@@ -29,9 +29,9 @@ const EditIncome = ({ item, updateBt, setUpdateBt, editIn, setEditIn }) => {
       });
   };
   return (
-    <div className="relative px-20 h-[11vh] bg-white border border-black">
+    <div className="relative px-20 h-[7vh] bg-white border border-black">
       <form
-        className="flex h-full text-xl items-center"
+        className="flex h-full text-lg items-center"
         onSubmit={handleSubmit(onSubmit)}
       >
         <span className="flex-1">
@@ -39,7 +39,7 @@ const EditIncome = ({ item, updateBt, setUpdateBt, editIn, setEditIn }) => {
         </span>
         <div className="flex flex-col flex-1 items-center">
           <input
-            className="text-2xl border w-4/5"
+            className="text-xl border w-4/5"
             type="text"
             defaultValue={item.note}
             placeholder="내용을 입력해주세요."

@@ -17,16 +17,16 @@ const IncomeInfo = ({ item, updateBt, setUpdateBt, editIn, setEditIn }) => {
     }
   };
   return (
-    <div className="relative px-20 h-[11vh] bg-white border border-black">
+    <div className="relative px-20 h-[7vh] bg-white border border-black">
       <div className="flex h-full items-center">
-        <span className="text-xl flex-1">{item.date}</span>
-        <div className="flex flex-col flex-1 items-center text-3xl">
+        <span className="text-lg flex-1">{item.date}</span>
+        <div className="flex flex-col flex-1 items-center text-2xl font-bold">
           {item.note}
         </div>
-        <span className="flex-1 text-3xl text-green-700 text-end">
+        <span className="flex-1 text-xl font-bold text-green-700 text-end">
           {price}원
         </span>
-        <div className="flex flex-col gap-1 py-3 h-[11vh] absolute right-3">
+        <div className="flex flex-col gap-1 py-3 h-[7vh] absolute right-3">
           <span className="text-red-800 cursor-pointer" onClick={deleteIncome}>
             <Close />
           </span>

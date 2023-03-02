@@ -2,27 +2,30 @@ import styled from "@emotion/styled";
 import { txtShadow, yellowcolor } from "utils/colors";
 
 export const CalendarDiv = styled.div`
- display:flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
+  /* height: 100%; */
   .react-calendar {
-    margin: 20px auto;
-    width: 80%;
+    margin: 25px auto;
+    width: 90%;
+    /* height: 80%; */
     background-color: #fff;
     color: #222;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
+  }
 
   .react-calendar__navigation {
     color: ${yellowcolor};
     min-width: 44px;
     background: none;
-    margin-top: 30px;
-    padding: 30px;
-    padding-bottom:60px;
-    button{
-      display:block;
+    margin-top: 25px;
+    padding: 25px;
+    padding-bottom: 60px;
+    button {
+      display: block;
       font-size: 30px;
       text-shadow: ${txtShadow};
     }
@@ -38,15 +41,15 @@ export const CalendarDiv = styled.div`
   abbr[title] {
     text-decoration: none;
   }
-  .react-calendar__month-view__weekdays{
-    font-size:20px;
-    line-height:20px;
+  .react-calendar__month-view__weekdays {
+    font-size: 20px;
+    line-height: 10px;
   }
   .react-calendar__month-view__days {
-    margin-top:15px;
-    button{
-      font-size:18px;
-      line-height:60px;
+    margin-top: 15px;
+    button {
+      font-size: 18px;
+      line-height: 30px;
     }
   }
   .react-calendar__tile:enabled:hover,

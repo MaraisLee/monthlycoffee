@@ -31,6 +31,7 @@ const Community = () => {
     getPosts();
   }, [page, like]);
   // console.log(list);
+
   const clickData = list.filter((item) => item.id === listDetail.id);
 
   const handlePageChange = (value) => {
@@ -68,6 +69,7 @@ const Community = () => {
         listDetail={listDetail}
         modalIsOpen={modalIsOpen}
         clickData={clickData}
+        setListDetail={setListDetail}
         setModalIsOpen={setModalIsOpen}
         like={like}
         setLike={setLike}

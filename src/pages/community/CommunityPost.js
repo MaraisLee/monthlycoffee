@@ -33,12 +33,11 @@ const CommunityPost = ({ item, like, setModalIsOpen, setListDetail }) => {
 
   return (
     <div
-      className="relative w-[17vw] h-[17vw] group cursor-pointer"
+      className="relative w-[12vw] h-[12vw] group cursor-pointer"
       onClick={() => {
         setListDetail({
           id: item.id,
           src: imgSrc,
-          likeNumber: item.likeNumber,
         });
         setModalIsOpen(true);
       }}

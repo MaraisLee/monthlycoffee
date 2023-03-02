@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect } from "react";
 import { txtShadow } from "utils/colors";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,10 +54,21 @@ const EditInfo = () => {
   const changeBudget = (data) => {
     const body = {
       amount: data.budget,
-      // yearMonth: date,
-    }
-    axios.post("budgets");
+    };
+    axios
+      .post("budgets", body)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
+  // const getBudgets = async () => {
+  //   axios
+  //     .get("budgets")
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // };
+  // useEffect(() => {
+  //   getBudgets();
+  // }, []);
   return (
     <div className="p-5">
       <span
@@ -92,7 +103,7 @@ const EditInfo = () => {
           <span>이번 달 목표</span>
           <form
             className="flex gap-2 w-[35%]"
-            // onSubmit={handleSubmit(changeBudget)}
+            onSubmit={handleSubmit(changeBudget)}
           >
             <input
               className="bg-stone-100 w-3/4 py-2 text-center"

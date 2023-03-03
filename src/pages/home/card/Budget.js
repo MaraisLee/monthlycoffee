@@ -44,7 +44,7 @@ const Budget = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-[#F8F8E5] text-center p-10 border border-black md:row-span-3 space-y-3">
+    <div className="flex flex-col justify-center items-center bg-[#F8F8E5] text-center p-10 border border-black md:row-span-3">
       <span
         className="text-2xl font-semibold text-white"
         style={{ textShadow: `${txtShadow}` }}

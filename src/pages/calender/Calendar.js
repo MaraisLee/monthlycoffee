@@ -20,7 +20,7 @@ const Calender = () => {
   const [lists, setLists] = useState([]);
   const [incomLists, setIncomLists] = useState([]);
   const getPosts = async () => {
-    console.log(date);
+    // console.log(date);
     const params = {
       date: moment(date).format("YYMM"),
     };

@@ -24,7 +24,7 @@ const ExpenseBox = ({ startDate }) => {
       date: moment(startDate).format("YYMM"),
     };
     const posts = await axios.get("expenses", { params });
-    console.log(moment(startDate).format("YYMM"));
+    // console.log(moment(startDate).format("YYMM"));
     setList(posts.data);
   };
   useEffect(() => {

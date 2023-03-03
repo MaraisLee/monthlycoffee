@@ -13,7 +13,7 @@ const CategoryStats = () => {
       date: moment(new Date()).format("YYMM"),
     };
     const posts = await axios.get("expenses", { params });
-    console.log(moment(new Date()).format("YYMM"));
+    // console.log(moment(new Date()).format("YYMM"));
     setList(posts.data);
   };
   useEffect(() => {
@@ -36,7 +36,7 @@ const CategoryStats = () => {
         style={{ textShadow: `${txtShadow}` }}
       >
         이번 달 <br />
-        카테고리별 지출
+        메뉴별 지출
       </span>
       <div className="w-full h-[250px]">
         {categoryRanking.length > 0 ? (

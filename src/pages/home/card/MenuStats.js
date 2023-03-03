@@ -12,7 +12,7 @@ const MenuStats = () => {
       date: moment(new Date()).format("YYMM"),
     };
     const posts = await axios.get("expenses", { params });
-    console.log(moment(new Date()).format("YYMM"));
+    // console.log(moment(new Date()).format("YYMM"));
     setList(posts.data);
   };
   useEffect(() => {
@@ -38,7 +38,7 @@ const MenuStats = () => {
       >
         이번 달
         <br />
-        메뉴별 지출
+        브랜드별 지출
       </span>
       <div className="w-full h-[250px]">
         {brandRanking.length > 0 ? (

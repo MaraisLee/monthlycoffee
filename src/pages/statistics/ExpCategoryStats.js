@@ -28,6 +28,8 @@ const ExpCategoryStats = () => {
     getPosts();
   }, [startDate]);
 
+  // console.log(list);
+
   const countByCate = list.reduce((acc, { category }) => {
     acc[category] = (acc[category] || 0) + 1;
     return acc;
@@ -56,7 +58,7 @@ const ExpCategoryStats = () => {
             className="text-2xl font-semibold text-white"
             style={{ textShadow: `${txtShadow}` }}
           >
-            카테고리별 지출
+            메뉴별 지출
           </span>
         </div>
         <div className="flex justify-center items-center w-1/2 h-[250px]">

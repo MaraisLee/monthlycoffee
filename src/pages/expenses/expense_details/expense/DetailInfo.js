@@ -31,7 +31,7 @@ const DetailInfo = ({
           timeout: 5000,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           // setImgSrc(res.data);
           const myFile = new File([res.data], "imageName");
           const reader = new FileReader();

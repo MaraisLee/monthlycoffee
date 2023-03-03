@@ -19,12 +19,12 @@
 
 ### 🧑‍🤝‍🧑 맴버구성
 
-- 프론트엔드 팀장 : 이예은 - 영화 예매, 영화 업로드, Database Script 제작, 통합 및 형상관리
-- 프론트엔드 팀원1 : 김철호 - 로그인, 회원가입, ID찾기, PW찾기, 마이 페이지,메인 페이지, 통합 및 형상관리, PPT제작, 발표
+- 프론트엔드 팀장 : 이예은 - 기획, 피그마, SNS로그인, 지출입력, 수입입력, 캘린더
+- 프론트엔드 팀원1 : 김철호 - 기획, 피그마, 마이페이지, 지출 내역, 수입 내역, 통계, 커뮤니티 
 
-- 백엔드 팀장 : 이태훈 - 
-- 백엔드 팀원1 : 이영준 - 메인 페이지, 메인 CSS
-- 백엔드 팀원2 : 이도영 - 1대1 문의 게시판(CRUD), 공지사항 게시판(CRUD)
+- 백엔드 팀장 : 이태훈 - 지출, 이미지 
+- 백엔드 팀원1 : 이영준 - 회원 JWT 보안, 게시판, 댓글
+- 백엔드 팀원2 : 이도영 - 회원(CRUD), 수입, 예산
 
 ### ⚙️ 개발 환경
 
@@ -37,11 +37,11 @@
 
 ## 📌 주요 기능
 
-#### 로그인 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Login)" >상세보기 - WIKI 이동</a>
+#### 로그인 - <a href="https://github.com/Yenhj/monthlycoffee/wiki" >상세보기 - WIKI 이동</a>
 
 - SNS 로그인
 - 로그인 시 redux-persist 로 카카오톡에서 받은 user정보 담기
-- 백엔드에서 구현한 jwt 를 Cookie 및 localStorage에 각각 저장 
+- 백엔드에서 구현한 jwt 을 Cookie 및 localStorage에 각각 저장 
 
 #### 지출 입력 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Member)" >상세보기 - WIKI 이동</a>
 

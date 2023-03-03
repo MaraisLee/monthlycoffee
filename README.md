@@ -26,6 +26,13 @@
 - 백엔드 팀원1 : 이영준 - 회원 JWT 보안, 게시판, 댓글
 - 백엔드 팀원2 : 이도영 - 회원(CRUD), 수입, 예산
 
+### 💻 사용 기술
+- `Html`
+- `Css` : Tailwind, emotion 
+- `JavaScript`
+- `React`
+- **Libraries** : Redux-persist, nivo, MUI, React-Cookie
+
 ### ⚙️ 개발 환경
 
 - `Java 8`
@@ -34,6 +41,14 @@
 - **Framework** : Springboot(2.x)
 - **Database** : Oracle DB(11xe)
 - **ORM** : Mybatis
+
+### 📅 프로젝트 관리
+
+- GitHub
+- Slack
+- Figma
+- Google Sheets
+- Notion
 
 ## 📌 주요 기능
 

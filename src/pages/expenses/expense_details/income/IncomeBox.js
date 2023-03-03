@@ -15,7 +15,7 @@ const IncomeBox = ({ startDate }) => {
       date: moment(startDate).format("YYMM"),
     };
     const posts = await axios.get("incomes/list", { params });
-    console.log(posts.data[0].income);
+    // console.log(posts.data[0].income);
     setList(posts.data[0].income);
   };
   useEffect(() => {

@@ -36,7 +36,7 @@ const ExpMenuStats = () => {
     .sort((a, b) => b[1] - a[1])
     .map(([brand, count]) => ({ id: brand, value: count }));
 
-  console.log(brandRanking);
+  // console.log(brandRanking);
 
   return (
     <MonthlyDetailCss>
@@ -57,7 +57,7 @@ const ExpMenuStats = () => {
             className="text-2xl font-semibold text-white"
             style={{ textShadow: `${txtShadow}` }}
           >
-            메뉴별 지출
+            브랜드별 지출
           </span>
         </div>
         <div className="flex justify-center items-center w-1/2 h-[250px]">

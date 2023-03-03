@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie } from "./cookie";
+import { getCookie, removeCookie, setCookie } from "./cookie";
 const instance = axios.create({
   baseURL: "http://192.168.0.203:8080/api/",
   headers: { Authorization: getCookie("access_token") },

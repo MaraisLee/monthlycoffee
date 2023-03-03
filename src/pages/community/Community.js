@@ -30,7 +30,7 @@ const Community = () => {
       size: 9,
     };
     const posts = await axios.get("posts", { params });
-    console.log(posts);
+    // console.log(posts);
     setPageCount(posts.data.totalPages);
     setList(posts.data.content);
   };

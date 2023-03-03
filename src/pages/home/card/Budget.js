@@ -5,6 +5,7 @@ import moment from "moment";
 
 const Budget = () => {
   const [value, setValue] = useState(0);
+  const [exp, setExp] = useState(0);
   const getPosts = async () => {
     const params = {
       startDate: moment(new Date()).format("YYMM"),
@@ -13,10 +14,10 @@ const Budget = () => {
     await axios
       .get("expenses/total", { params })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const budget = 100000;
+        setExp(res.data.totalExpense);
         const percent = Math.floor((res.data.totalExpense / budget) * 100);
-        console.log(percent);
         setValue(percent);
       })
       .catch((err) => console.log(err));
@@ -70,10 +71,16 @@ const Budget = () => {
           className="progress"
         />
       </div>
-      <span className="font-bold">{`${value}%`}</span>
-      <p className="mt-5 text-lg text-[#272e56] font-semibold drop-shadow-sm">
-        {memo}
-      </p>
+      <div className="flex justify-between w-full pb-5 font-bold">
+        <span
+          className="text-yellow-300 text-lg md:text-2xl"
+          style={{ textShadow: `${txtShadow}` }}
+        >{`${value}%`}</span>
+        <span>{`${exp}/100,000`}</span>
+      </div>
+      <div className="mt-20 text-lg text-[#272e56] font-semibold drop-shadow-sm">
+        "{memo}"
+      </div>
     </div>
   );
 };

@@ -53,8 +53,14 @@ const Header = () => {
       (item) => item.nickname === userData.nickname
     );
 
-    setTumblerRank(myRank[0]);
-    // console.log(myRank);
+    console.log("내 랭크", myRank);
+
+    if (myRank.length === 0) {
+      setTumblerRank({ grade: "New" });
+    } else {
+      setTumblerRank(myRank[0]);
+    }
+    console.log(tumblerRank);
     // setLists(expenses[0]);
   };
 
@@ -71,6 +77,8 @@ const Header = () => {
     rankColor = "gray";
   } else if (tumblerRank.grade === "Bronze") {
     rankColor = "brown";
+  } else if (tumblerRank.grade === "New") {
+    rankColor = "black";
   }
   // console.log(tumblerRank.grade);
   return (

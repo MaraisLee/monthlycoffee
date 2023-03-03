@@ -66,14 +66,14 @@ const Budget = () => {
           className="progress"
         />
       </div>
-      <div className="hidden md:flex justify-between w-full pb-5 font-bold">
+      <div className="hidden md:flex justify-between w-full font-bold">
         <span
           className="text-yellow-300 text-lg md:text-2xl"
           style={{ textShadow: `${txtShadow}` }}
         >{`${value}%`}</span>
         <span>{`${exp}/100,000`}</span>
       </div>
-      <div className="hidden md:block mt-20 text-lg text-[#272E56] font-semibold drop-shadow-sm">
+      <div className="hidden md:block mt-12 text-lg text-[#272E56] font-semibold drop-shadow-sm">
         "{memo}"
       </div>
     </div>

@@ -54,7 +54,7 @@ const refreshAccessToken = async () => {
   }
 };
 
-setInterval(refreshAccessToken, 120000); // 2분(120초) 간격으로 토큰 갱신
+setInterval(refreshAccessToken, 1200000); // 2분(120초) 간격으로 토큰 갱신
 
 instance.defaults.withCredentials = true;
 

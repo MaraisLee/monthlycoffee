@@ -21,7 +21,7 @@ const DetailEdit = ({
     // resolver: yupResolver(schema),
     mode: "onChange", // mode 가 onChange 면 실행하라..
   });
-  console.log(modalData);
+  // console.log(modalData);
   const [imgSrc, setImgSrc] = useState("");
   const price = [modalData.price]
     .toString()
@@ -38,7 +38,7 @@ const DetailEdit = ({
           timeout: 5000,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           // setImgSrc(res.data);
           const myFile = new File([res.data], "imageName");
           const reader = new FileReader();

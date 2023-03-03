@@ -14,7 +14,7 @@ const MonExpend = () => {
     await axios
       .get("expenses/total", { params })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMonExp(
           [res.data.totalExpense]
             .toString()

@@ -15,7 +15,7 @@ const Header = () => {
   // 카카오 로그아웃
   const kakaoLogOut = () => {
     if (!window.Kakao.Auth.getAccessToken()) {
-      console.log("Not logged in.");
+      // console.log("Not logged in.");
       return;
     }
 
@@ -54,7 +54,7 @@ const Header = () => {
     );
 
     setTumblerRank(myRank[0]);
-    console.log(myRank);
+    // console.log(myRank);
     // setLists(expenses[0]);
   };
 
@@ -72,7 +72,7 @@ const Header = () => {
   } else if (tumblerRank.grade === "Bronze") {
     rankColor = "brown";
   }
-  console.log(tumblerRank.grade);
+  // console.log(tumblerRank.grade);
   return (
     <header className="flex justify-between items-center px-5 w-full h-[15vh] bg-white border-b border-black">
       <div className="flex items-center">

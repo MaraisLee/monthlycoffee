@@ -89,13 +89,17 @@ const Simple = () => {
             <Typography
               variant="h2"
               component="div"
-              sx={{ textShadow: `${txtShadow}`, color: "white" }}
+              sx={{
+                textShadow: `${txtShadow}`,
+                color: "white",
+                paddingRight: 20,
+              }}
             >
               ￦{" "}
             </Typography>
             <NumericFormat
               component="input"
-              className="text-5xl outline-none text-right"
+              className="text-5xl outline-none text-center mr-10 md:text-right "
               style={{ textShadow: `${txtShadow}`, color: `${yellowcolor}` }}
               name="price"
               value={price}

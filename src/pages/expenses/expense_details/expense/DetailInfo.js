@@ -80,7 +80,7 @@ const DetailInfo = ({
           <p className="my-7 text-3xl font-bold text-center">MONTHLY COFFEE</p>
           <div className="flex justify-center mb-5">
             {imgSrc && (
-              <div className="w-[60%] bg-black flex justify-center items-center drop-shadow">
+              <div className="w-[50%] bg-black flex justify-center items-center drop-shadow">
                 <img
                   className="w-[98%] h-[98%]"
                   src={imgSrc}

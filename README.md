@@ -49,7 +49,7 @@
 - 회원정보 변경
 - 텀블러 기능
 
-#### 지출 내역 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%81%ED%99%94-%EC%98%88%EB%A7%A4)" >상세보기 - WIKI 이동</a>
+#### 지출 내역 - <a href="https://github.com/Haeparic/monthlycoffee/wiki" >상세보기 - WIKI 이동</a>
 
 - 지출 내역 조회 및 상세 내역 확인
 - 지출 내역 수정 및 삭제

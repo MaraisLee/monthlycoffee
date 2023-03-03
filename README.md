@@ -41,7 +41,7 @@
 
 - SNS 로그인
 - 로그인 시 redux-persist 로 카카오톡에서 받은 user정보 담기
-- 백엔드에서 구현한 jwt 를 Cookie 및 localStorage에 각각 저장 
+- 백엔드에서 구현한 jwt 을 Cookie 및 localStorage에 각각 저장 
 
 #### 지출 입력 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Member)" >상세보기 - WIKI 이동</a>
 

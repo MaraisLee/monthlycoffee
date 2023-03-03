@@ -21,8 +21,8 @@ export const CalendarDiv = styled.div`
     color: ${yellowcolor};
     min-width: 44px;
     background: none;
-    margin-top: 25px;
-    padding: 25px;
+    margin-top: 15px;
+    padding: 15px;
     padding-bottom: 60px;
     button {
       display: block;

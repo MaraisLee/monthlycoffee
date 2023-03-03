@@ -74,7 +74,7 @@ const Header = () => {
   }
   // console.log(tumblerRank.grade);
   return (
-    <header className="flex justify-between items-center px-5 w-full h-[15vh] bg-white border-b border-black">
+    <header className="flex justify-between items-center px-5 w-full h-[10vh] md:h-[15vh] bg-white border-b border-black">
       <div className="flex items-center">
         <div className="flex justify-center md:px-8">
           <img src="./images/logo.png" alt="logo" className="w-[3rem]" />

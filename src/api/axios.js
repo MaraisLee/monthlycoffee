@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, removeCookie, setCookie } from "./cookie";
+import { getCookie, setCookie } from "./cookie";
 const instance = axios.create({
   baseURL: "http://192.168.0.203:8080/api/",
   headers: { Authorization: getCookie("access_token") },
@@ -54,7 +54,7 @@ const refreshAccessToken = async () => {
   }
 };
 
-setInterval(refreshAccessToken, 120000); // 2분(120초) 간격으로 토큰 갱신
+setInterval(refreshAccessToken, 1200000); // 2분(120초) 간격으로 토큰 갱신
 
 instance.defaults.withCredentials = true;
 

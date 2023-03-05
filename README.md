@@ -49,7 +49,6 @@
 - GitHub
 - Slack
 - Figma
-- Google Sheets
 - Notion
 - Swagger
 

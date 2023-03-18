@@ -10,7 +10,7 @@
 
 `기대효과`
 1. 커피기록 및 소비관리 
-2. 커뮤니티를 통한 커피마니아들의 공유문화 형성
+2. 전용 커뮤니티를 통한 커피마니아들의 공유문화 형성
 3. 커피 소비문화의 질 향상
 4. 텀블러 랭킹을 통한 에코 소비자문화 형성 
 
@@ -58,31 +58,30 @@
 
 ## 📌 주요 기능
 
-#### 로그인 - <a href="https://github.com/Yenhj/monthlycoffee/wiki" >상세보기 - WIKI 이동</a>
+#### 로그인
 
-- SNS 로그인
-- 로그인 시 redux-persist 로 카카오톡에서 받은 user정보 담기
-- 백엔드에서 구현한 jwt 을 Cookie 및 localStorage에 각각 저장 
+- SNS 로그인 (카카오 API 연동)
+- Redux-persist 로 카카오에서 받은 user정보 담아 사용
+- 로그인시 쿠키(Cookie) 및 localstorage이용해 JWT 담아 사용
 
-#### 지출 입력 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Member)" >상세보기 - WIKI 이동</a>
+#### 지출 입력
 
-- 주소 API 연동
-- 회원정보 변경
-- 텀블러 기능
+- 간편입력
+- 상세입력(맛, 원두, 카페분위기, 사진, 메모)
+- 텀블러 유무 ⇒ 전체 사용자 통계로 랭킹순위 확인 가능
 
-#### 지출 내역 - <a href="https://github.com/Haeparic/monthlycoffee/wiki" >상세보기 - WIKI 이동</a>
+#### 지출 내역
 
 - 지출 내역 조회 및 상세 내역 확인
 - 지출 내역 수정 및 삭제
 - 커뮤니티 등록 기능
 
-#### 통계 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-Page)" >상세보기 - WIKI 이동</a>
+#### 통계
 
 - 이번달 목표 및 지출
 - 월별 카테고리 및 메뉴 통계
 
-#### 커뮤니티 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-Page)" >상세보기 - WIKI 이동</a>
-
+#### 커뮤니티
 - 커뮤니티 글 조회
 - 좋아요 기능
 - 댓글 기능
